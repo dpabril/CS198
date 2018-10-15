@@ -46,6 +46,11 @@ class ViewController: UIViewController, ARSKViewDelegate {
         
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        
+        self.viewDidLoad()
+    }
     
     // MARK: - ARSKViewDelegate
     func view(_ view: ARSKView, nodeFor anchor: ARAnchor) -> SKNode? {
