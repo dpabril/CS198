@@ -24,11 +24,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.showsStatistics = true
         
         // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/PathfinderScene.scn")!
+        let scene = SCNScene(named: "SceneFiles.scnassets/PathfinderScene.scn")!
         
         // Set the scene to the view
         sceneView.scene = scene
-        sceneView.pointOfView = scene.rootNode.childNode(withName: "camera", recursively: true)!
+        sceneView.pointOfView = scene.rootNode.childNode(withName: "sceneCamera", recursively: true)!
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,7 +47,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Pause the view's session
         sceneView.session.pause()
     }
-
+    
     // MARK: - ARSCNViewDelegate
     
 /*

@@ -7,25 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E50354312175D0CF00009C86 /* LocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50354302175D0CF00009C86 /* LocationTableViewController.swift */; };
 		E50C4B1A2164615F00D515C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50C4B192164615F00D515C5 /* AppDelegate.swift */; };
-		E50C4B1C2164615F00D515C5 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = E50C4B1B2164615F00D515C5 /* art.scnassets */; };
 		E50C4B1E2164615F00D515C5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50C4B1D2164615F00D515C5 /* ViewController.swift */; };
 		E50C4B212164615F00D515C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E50C4B1F2164615F00D515C5 /* Main.storyboard */; };
 		E50C4B232164616400D515C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E50C4B222164616400D515C5 /* Assets.xcassets */; };
 		E50C4B262164616400D515C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E50C4B242164616400D515C5 /* LaunchScreen.storyboard */; };
-		E5191056216DE9AB009B1B83 /* PathfinderScene.scn in Resources */ = {isa = PBXBuildFile; fileRef = E5191055216DE9AB009B1B83 /* PathfinderScene.scn */; };
+		E57529BA2175A3EF002597A1 /* Images.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = E57529B92175A3EF002597A1 /* Images.scnassets */; };
+		E59DE2CE2175A68E00584AFD /* SceneFiles.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = E59DE2CD2175A68E00584AFD /* SceneFiles.scnassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E50354302175D0CF00009C86 /* LocationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewController.swift; sourceTree = "<group>"; };
 		E50C4B162164615F00D515C5 /* AR Pathfinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AR Pathfinder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E50C4B192164615F00D515C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E50C4B1B2164615F00D515C5 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		E50C4B1D2164615F00D515C5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E50C4B202164615F00D515C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E50C4B222164616400D515C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E50C4B252164616400D515C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E50C4B272164616400D515C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E5191055216DE9AB009B1B83 /* PathfinderScene.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = PathfinderScene.scn; path = "AR Pathfinder/art.scnassets/PathfinderScene.scn"; sourceTree = "<group>"; };
+		E57529B92175A3EF002597A1 /* Images.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Images.scnassets; sourceTree = "<group>"; };
+		E59DE2CD2175A68E00584AFD /* SceneFiles.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = SceneFiles.scnassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,7 +44,6 @@
 		E50C4B0D2164615F00D515C5 = {
 			isa = PBXGroup;
 			children = (
-				E5191055216DE9AB009B1B83 /* PathfinderScene.scn */,
 				E50C4B182164615F00D515C5 /* AR Pathfinder */,
 				E50C4B172164615F00D515C5 /* Products */,
 			);
@@ -60,10 +61,12 @@
 			isa = PBXGroup;
 			children = (
 				E50C4B192164615F00D515C5 /* AppDelegate.swift */,
-				E50C4B1B2164615F00D515C5 /* art.scnassets */,
-				E50C4B1D2164615F00D515C5 /* ViewController.swift */,
-				E50C4B1F2164615F00D515C5 /* Main.storyboard */,
+				E59DE2CD2175A68E00584AFD /* SceneFiles.scnassets */,
+				E57529B92175A3EF002597A1 /* Images.scnassets */,
 				E50C4B222164616400D515C5 /* Assets.xcassets */,
+				E50C4B1D2164615F00D515C5 /* ViewController.swift */,
+				E50354302175D0CF00009C86 /* LocationTableViewController.swift */,
+				E50C4B1F2164615F00D515C5 /* Main.storyboard */,
 				E50C4B242164616400D515C5 /* LaunchScreen.storyboard */,
 				E50C4B272164616400D515C5 /* Info.plist */,
 			);
@@ -128,9 +131,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5191056216DE9AB009B1B83 /* PathfinderScene.scn in Resources */,
-				E50C4B1C2164615F00D515C5 /* art.scnassets in Resources */,
+				E59DE2CE2175A68E00584AFD /* SceneFiles.scnassets in Resources */,
 				E50C4B262164616400D515C5 /* LaunchScreen.storyboard in Resources */,
+				E57529BA2175A3EF002597A1 /* Images.scnassets in Resources */,
 				E50C4B232164616400D515C5 /* Assets.xcassets in Resources */,
 				E50C4B212164615F00D515C5 /* Main.storyboard in Resources */,
 			);
@@ -145,6 +148,7 @@
 			files = (
 				E50C4B1E2164615F00D515C5 /* ViewController.swift in Sources */,
 				E50C4B1A2164615F00D515C5 /* AppDelegate.swift in Sources */,
+				E50354312175D0CF00009C86 /* LocationTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
