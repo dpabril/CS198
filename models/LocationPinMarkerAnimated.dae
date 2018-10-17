@@ -3,10 +3,10 @@
   <asset>
     <contributor>
       <author>Blender User</author>
-      <authoring_tool>Blender 2.79.0 commit date:2018-03-22, commit time:14:10, hash:f4dc9f9d68b</authoring_tool>
+      <authoring_tool>Blender 2.79.0 commit date:2018-03-22, commit time:14:10, hash:f4dc9f9</authoring_tool>
     </contributor>
-    <created>2018-10-16T21:20:08</created>
-    <modified>2018-10-16T21:20:08</modified>
+    <created>2018-10-17T11:15:05</created>
+    <modified>2018-10-17T11:15:05</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -115,42 +115,42 @@
   <library_animations>
     <animation id="LocationPinMarkerMesh_location_X">
       <source id="LocationPinMarkerMesh_location_X-input">
-        <float_array id="LocationPinMarkerMesh_location_X-input-array" count="4">0 1 1.041667 2</float_array>
+        <float_array id="LocationPinMarkerMesh_location_X-input-array" count="2">0 2</float_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_location_X-input-array" count="4" stride="1">
+          <accessor source="#LocationPinMarkerMesh_location_X-input-array" count="2" stride="1">
             <param name="TIME" type="float"/>
           </accessor>
         </technique_common>
       </source>
       <source id="LocationPinMarkerMesh_location_X-output">
-        <float_array id="LocationPinMarkerMesh_location_X-output-array" count="4">-1.24078e-4 -1.24078e-4 -1.24078e-4 -1.24078e-4</float_array>
+        <float_array id="LocationPinMarkerMesh_location_X-output-array" count="2">-1.24078e-4 -1.24078e-4</float_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_location_X-output-array" count="4" stride="1">
+          <accessor source="#LocationPinMarkerMesh_location_X-output-array" count="2" stride="1">
             <param name="X" type="float"/>
           </accessor>
         </technique_common>
       </source>
       <source id="LocationPinMarkerMesh_location_X-interpolation">
-        <Name_array id="LocationPinMarkerMesh_location_X-interpolation-array" count="4">BEZIER BEZIER BEZIER BEZIER</Name_array>
+        <Name_array id="LocationPinMarkerMesh_location_X-interpolation-array" count="2">BEZIER BEZIER</Name_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_location_X-interpolation-array" count="4" stride="1">
+          <accessor source="#LocationPinMarkerMesh_location_X-interpolation-array" count="2" stride="1">
             <param name="INTERPOLATION" type="name"/>
           </accessor>
         </technique_common>
       </source>
       <source id="LocationPinMarkerMesh_location_X-intangent">
-        <float_array id="LocationPinMarkerMesh_location_X-intangent-array" count="8">-0.3904115 -1.24078e-4 0.9186643 -1.24078e-4 1.0254 -1.24078e-4 1.625856 -1.24078e-4</float_array>
+        <float_array id="LocationPinMarkerMesh_location_X-intangent-array" count="4">-0.780823 -1.24078e-4 1.219177 -1.24078e-4</float_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_location_X-intangent-array" count="4" stride="2">
+          <accessor source="#LocationPinMarkerMesh_location_X-intangent-array" count="2" stride="2">
             <param name="X" type="float"/>
             <param name="Y" type="float"/>
           </accessor>
         </technique_common>
       </source>
       <source id="LocationPinMarkerMesh_location_X-outtangent">
-        <float_array id="LocationPinMarkerMesh_location_X-outtangent-array" count="8">0.3904115 -1.24078e-4 1.016267 -1.24078e-4 1.123002 -1.24078e-4 2.374144 -1.24078e-4</float_array>
+        <float_array id="LocationPinMarkerMesh_location_X-outtangent-array" count="4">0.780823 -1.24078e-4 2.780823 -1.24078e-4</float_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_location_X-outtangent-array" count="4" stride="2">
+          <accessor source="#LocationPinMarkerMesh_location_X-outtangent-array" count="2" stride="2">
             <param name="X" type="float"/>
             <param name="Y" type="float"/>
           </accessor>
@@ -167,42 +167,42 @@
     </animation>
     <animation id="LocationPinMarkerMesh_location_Y">
       <source id="LocationPinMarkerMesh_location_Y-input">
-        <float_array id="LocationPinMarkerMesh_location_Y-input-array" count="4">0 1 1.041667 2</float_array>
+        <float_array id="LocationPinMarkerMesh_location_Y-input-array" count="2">0 2</float_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_location_Y-input-array" count="4" stride="1">
+          <accessor source="#LocationPinMarkerMesh_location_Y-input-array" count="2" stride="1">
             <param name="TIME" type="float"/>
           </accessor>
         </technique_common>
       </source>
       <source id="LocationPinMarkerMesh_location_Y-output">
-        <float_array id="LocationPinMarkerMesh_location_Y-output-array" count="4">-0.008892893 -0.008892893 -0.008892893 -0.008892893</float_array>
+        <float_array id="LocationPinMarkerMesh_location_Y-output-array" count="2">-0.008892893 -0.008892893</float_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_location_Y-output-array" count="4" stride="1">
+          <accessor source="#LocationPinMarkerMesh_location_Y-output-array" count="2" stride="1">
             <param name="Y" type="float"/>
           </accessor>
         </technique_common>
       </source>
       <source id="LocationPinMarkerMesh_location_Y-interpolation">
-        <Name_array id="LocationPinMarkerMesh_location_Y-interpolation-array" count="4">BEZIER BEZIER BEZIER BEZIER</Name_array>
+        <Name_array id="LocationPinMarkerMesh_location_Y-interpolation-array" count="2">BEZIER BEZIER</Name_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_location_Y-interpolation-array" count="4" stride="1">
+          <accessor source="#LocationPinMarkerMesh_location_Y-interpolation-array" count="2" stride="1">
             <param name="INTERPOLATION" type="name"/>
           </accessor>
         </technique_common>
       </source>
       <source id="LocationPinMarkerMesh_location_Y-intangent">
-        <float_array id="LocationPinMarkerMesh_location_Y-intangent-array" count="8">-0.3904115 -0.008892893 0.9186643 -0.008892893 1.0254 -0.008892893 1.625856 -0.008892893</float_array>
+        <float_array id="LocationPinMarkerMesh_location_Y-intangent-array" count="4">-0.780823 -0.008892893 1.219177 -0.008892893</float_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_location_Y-intangent-array" count="4" stride="2">
+          <accessor source="#LocationPinMarkerMesh_location_Y-intangent-array" count="2" stride="2">
             <param name="X" type="float"/>
             <param name="Y" type="float"/>
           </accessor>
         </technique_common>
       </source>
       <source id="LocationPinMarkerMesh_location_Y-outtangent">
-        <float_array id="LocationPinMarkerMesh_location_Y-outtangent-array" count="8">0.3904115 -0.008892893 1.016267 -0.008892893 1.123002 -0.008892893 2.374144 -0.008892893</float_array>
+        <float_array id="LocationPinMarkerMesh_location_Y-outtangent-array" count="4">0.780823 -0.008892893 2.780823 -0.008892893</float_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_location_Y-outtangent-array" count="4" stride="2">
+          <accessor source="#LocationPinMarkerMesh_location_Y-outtangent-array" count="2" stride="2">
             <param name="X" type="float"/>
             <param name="Y" type="float"/>
           </accessor>
@@ -219,42 +219,42 @@
     </animation>
     <animation id="LocationPinMarkerMesh_location_Z">
       <source id="LocationPinMarkerMesh_location_Z-input">
-        <float_array id="LocationPinMarkerMesh_location_Z-input-array" count="4">0 1 1.041667 2</float_array>
+        <float_array id="LocationPinMarkerMesh_location_Z-input-array" count="49">0 0.04166662 0.08333331 0.125 0.1666666 0.2083333 0.25 0.2916666 0.3333333 0.375 0.4166666 0.4583333 0.5 0.5416667 0.5833333 0.625 0.6666667 0.7083333 0.75 0.7916667 0.8333333 0.875 0.9166667 0.9583333 1 1.041667 1.083333 1.125 1.166667 1.208333 1.25 1.291667 1.333333 1.375 1.416667 1.458333 1.5 1.541667 1.583333 1.625 1.666667 1.708333 1.75 1.791667 1.833333 1.875 1.916667 1.958333 2</float_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_location_Z-input-array" count="4" stride="1">
+          <accessor source="#LocationPinMarkerMesh_location_Z-input-array" count="49" stride="1">
             <param name="TIME" type="float"/>
           </accessor>
         </technique_common>
       </source>
       <source id="LocationPinMarkerMesh_location_Z-output">
-        <float_array id="LocationPinMarkerMesh_location_Z-output-array" count="4">0.4442641 0.5389281 0.5389281 0.444264</float_array>
+        <float_array id="LocationPinMarkerMesh_location_Z-output-array" count="49">0.4445773 0.444264 0.4445517 0.4454209 0.4468759 0.4489133 0.4515203 0.4546722 0.4583312 0.4624449 0.466946 0.4717527 0.4767709 0.4818974 0.4870238 0.4920421 0.4968488 0.5013499 0.5054636 0.5091226 0.5122745 0.5148814 0.5169189 0.5183739 0.519243 0.5195308 0.5192174 0.5182706 0.516686 0.5144684 0.5116345 0.5082151 0.5042569 0.4998243 0.4949993 0.4898803 0.484579 0.4792158 0.4739145 0.4687954 0.4639704 0.4595379 0.4555797 0.4521602 0.4493263 0.4471088 0.4455242 0.4445773 0.444264</float_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_location_Z-output-array" count="4" stride="1">
+          <accessor source="#LocationPinMarkerMesh_location_Z-output-array" count="49" stride="1">
             <param name="Z" type="float"/>
           </accessor>
         </technique_common>
       </source>
       <source id="LocationPinMarkerMesh_location_Z-interpolation">
-        <Name_array id="LocationPinMarkerMesh_location_Z-interpolation-array" count="4">BEZIER BEZIER BEZIER BEZIER</Name_array>
+        <Name_array id="LocationPinMarkerMesh_location_Z-interpolation-array" count="49">BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Name_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_location_Z-interpolation-array" count="4" stride="1">
+          <accessor source="#LocationPinMarkerMesh_location_Z-interpolation-array" count="49" stride="1">
             <param name="INTERPOLATION" type="name"/>
           </accessor>
         </technique_common>
       </source>
       <source id="LocationPinMarkerMesh_location_Z-intangent">
-        <float_array id="LocationPinMarkerMesh_location_Z-intangent-array" count="8">-0.3904115 0.4442641 0.9186643 0.5389281 1.0254 0.5389281 1.625856 0.444264</float_array>
+        <float_array id="LocationPinMarkerMesh_location_Z-intangent-array" count="98">-0.01626712 0.4445773 0.0253995 0.444264 0.06706619 0.4443259 0.1087328 0.4449672 0.1503995 0.4461941 0.1920661 0.4480068 0.2337328 0.4503961 0.2753995 0.4533427 0.3170662 0.4568139 0.3587328 0.4607632 0.4003995 0.4651291 0.4420662 0.4698348 0.4837328 0.4747906 0.5253995 0.4798959 0.5670662 0.4850435 0.6087329 0.4901242 0.6503995 0.4950318 0.6920662 0.4996682 0.7337329 0.5039463 0.7753995 0.507793 0.8170662 0.5111503 0.8587329 0.5139747 0.9003995 0.5162371 0.9420662 0.5179202 0.9837329 0.5190172 1.0254 0.5195308 1.067066 0.5194634 1.108733 0.5187647 1.1504 0.5174282 1.192066 0.5154545 1.233733 0.5128552 1.2754 0.5096552 1.317066 0.5058948 1.358733 0.5016314 1.4004 0.4969404 1.442066 0.4919144 1.483733 0.4866607 1.5254 0.4812976 1.567066 0.4759486 1.608733 0.4707366 1.6504 0.4657776 1.692066 0.4611758 1.733733 0.4570198 1.7754 0.453381 1.817066 0.4503124 1.858733 0.447851 1.9004 0.4460183 1.942066 0.4448233 1.983733 0.444264</float_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_location_Z-intangent-array" count="4" stride="2">
+          <accessor source="#LocationPinMarkerMesh_location_Z-intangent-array" count="49" stride="2">
             <param name="X" type="float"/>
             <param name="Y" type="float"/>
           </accessor>
         </technique_common>
       </source>
       <source id="LocationPinMarkerMesh_location_Z-outtangent">
-        <float_array id="LocationPinMarkerMesh_location_Z-outtangent-array" count="8">0.3904115 0.4442641 1.016267 0.5389281 1.123002 0.5389281 2.374144 0.444264</float_array>
+        <float_array id="LocationPinMarkerMesh_location_Z-outtangent-array" count="98">0.01626712 0.4445773 0.0579338 0.444264 0.09960043 0.4447776 0.1412671 0.4458746 0.1829338 0.4475576 0.2246004 0.44982 0.2662671 0.4526445 0.3079338 0.4560017 0.3496004 0.4598485 0.3912671 0.4641265 0.4329338 0.4687629 0.4746004 0.4736706 0.5162671 0.4787513 0.5579338 0.4838988 0.5996005 0.4890041 0.6412671 0.49396 0.6829338 0.4986657 0.7246005 0.5030316 0.7662671 0.5069809 0.8079338 0.5104521 0.8496005 0.5133986 0.8912671 0.515788 0.9329338 0.5176007 0.9746005 0.5188275 1.016267 0.5194689 1.057934 0.5195308 1.0996 0.5189715 1.141267 0.5177765 1.182934 0.5159438 1.2246 0.5134823 1.266267 0.5104138 1.307934 0.5067749 1.3496 0.5026189 1.391267 0.4980172 1.432934 0.4930582 1.4746 0.4878462 1.516267 0.4824972 1.557934 0.477134 1.5996 0.4718804 1.641267 0.4668543 1.682934 0.4621633 1.7246 0.4578999 1.766267 0.4541395 1.807934 0.4509396 1.8496 0.4483403 1.891267 0.4463666 1.932934 0.44503 1.9746 0.4443314 2.016267 0.444264</float_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_location_Z-outtangent-array" count="4" stride="2">
+          <accessor source="#LocationPinMarkerMesh_location_Z-outtangent-array" count="49" stride="2">
             <param name="X" type="float"/>
             <param name="Y" type="float"/>
           </accessor>
@@ -271,42 +271,42 @@
     </animation>
     <animation id="LocationPinMarkerMesh_rotation_euler_X">
       <source id="LocationPinMarkerMesh_rotation_euler_X-input">
-        <float_array id="LocationPinMarkerMesh_rotation_euler_X-input-array" count="4">0 1 1.041667 2</float_array>
+        <float_array id="LocationPinMarkerMesh_rotation_euler_X-input-array" count="6">0 0.625 0.6666667 1.416667 1.458333 2</float_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_rotation_euler_X-input-array" count="4" stride="1">
+          <accessor source="#LocationPinMarkerMesh_rotation_euler_X-input-array" count="6" stride="1">
             <param name="TIME" type="float"/>
           </accessor>
         </technique_common>
       </source>
       <source id="LocationPinMarkerMesh_rotation_euler_X-output">
-        <float_array id="LocationPinMarkerMesh_rotation_euler_X-output-array" count="4">0 0 0 0</float_array>
+        <float_array id="LocationPinMarkerMesh_rotation_euler_X-output-array" count="6">0 0 180 180 0 0</float_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_rotation_euler_X-output-array" count="4" stride="1">
+          <accessor source="#LocationPinMarkerMesh_rotation_euler_X-output-array" count="6" stride="1">
             <param name="ANGLE" type="float"/>
           </accessor>
         </technique_common>
       </source>
       <source id="LocationPinMarkerMesh_rotation_euler_X-interpolation">
-        <Name_array id="LocationPinMarkerMesh_rotation_euler_X-interpolation-array" count="4">BEZIER BEZIER BEZIER BEZIER</Name_array>
+        <Name_array id="LocationPinMarkerMesh_rotation_euler_X-interpolation-array" count="6">BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Name_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_rotation_euler_X-interpolation-array" count="4" stride="1">
+          <accessor source="#LocationPinMarkerMesh_rotation_euler_X-interpolation-array" count="6" stride="1">
             <param name="INTERPOLATION" type="name"/>
           </accessor>
         </technique_common>
       </source>
       <source id="LocationPinMarkerMesh_rotation_euler_X-intangent">
-        <float_array id="LocationPinMarkerMesh_rotation_euler_X-intangent-array" count="8">-0.3904115 0 0.9186643 0 1.0254 0 1.625856 0</float_array>
+        <float_array id="LocationPinMarkerMesh_rotation_euler_X-intangent-array" count="12">-0.2440072 0 0.5436643 0 0.6503995 180 1.335331 180 1.442066 0 1.788527 0</float_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_rotation_euler_X-intangent-array" count="4" stride="2">
+          <accessor source="#LocationPinMarkerMesh_rotation_euler_X-intangent-array" count="6" stride="2">
             <param name="X" type="float"/>
             <param name="Y" type="float"/>
           </accessor>
         </technique_common>
       </source>
       <source id="LocationPinMarkerMesh_rotation_euler_X-outtangent">
-        <float_array id="LocationPinMarkerMesh_rotation_euler_X-outtangent-array" count="8">0.3904115 0 1.016267 0 1.123002 0 2.374144 0</float_array>
+        <float_array id="LocationPinMarkerMesh_rotation_euler_X-outtangent-array" count="12">0.2440072 0 0.6412671 0 0.7480024 180 1.432934 180 1.539669 0 2.211473 0</float_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_rotation_euler_X-outtangent-array" count="4" stride="2">
+          <accessor source="#LocationPinMarkerMesh_rotation_euler_X-outtangent-array" count="6" stride="2">
             <param name="X" type="float"/>
             <param name="Y" type="float"/>
           </accessor>
@@ -323,42 +323,42 @@
     </animation>
     <animation id="LocationPinMarkerMesh_rotation_euler_Y">
       <source id="LocationPinMarkerMesh_rotation_euler_Y-input">
-        <float_array id="LocationPinMarkerMesh_rotation_euler_Y-input-array" count="4">0 1 1.041667 2</float_array>
+        <float_array id="LocationPinMarkerMesh_rotation_euler_Y-input-array" count="6">0 0.625 0.6666667 1.416667 1.458333 2</float_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_rotation_euler_Y-input-array" count="4" stride="1">
+          <accessor source="#LocationPinMarkerMesh_rotation_euler_Y-input-array" count="6" stride="1">
             <param name="TIME" type="float"/>
           </accessor>
         </technique_common>
       </source>
       <source id="LocationPinMarkerMesh_rotation_euler_Y-output">
-        <float_array id="LocationPinMarkerMesh_rotation_euler_Y-output-array" count="4">180 180 180 180</float_array>
+        <float_array id="LocationPinMarkerMesh_rotation_euler_Y-output-array" count="6">-180 -180 -5.00896e-6 -5.00896e-6 -180 -180</float_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_rotation_euler_Y-output-array" count="4" stride="1">
+          <accessor source="#LocationPinMarkerMesh_rotation_euler_Y-output-array" count="6" stride="1">
             <param name="ANGLE" type="float"/>
           </accessor>
         </technique_common>
       </source>
       <source id="LocationPinMarkerMesh_rotation_euler_Y-interpolation">
-        <Name_array id="LocationPinMarkerMesh_rotation_euler_Y-interpolation-array" count="4">BEZIER BEZIER BEZIER BEZIER</Name_array>
+        <Name_array id="LocationPinMarkerMesh_rotation_euler_Y-interpolation-array" count="6">BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Name_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_rotation_euler_Y-interpolation-array" count="4" stride="1">
+          <accessor source="#LocationPinMarkerMesh_rotation_euler_Y-interpolation-array" count="6" stride="1">
             <param name="INTERPOLATION" type="name"/>
           </accessor>
         </technique_common>
       </source>
       <source id="LocationPinMarkerMesh_rotation_euler_Y-intangent">
-        <float_array id="LocationPinMarkerMesh_rotation_euler_Y-intangent-array" count="8">-0.3904115 180 0.9186643 180 1.0254 180 1.625856 180</float_array>
+        <float_array id="LocationPinMarkerMesh_rotation_euler_Y-intangent-array" count="12">-0.2440072 -180 0.5436643 -180 0.6503995 -5.00896e-6 1.335331 -5.00896e-6 1.442066 -180 1.788527 -180</float_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_rotation_euler_Y-intangent-array" count="4" stride="2">
+          <accessor source="#LocationPinMarkerMesh_rotation_euler_Y-intangent-array" count="6" stride="2">
             <param name="X" type="float"/>
             <param name="Y" type="float"/>
           </accessor>
         </technique_common>
       </source>
       <source id="LocationPinMarkerMesh_rotation_euler_Y-outtangent">
-        <float_array id="LocationPinMarkerMesh_rotation_euler_Y-outtangent-array" count="8">0.3904115 180 1.016267 180 1.123002 180 2.374144 180</float_array>
+        <float_array id="LocationPinMarkerMesh_rotation_euler_Y-outtangent-array" count="12">0.2440072 -180 0.6412671 -180 0.7480024 -5.00896e-6 1.432934 -5.00896e-6 1.539669 -180 2.211473 -180</float_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_rotation_euler_Y-outtangent-array" count="4" stride="2">
+          <accessor source="#LocationPinMarkerMesh_rotation_euler_Y-outtangent-array" count="6" stride="2">
             <param name="X" type="float"/>
             <param name="Y" type="float"/>
           </accessor>
@@ -375,42 +375,42 @@
     </animation>
     <animation id="LocationPinMarkerMesh_rotation_euler_Z">
       <source id="LocationPinMarkerMesh_rotation_euler_Z-input">
-        <float_array id="LocationPinMarkerMesh_rotation_euler_Z-input-array" count="4">0 1 1.041667 2</float_array>
+        <float_array id="LocationPinMarkerMesh_rotation_euler_Z-input-array" count="49">0 0.04166662 0.08333331 0.125 0.1666666 0.2083333 0.25 0.2916666 0.3333333 0.375 0.4166666 0.4583333 0.5 0.5416667 0.5833333 0.625 0.6666667 0.7083333 0.75 0.7916667 0.8333333 0.875 0.9166667 0.9583333 1 1.041667 1.083333 1.125 1.166667 1.208333 1.25 1.291667 1.333333 1.375 1.416667 1.458333 1.5 1.541667 1.583333 1.625 1.666667 1.708333 1.75 1.791667 1.833333 1.875 1.916667 1.958333 2</float_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_rotation_euler_Z-input-array" count="4" stride="1">
+          <accessor source="#LocationPinMarkerMesh_rotation_euler_Z-input-array" count="49" stride="1">
             <param name="TIME" type="float"/>
           </accessor>
         </technique_common>
       </source>
       <source id="LocationPinMarkerMesh_rotation_euler_Z-output">
-        <float_array id="LocationPinMarkerMesh_rotation_euler_Z-output-array" count="4">0 180 180 360</float_array>
+        <float_array id="LocationPinMarkerMesh_rotation_euler_Z-output-array" count="49">-0.4665466 0 0.4169874 1.691466 3.855022 6.932459 10.93916 15.8782 21.73738 28.48655 36.0756 44.43359 53.46944 63.07433 73.12583 83.49321 -85.95641 -75.35215 -64.81423 -54.45013 -44.35228 -34.59694 -25.24467 -16.34117 -7.919148 5.00896e-6 7.961452 16.50989 25.62173 35.25944 45.36919 55.8787 66.69603 77.70933 88.7886 -80.21101 -69.44356 -59.0655 -49.2276 -40.06777 -31.70469 -24.23361 -17.72476 -12.22327 -7.751571 -4.312462 -1.892581 -0.4665466 1.00179e-5</float_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_rotation_euler_Z-output-array" count="4" stride="1">
+          <accessor source="#LocationPinMarkerMesh_rotation_euler_Z-output-array" count="49" stride="1">
             <param name="ANGLE" type="float"/>
           </accessor>
         </technique_common>
       </source>
       <source id="LocationPinMarkerMesh_rotation_euler_Z-interpolation">
-        <Name_array id="LocationPinMarkerMesh_rotation_euler_Z-interpolation-array" count="4">BEZIER BEZIER BEZIER BEZIER</Name_array>
+        <Name_array id="LocationPinMarkerMesh_rotation_euler_Z-interpolation-array" count="49">BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER BEZIER</Name_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_rotation_euler_Z-interpolation-array" count="4" stride="1">
+          <accessor source="#LocationPinMarkerMesh_rotation_euler_Z-interpolation-array" count="49" stride="1">
             <param name="INTERPOLATION" type="name"/>
           </accessor>
         </technique_common>
       </source>
       <source id="LocationPinMarkerMesh_rotation_euler_Z-intangent">
-        <float_array id="LocationPinMarkerMesh_rotation_euler_Z-intangent-array" count="8">-0.3904115 0 0.9186643 180 1.0254 180 1.625856 360</float_array>
+        <float_array id="LocationPinMarkerMesh_rotation_euler_Z-intangent-array" count="98">-0.01626712 -0.4665466 0.0253995 -0.1724709 0.06706619 0.08680337 0.1087328 1.020342 0.1503995 2.83195 0.1920661 5.549594 0.2337328 9.192901 0.2753995 13.77033 0.3170662 19.27616 0.3587328 25.68765 0.4003995 32.96264 0.4420662 41.03821 0.4837328 49.83066 0.5253995 59.23729 0.5670662 69.13996 0.6087329 83.49321 0.6503995 -85.95641 0.6920662 -79.47923 0.7337329 -68.89442 0.7753995 -58.44442 0.8170662 -48.22773 0.8587329 -38.32685 0.9003995 -28.8083 0.9420662 -19.72321 0.9837329 -11.10904 1.0254 -3.099979 1.067066 4.738628 1.108733 13.0625 1.1504 21.96171 1.192066 31.40463 1.233733 41.34419 1.2754 51.71558 1.317066 62.43456 1.358733 73.39673 1.4004 88.7886 1.442066 -80.21101 1.483733 -73.57128 1.5254 -63.01177 1.567066 -52.93607 1.608733 -43.48834 1.6504 -34.79561 1.692066 -26.96257 1.733733 -20.06925 1.7754 -14.1701 1.817066 -9.295806 1.858733 -5.456171 1.9004 -2.643326 1.942066 -0.8359912 1.983733 1.00179e-5</float_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_rotation_euler_Z-intangent-array" count="4" stride="2">
+          <accessor source="#LocationPinMarkerMesh_rotation_euler_Z-intangent-array" count="49" stride="2">
             <param name="X" type="float"/>
             <param name="Y" type="float"/>
           </accessor>
         </technique_common>
       </source>
       <source id="LocationPinMarkerMesh_rotation_euler_Z-outtangent">
-        <float_array id="LocationPinMarkerMesh_rotation_euler_Z-outtangent-array" count="8">0.3904115 0 1.016267 180 1.123002 180 2.374144 360</float_array>
+        <float_array id="LocationPinMarkerMesh_rotation_euler_Z-outtangent-array" count="98">0.01626712 -0.4665466 0.0579338 0.1724709 0.09960043 0.7471714 0.1412671 2.362591 0.1829338 4.878094 0.2246004 8.315324 0.2662671 12.68542 0.3079338 17.98608 0.3496004 24.19861 0.3912671 31.28545 0.4329338 39.18855 0.4746004 47.82897 0.5162671 57.10822 0.5579338 66.91138 0.5996005 77.11171 0.6412671 83.49321 0.6829338 -85.95641 0.7246005 -71.22508 0.7662671 -60.73403 0.8079338 -50.45584 0.8496005 -40.47682 0.8912671 -30.86703 0.9329338 -21.68103 0.9746005 -12.95913 1.016267 -4.729258 1.057934 3.099989 1.0996 11.18428 1.141267 19.95728 1.182934 29.28175 1.2246 39.11426 1.266267 49.39419 1.307934 60.04182 1.3496 70.95749 1.391267 82.02192 1.432934 88.7886 1.4746 -80.21101 1.516267 -65.31584 1.557934 -55.11923 1.5996 -45.51913 1.641267 -36.6472 1.682934 -28.61377 1.7246 -21.50465 1.766267 -15.38028 1.807934 -10.27644 1.8496 -6.207336 1.891267 -3.168754 1.932934 -1.141836 1.9746 -0.09710198 2.016267 1.00179e-5</float_array>
         <technique_common>
-          <accessor source="#LocationPinMarkerMesh_rotation_euler_Z-outtangent-array" count="4" stride="2">
+          <accessor source="#LocationPinMarkerMesh_rotation_euler_Z-outtangent-array" count="49" stride="2">
             <param name="X" type="float"/>
             <param name="Y" type="float"/>
           </accessor>
@@ -425,12 +425,168 @@
       </sampler>
       <channel source="#LocationPinMarkerMesh_rotation_euler_Z-sampler" target="LocationPinMarkerMesh/rotationZ.ANGLE"/>
     </animation>
+    <animation id="LocationPinMarkerMesh_scale_X">
+      <source id="LocationPinMarkerMesh_scale_X-input">
+        <float_array id="LocationPinMarkerMesh_scale_X-input-array" count="2">0 2</float_array>
+        <technique_common>
+          <accessor source="#LocationPinMarkerMesh_scale_X-input-array" count="2" stride="1">
+            <param name="TIME" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="LocationPinMarkerMesh_scale_X-output">
+        <float_array id="LocationPinMarkerMesh_scale_X-output-array" count="2">0.2195554 0.2195554</float_array>
+        <technique_common>
+          <accessor source="#LocationPinMarkerMesh_scale_X-output-array" count="2" stride="1">
+            <param name="X" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="LocationPinMarkerMesh_scale_X-interpolation">
+        <Name_array id="LocationPinMarkerMesh_scale_X-interpolation-array" count="2">BEZIER BEZIER</Name_array>
+        <technique_common>
+          <accessor source="#LocationPinMarkerMesh_scale_X-interpolation-array" count="2" stride="1">
+            <param name="INTERPOLATION" type="name"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="LocationPinMarkerMesh_scale_X-intangent">
+        <float_array id="LocationPinMarkerMesh_scale_X-intangent-array" count="4">-0.780823 0.2195554 1.219177 0.2195554</float_array>
+        <technique_common>
+          <accessor source="#LocationPinMarkerMesh_scale_X-intangent-array" count="2" stride="2">
+            <param name="X" type="float"/>
+            <param name="Y" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="LocationPinMarkerMesh_scale_X-outtangent">
+        <float_array id="LocationPinMarkerMesh_scale_X-outtangent-array" count="4">0.780823 0.2195554 2.780823 0.2195554</float_array>
+        <technique_common>
+          <accessor source="#LocationPinMarkerMesh_scale_X-outtangent-array" count="2" stride="2">
+            <param name="X" type="float"/>
+            <param name="Y" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <sampler id="LocationPinMarkerMesh_scale_X-sampler">
+        <input semantic="INPUT" source="#LocationPinMarkerMesh_scale_X-input"/>
+        <input semantic="OUTPUT" source="#LocationPinMarkerMesh_scale_X-output"/>
+        <input semantic="INTERPOLATION" source="#LocationPinMarkerMesh_scale_X-interpolation"/>
+        <input semantic="IN_TANGENT" source="#LocationPinMarkerMesh_scale_X-intangent"/>
+        <input semantic="OUT_TANGENT" source="#LocationPinMarkerMesh_scale_X-outtangent"/>
+      </sampler>
+      <channel source="#LocationPinMarkerMesh_scale_X-sampler" target="LocationPinMarkerMesh/scale.X"/>
+    </animation>
+    <animation id="LocationPinMarkerMesh_scale_Y">
+      <source id="LocationPinMarkerMesh_scale_Y-input">
+        <float_array id="LocationPinMarkerMesh_scale_Y-input-array" count="2">0 2</float_array>
+        <technique_common>
+          <accessor source="#LocationPinMarkerMesh_scale_Y-input-array" count="2" stride="1">
+            <param name="TIME" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="LocationPinMarkerMesh_scale_Y-output">
+        <float_array id="LocationPinMarkerMesh_scale_Y-output-array" count="2">0.2195554 0.2195554</float_array>
+        <technique_common>
+          <accessor source="#LocationPinMarkerMesh_scale_Y-output-array" count="2" stride="1">
+            <param name="Y" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="LocationPinMarkerMesh_scale_Y-interpolation">
+        <Name_array id="LocationPinMarkerMesh_scale_Y-interpolation-array" count="2">BEZIER BEZIER</Name_array>
+        <technique_common>
+          <accessor source="#LocationPinMarkerMesh_scale_Y-interpolation-array" count="2" stride="1">
+            <param name="INTERPOLATION" type="name"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="LocationPinMarkerMesh_scale_Y-intangent">
+        <float_array id="LocationPinMarkerMesh_scale_Y-intangent-array" count="4">-0.780823 0.2195554 1.219177 0.2195554</float_array>
+        <technique_common>
+          <accessor source="#LocationPinMarkerMesh_scale_Y-intangent-array" count="2" stride="2">
+            <param name="X" type="float"/>
+            <param name="Y" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="LocationPinMarkerMesh_scale_Y-outtangent">
+        <float_array id="LocationPinMarkerMesh_scale_Y-outtangent-array" count="4">0.780823 0.2195554 2.780823 0.2195554</float_array>
+        <technique_common>
+          <accessor source="#LocationPinMarkerMesh_scale_Y-outtangent-array" count="2" stride="2">
+            <param name="X" type="float"/>
+            <param name="Y" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <sampler id="LocationPinMarkerMesh_scale_Y-sampler">
+        <input semantic="INPUT" source="#LocationPinMarkerMesh_scale_Y-input"/>
+        <input semantic="OUTPUT" source="#LocationPinMarkerMesh_scale_Y-output"/>
+        <input semantic="INTERPOLATION" source="#LocationPinMarkerMesh_scale_Y-interpolation"/>
+        <input semantic="IN_TANGENT" source="#LocationPinMarkerMesh_scale_Y-intangent"/>
+        <input semantic="OUT_TANGENT" source="#LocationPinMarkerMesh_scale_Y-outtangent"/>
+      </sampler>
+      <channel source="#LocationPinMarkerMesh_scale_Y-sampler" target="LocationPinMarkerMesh/scale.Y"/>
+    </animation>
+    <animation id="LocationPinMarkerMesh_scale_Z">
+      <source id="LocationPinMarkerMesh_scale_Z-input">
+        <float_array id="LocationPinMarkerMesh_scale_Z-input-array" count="2">0 2</float_array>
+        <technique_common>
+          <accessor source="#LocationPinMarkerMesh_scale_Z-input-array" count="2" stride="1">
+            <param name="TIME" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="LocationPinMarkerMesh_scale_Z-output">
+        <float_array id="LocationPinMarkerMesh_scale_Z-output-array" count="2">0.2195554 0.2195554</float_array>
+        <technique_common>
+          <accessor source="#LocationPinMarkerMesh_scale_Z-output-array" count="2" stride="1">
+            <param name="Z" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="LocationPinMarkerMesh_scale_Z-interpolation">
+        <Name_array id="LocationPinMarkerMesh_scale_Z-interpolation-array" count="2">BEZIER BEZIER</Name_array>
+        <technique_common>
+          <accessor source="#LocationPinMarkerMesh_scale_Z-interpolation-array" count="2" stride="1">
+            <param name="INTERPOLATION" type="name"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="LocationPinMarkerMesh_scale_Z-intangent">
+        <float_array id="LocationPinMarkerMesh_scale_Z-intangent-array" count="4">-0.780823 0.2195554 1.219177 0.2195554</float_array>
+        <technique_common>
+          <accessor source="#LocationPinMarkerMesh_scale_Z-intangent-array" count="2" stride="2">
+            <param name="X" type="float"/>
+            <param name="Y" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="LocationPinMarkerMesh_scale_Z-outtangent">
+        <float_array id="LocationPinMarkerMesh_scale_Z-outtangent-array" count="4">0.780823 0.2195554 2.780823 0.2195554</float_array>
+        <technique_common>
+          <accessor source="#LocationPinMarkerMesh_scale_Z-outtangent-array" count="2" stride="2">
+            <param name="X" type="float"/>
+            <param name="Y" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <sampler id="LocationPinMarkerMesh_scale_Z-sampler">
+        <input semantic="INPUT" source="#LocationPinMarkerMesh_scale_Z-input"/>
+        <input semantic="OUTPUT" source="#LocationPinMarkerMesh_scale_Z-output"/>
+        <input semantic="INTERPOLATION" source="#LocationPinMarkerMesh_scale_Z-interpolation"/>
+        <input semantic="IN_TANGENT" source="#LocationPinMarkerMesh_scale_Z-intangent"/>
+        <input semantic="OUT_TANGENT" source="#LocationPinMarkerMesh_scale_Z-outtangent"/>
+      </sampler>
+      <channel source="#LocationPinMarkerMesh_scale_Z-sampler" target="LocationPinMarkerMesh/scale.Z"/>
+    </animation>
   </library_animations>
   <library_controllers/>
   <library_visual_scenes>
     <visual_scene id="Scene" name="Scene">
       <node id="LocationPinMarkerMesh" name="LocationPinMarkerMesh" type="NODE">
-        <matrix sid="transform">0.2195555 1.91942e-8 1.91942e-8 -1.24078e-4 1.91942e-8 -0.2195555 1.67801e-15 -0.008892913 1.91942e-8 0 -0.2195555 0.5389281 0 0 0 1</matrix>
+        <matrix sid="transform">-0.2195555 0 -3.3152e-8 -1.24078e-4 0 0.2195555 0 -0.008892913 3.3152e-8 0 -0.2195555 0.444264 0 0 0 1</matrix>
         <instance_geometry url="#Cone-mesh" name="LocationPinMarkerMesh">
           <bind_material>
             <technique_common>

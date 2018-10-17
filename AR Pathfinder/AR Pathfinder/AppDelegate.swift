@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  AR Pathfinder
+//  AR Wayfinder
 //
-//  Created by Abril & Aquino on 03/10/2018.
+//  Created by Abril & Aquino on 12/09/2018.
 //  Copyright © 2018 Abril & Aquino. All rights reserved.
 //
 

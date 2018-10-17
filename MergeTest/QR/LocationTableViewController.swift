@@ -11,6 +11,7 @@ import UIKit
 class LocationTableViewController: UITableViewController {
     
     let dcsRooms = ["CLR 1", "CLR 2", "CLR 3", "CLR 4", "AIER", "ERDT", "TL1", "TL2", "TL3"]
+    var selectedRoom : String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +58,28 @@ class LocationTableViewController: UITableViewController {
         cell.textLabel?.text = dcsRooms[indexPath.row]
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // Segue to the second view controller
+        let selectedCell = tableView.cellForRow(at: indexPath) as! UITableViewCell
+        self.selectedRoom = selectedCell.textLabel!.text!
+        self.performSegue(withIdentifier: "showPathfinder", sender: self)
+    }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showPathfinder" {   // get a reference to the second view controller
+            let pathfinderController = segue.destination as! IndoorNavigationViewController
+            
+            // set a variable in the second view controller with the data to pass
+            pathfinderController.roomName = self.selectedRoom
+        }
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
