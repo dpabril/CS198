@@ -29,6 +29,11 @@ class IndoorNavigationViewController: UIViewController, ARSCNViewDelegate {
         // Set the scene to the view
         sceneView.scene = scene
         sceneView.pointOfView = scene.rootNode.childNode(withName: "sceneCamera", recursively: true)!
+        
+        let user = scene.rootNode.childNode(withName: "UserMarker", recursively: true)!
+        let pin = scene.rootNode.childNode(withName: "LocationPinMarker", recursively: true)!
+        user.position = SCNVector3(0, 0, 0)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

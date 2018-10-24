@@ -11,8 +11,8 @@ struct ImageInformation {
     
     let building: String
     let room: String
-    let x: String
-    let y: String
+    let x: Int
+    let y: Int
     let destination: String
     let image: UIImage
 }
@@ -20,8 +20,10 @@ struct ImageInformation {
 class ViewController: UIViewController, ARSKViewDelegate {
     @IBOutlet var sceneView: ARSKView!
     var selectedImage : ImageInformation?
+    var userMarkerXforLocList : Int = 0
+    var userMarkerYforLocList : Int = 0
     
-    let images = ["monalisa" : ImageInformation(building: "Building: UP AECH", room: "Room: WSG Lab", x: "X: 8", y: "Y: 10", destination: "Destination: CLR1, CLR2, CLR3", image: UIImage(named: "monalisa")!), "cssp" : ImageInformation(building: "Building: Palma Hall", room: "Room: PH 400", x: "X: 88", y: "Y: 108", destination: "Destination: PAV1, PAV2", image: UIImage(named: "cssp")!)]
+    let images = ["monalisa" : ImageInformation(building: "Building: UP AECH", room: "Room: WSG Lab", x: 8, y: 10, destination: "Destination: CLR1, CLR2, CLR3", image: UIImage(named: "monalisa")!), "cssp" : ImageInformation(building: "Building: Palma Hall", room: "Room: PH 400", x: 88, y: 108, destination: "Destination: PAV1, PAV2", image: UIImage(named: "cssp")!)]
     
     
     override func viewDidLoad() {
@@ -47,6 +49,8 @@ class ViewController: UIViewController, ARSKViewDelegate {
 
     }
     
+    
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(true)
         
@@ -61,13 +65,38 @@ class ViewController: UIViewController, ARSKViewDelegate {
             let scannedImage =  self.images[referenceImageName] {
             
             self.selectedImage = scannedImage
-            print(scannedImage.x)
-            print(scannedImage.y)
+            self.userMarkerXforLocList = scannedImage.x
+            self.userMarkerYforLocList = scannedImage.y
+           
+            
+//            self.setUserMarker(xVal: scannedImage.x, yVal: scannedImage.y, segDest: <#T##UIStoryboardSegue#>)
             self.performSegue(withIdentifier: "goToLocList", sender: self)
             
             //            return imageSeenMarker()
+            
+            
+            
         }
         
+        
+        
         return nil
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToLocList" {   // get a reference to the second view controller
+            let locListController = segue.destination as! LocationTableViewController
+
+            // set a variable in the second view controller with the data to pass
+            locListController.userMarkerX = userMarkerXforLocList
+            locListController.userMarkerY = userMarkerYforLocList
+        }
+
+    }
+    
+    func setUserMarker(xVal : Int, yVal : Int, segDest : UIStoryboardSegue) {
+        let pathfinderController = segDest.destination as! IndoorNavigationViewController
+        pathfinderController.userMarkerX = xVal
+        pathfinderController.userMarkerY = yVal
     }
 }

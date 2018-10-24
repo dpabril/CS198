@@ -14,6 +14,10 @@ class IndoorNavigationViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     var roomName : String = ""
+    var userMarkerX : Int = 0
+    var userMarkerY : Int = 0
+    var pinMarkerX : Int = 0
+    var pinMarkerY : Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +36,13 @@ class IndoorNavigationViewController: UIViewController, ARSCNViewDelegate {
         // Set the scene to the view
         sceneView.scene = scene
         sceneView.pointOfView = scene.rootNode.childNode(withName: "sceneCamera", recursively: true)!
+        
+        let userMarker = scene.rootNode.childNode(withName: "UserMarker", recursively: true)!
+        let pinMarker = scene.rootNode.childNode(withName: "LocationPinMarker", recursively: true)!
+        
+        
+        //userMarker.position = SCNVector3((scannedImage.Y)/100, -0.073, (scannedImage.Y)/100)
+        userMarker.position = SCNVector3(Double(userMarkerX) / Double(100), -0.073, Double(userMarkerY) / Double(100))
     }
     
     override func viewWillAppear(_ animated: Bool) {

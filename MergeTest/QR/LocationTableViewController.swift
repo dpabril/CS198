@@ -12,6 +12,10 @@ class LocationTableViewController: UITableViewController {
     
     let dcsRooms = ["CLR 1", "CLR 2", "CLR 3", "CLR 4", "AIER", "ERDT", "TL1", "TL2", "TL3"]
     var selectedRoom : String = ""
+    var userMarkerX : Int = 0
+    var userMarkerY : Int = 0
+    var pinMarkerX : Int = 0
+    var pinMarkerY : Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +77,8 @@ class LocationTableViewController: UITableViewController {
             
             // set a variable in the second view controller with the data to pass
             pathfinderController.roomName = self.selectedRoom
+            pathfinderController.userMarkerX = userMarkerX
+            pathfinderController.userMarkerY = userMarkerY
         }
         
     }
