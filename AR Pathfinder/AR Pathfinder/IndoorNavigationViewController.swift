@@ -30,9 +30,53 @@ class IndoorNavigationViewController: UIViewController, ARSCNViewDelegate {
         sceneView.scene = scene
         sceneView.pointOfView = scene.rootNode.childNode(withName: "sceneCamera", recursively: true)!
         
-        let user = scene.rootNode.childNode(withName: "UserMarker", recursively: true)!
+//        let user = scene.rootNode.childNode(withName: "UserMarker", recursively: true)!
         let pin = scene.rootNode.childNode(withName: "LocationPinMarker", recursively: true)!
-        user.position = SCNVector3(0, 0, 0)
+        let arrow = scene.rootNode.childNode(withName: "ArrowMarker", recursively: true)!
+//        user.position = SCNVector3(0, 0, 0)
+        
+        var pinAnimations = [CABasicAnimation]()
+        
+        let pinBobAnimation = CABasicAnimation(keyPath: "translation.y")
+        pinBobAnimation.fromValue = pin.position.y
+        pinBobAnimation.toValue = -0.030
+        pinBobAnimation.duration = 1.0
+        pinBobAnimation.autoreverses = true
+//        pinBobAnimation.repeatCount = .infinity
+        pinAnimations.append(pinBobAnimation)
+//        pin.addAnimation(pinBobAnimation, forKey: nil)
+        
+        let pinRotateAnimation = CABasicAnimation(keyPath: "eulerAngles.y")
+        pinRotateAnimation.fromValue = pin.eulerAngles.y
+        pinRotateAnimation.toValue = pin.eulerAngles.y + (2 * .pi)
+        pinRotateAnimation.duration = 2.0
+//        pinRotateAnimation.repeatCount = .infinity
+        pinAnimations.append(pinRotateAnimation)
+//        pin.addAnimation(pinRotateAnimation, forKey: nil)
+        
+        let pinAnimationsGroup = CAAnimationGroup()
+        pinAnimationsGroup.duration = 2.0
+        pinAnimationsGroup.animations = pinAnimations
+        pinAnimationsGroup.repeatCount = .infinity
+        
+        pin.addAnimation(pinAnimationsGroup, forKey: nil)
+        
+        let arrowScaleAnimation1 = CABasicAnimation(keyPath: "scale.x")
+        arrowScaleAnimation1.fromValue = arrow.scale.x
+        arrowScaleAnimation1.toValue = arrow.scale.x - 0.025
+        arrowScaleAnimation1.duration = 0.75
+        arrowScaleAnimation1.autoreverses = true
+        arrowScaleAnimation1.repeatCount = .infinity
+        arrow.addAnimation(arrowScaleAnimation1, forKey: nil)
+        
+        let arrowScaleAnimation2 = CABasicAnimation(keyPath: "scale.z")
+        arrowScaleAnimation2.fromValue = arrow.scale.z
+        arrowScaleAnimation2.toValue = arrow.scale.z - 0.025
+        arrowScaleAnimation2.duration = 0.75
+        arrowScaleAnimation2.autoreverses = true
+        arrowScaleAnimation2.repeatCount = .infinity
+        arrow.addAnimation(arrowScaleAnimation2, forKey: nil)
+        
         
     }
     
