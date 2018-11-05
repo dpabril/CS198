@@ -43,6 +43,7 @@ class IndoorNavigationViewController: UIViewController, ARSCNViewDelegate {
         
         //userMarker.position = SCNVector3((scannedImage.Y)/100, -0.073, (scannedImage.Y)/100)
         userMarker.position = SCNVector3(Double(userMarkerX) / Double(100), -0.073, Double(userMarkerY) / Double(100))
+        pinMarker.position = SCNVector3(0.376, -0.08, -0.21)
     }
     
     override func viewWillAppear(_ animated: Bool) {

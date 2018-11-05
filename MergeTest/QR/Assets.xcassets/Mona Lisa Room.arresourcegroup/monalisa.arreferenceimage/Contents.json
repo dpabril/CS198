@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "monalisa2.png"
+      "filename" : "monalisa.png"
     }
   ],
   "info" : {
@@ -10,7 +10,6 @@
     "author" : "xcode"
   },
   "properties" : {
-    "width" : 15.875,
-    "unit" : "centimeters"
+    "width" : 17.462499999999999
   }
 }

@@ -10,7 +10,7 @@ import UIKit
 
 class LocationTableViewController: UITableViewController {
     
-    let dcsRooms = ["CLR 1", "CLR 2", "CLR 3", "CLR 4", "AIER", "ERDT", "TL1", "TL2", "TL3"]
+    let dcsRooms = ["TLC", "CLR 2", "CLR 3", "CLR 4", "AIER", "ERDT", "TL1", "TL2", "TL3"]
     var selectedRoom : String = ""
     var userMarkerX : Int = 0
     var userMarkerY : Int = 0

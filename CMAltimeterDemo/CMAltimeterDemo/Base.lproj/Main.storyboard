@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A319" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="CMAltimeterDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
+                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="P00-rm-TSZ">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="157" id="loe-z8-9rZ"/>
+                                    <constraint firstAttribute="height" constant="100" id="mIw-sm-VUq"/>
+                                    <constraint firstAttribute="width" constant="305" id="zfs-zC-EMG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="65"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="loe-z8-9rZ"/>
+                                        <exclude reference="mIw-sm-VUq"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kilopascals of pressure" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NsD-qJ-i0v">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="meters of relative altitude" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JLW-YG-FVd">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="lMz-b1-AJU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="coD-wK-GkX">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="7fR-uS-7Ul"/>
+                                    <constraint firstAttribute="width" constant="305" id="JPZ-Ym-mUG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="65"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="7fR-uS-7Ul"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="3VO-W5-2zv">
+                                <connections>
+                                    <action selector="switchDidChange:" destination="vXZ-lx-hvc" eventType="valueChanged" id="wTR-ba-mPk"/>
+                                </connections>
+                            </switch>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="WSA-cF-ZdA">
+                                <color key="color" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="WSA-cF-ZdA" secondAttribute="centerX" id="AIx-Kk-1e7"/>
+                            <constraint firstItem="NsD-qJ-i0v" firstAttribute="top" secondItem="coD-wK-GkX" secondAttribute="bottom" constant="-12" id="HvL-qE-pSt"/>
+                            <constraint firstAttribute="centerX" secondItem="3VO-W5-2zv" secondAttribute="centerX" id="I4Y-LI-k8O"/>
+                            <constraint firstAttribute="centerX" secondItem="coD-wK-GkX" secondAttribute="centerX" constant="0.5" id="JhD-CZ-2sA"/>
+                            <constraint firstItem="JLW-YG-FVd" firstAttribute="top" secondItem="P00-rm-TSZ" secondAttribute="bottom" constant="-12" id="OLF-BV-FXS"/>
+                            <constraint firstItem="3VO-W5-2zv" firstAttribute="top" secondItem="WSA-cF-ZdA" secondAttribute="bottom" constant="28" id="OPK-Mc-CCj"/>
+                            <constraint firstAttribute="centerX" secondItem="P00-rm-TSZ" secondAttribute="centerX" constant="0.5" id="bEi-0g-As7"/>
+                            <constraint firstItem="coD-wK-GkX" firstAttribute="trailing" secondItem="NsD-qJ-i0v" secondAttribute="trailing" id="g2g-eY-cIb"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="3VO-W5-2zv" secondAttribute="bottom" constant="65" id="jX2-5C-wGj"/>
+                            <constraint firstItem="coD-wK-GkX" firstAttribute="top" secondItem="JLW-YG-FVd" secondAttribute="bottom" constant="21" id="pSr-lO-h8A"/>
+                            <constraint firstItem="P00-rm-TSZ" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="102" id="r7a-Xa-ggR"/>
+                            <constraint firstItem="JLW-YG-FVd" firstAttribute="trailing" secondItem="P00-rm-TSZ" secondAttribute="trailing" id="rH5-EU-SH1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="WSA-cF-ZdA" id="GWr-vA-8Tq"/>
+                        <outlet property="altLabel" destination="P00-rm-TSZ" id="TcJ-eW-LuT"/>
+                        <outlet property="altimeterSwitch" destination="3VO-W5-2zv" id="gu9-O3-7y1"/>
+                        <outlet property="pressureLabel" destination="coD-wK-GkX" id="ZdT-q9-KeP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
