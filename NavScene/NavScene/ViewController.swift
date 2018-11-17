@@ -16,9 +16,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
 
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet weak var altLabel: UILabel!
+    @IBOutlet weak var walkingLabel: UILabel!
+    @IBOutlet weak var stationaryLabel: UILabel!
     
     lazy var compassManager = CLLocationManager()
     lazy var altimeter = CMAltimeter()
+    lazy var motionChecker = CMMotionActivityManager()
 
     var scene = SCNScene(named: "SceneFiles.scnassets/PathfinderScene.scn")!
     var sceneCamera = SCNScene(named: "SceneFiles.scnassets/PathfinderScene.scn")!.rootNode.childNode(withName: "sceneCamera", recursively: true)!
@@ -70,6 +73,23 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         self.altimeter.stopRelativeAltitudeUpdates()
     }
     
+    // Motion Activity Manager Functions
+    func startMotionChecker () {
+        if (CMMotionActivityManager.isActivityAvailable()) {
+            self.motionChecker.startActivityUpdates(to: OperationQueue.main, withHandler: { (motionActivityData:CMMotionActivity?) in
+                
+                    let isWalking = motionActivityData!.walking
+                    let isStationary = motionActivityData!.stationary
+                    self.walkingLabel.text = String("Walking: \(isWalking)")
+                    self.stationaryLabel.text = String("Stationary: \(isStationary)")
+                }
+            )
+        }
+    }
+//    func stopMotionChecker () {
+//
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -96,6 +116,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         // Start gettting compass updates
         self.startCompass()
         self.startAltimeter()
+        self.startMotionChecker()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
