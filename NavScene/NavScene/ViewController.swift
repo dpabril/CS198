@@ -15,13 +15,17 @@ import CoreMotion
 class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
-    @IBOutlet weak var altLabel: UILabel!
     @IBOutlet weak var walkingLabel: UILabel!
     @IBOutlet weak var stationaryLabel: UILabel!
+    @IBOutlet weak var navigatingLabel: UILabel!
+    @IBOutlet weak var altLabel: UILabel!
+    @IBOutlet weak var xAccelerationLabel: UILabel!
+    @IBOutlet weak var zAccelerationLabel: UILabel!
     
     lazy var compassManager = CLLocationManager()
     lazy var altimeter = CMAltimeter()
     lazy var motionChecker = CMMotionActivityManager()
+    lazy var deviceMotionManager = CMMotionManager()
 
     var scene = SCNScene(named: "SceneFiles.scnassets/PathfinderScene.scn")!
     var sceneCamera = SCNScene(named: "SceneFiles.scnassets/PathfinderScene.scn")!.rootNode.childNode(withName: "sceneCamera", recursively: true)!
@@ -62,34 +66,76 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
 //                    self.stopAltimeter()
                 } else {
                     let altitude = altitudeData!.relativeAltitude.floatValue
-                    self.altLabel.text = String(format: "Relative altitude: %.02f", altitude)
+                    self.altLabel.text = String(format: "Rel. alt.: %.02f", altitude)
                 }
                 
             })
         }
     }
     func stopAltimeter() {
-        self.altLabel.text = "Relative altitude: ----"
-        self.altimeter.stopRelativeAltitudeUpdates()
+        if (CMAltimeter.isRelativeAltitudeAvailable()) {
+            self.altLabel.text = "Rel. alt.: -----"
+            self.altimeter.stopRelativeAltitudeUpdates()
+        }
     }
     
     // Motion Activity Manager Functions
     func startMotionChecker () {
         if (CMMotionActivityManager.isActivityAvailable()) {
             self.motionChecker.startActivityUpdates(to: OperationQueue.main, withHandler: { (motionActivityData:CMMotionActivity?) in
-                
                     let isWalking = motionActivityData!.walking
                     let isStationary = motionActivityData!.stationary
-                    self.walkingLabel.text = String("Walking: \(isWalking)")
-                    self.stationaryLabel.text = String("Stationary: \(isStationary)")
+                    let isNavigating = isWalking && !isStationary
+                    self.walkingLabel.text = "Wlk: \(isWalking)"
+                    self.stationaryLabel.text = "St: \(isStationary)"
+                    self.navigatingLabel.text = "Nav: \(isNavigating)"
                 }
             )
         }
     }
-//    func stopMotionChecker () {
-//
-//    }
+    func stopMotionChecker () {
+        if (CMMotionActivityManager.isActivityAvailable()) {
+            self.walkingLabel.text = "Wlk: -----"
+            self.stationaryLabel.text = "St: -----"
+            self.navigatingLabel.text = "Nav: -----"
+            self.motionChecker.stopActivityUpdates()
+        }
+    }
     
+    // Device Motion Manager functions
+    func startDeviceMotionManager () {
+        if (self.deviceMotionManager.isDeviceMotionAvailable) {
+            self.deviceMotionManager.startDeviceMotionUpdates(to: OperationQueue.main, withHandler: { (deviceMotionData:CMDeviceMotion?, error:Error?)  in
+                    let accelerationVector = deviceMotionData!.userAcceleration
+                    self.xAccelerationLabel.text = String(format: "x: %0.2f", accelerationVector.x)
+                    self.zAccelerationLabel.text = String(format: "z: %0.2f", accelerationVector.z)
+                }
+            )
+        }
+    }
+    func stopDeviceMotionManager () {
+        if (self.deviceMotionManager.isDeviceMotionAvailable) {
+            self.xAccelerationLabel.text = "x: ---"
+            self.zAccelerationLabel.text = "z: ---"
+            self.deviceMotionManager.stopDeviceMotionUpdates()
+        }
+    }
+    
+    // Start and stop function for sensors
+    func startSensors () {
+        self.startCompass()
+        self.startAltimeter()
+        self.startMotionChecker()
+        self.startDeviceMotionManager()
+    }
+    func stopSensors () {
+        self.stopCompass()
+        self.stopAltimeter()
+        self.stopMotionChecker()
+        self.stopDeviceMotionManager()
+    }
+    
+    // MAIN
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -113,10 +159,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         // Run the view's session
         sceneView.session.run(configuration)
         
-        // Start gettting compass updates
-        self.startCompass()
-        self.startAltimeter()
-        self.startMotionChecker()
+        print("Starting sensors")
+        self.startSensors()
+        print("Sensors are now active.")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -125,9 +170,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         // Pause the view's session
         sceneView.session.pause()
         
-        // Stop the compass
-        self.stopCompass()
-        self.stopAltimeter()
+        self.stopSensors()
     }
 
     // MARK: - ARSCNViewDelegate
@@ -143,6 +186,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
+        print(error)
         
     }
     
