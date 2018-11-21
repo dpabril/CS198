@@ -55,9 +55,7 @@
                                     <constraint firstItem="gek-xG-oT0" firstAttribute="centerY" secondItem="Izm-RL-XzW" secondAttribute="centerY" constant="-29" id="gav-50-Bay"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UaN-Zk-jh6" userLabel="AccelerationView">
@@ -85,11 +83,6 @@
                                     <constraint firstItem="gzO-LM-U5T" firstAttribute="centerY" secondItem="UaN-Zk-jh6" secondAttribute="centerY" id="aFP-Rj-mK9"/>
                                     <constraint firstItem="gzO-LM-U5T" firstAttribute="centerX" secondItem="UaN-Zk-jh6" secondAttribute="centerX" constant="-45" id="euy-k2-G3n"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UsB-gN-bC6" userLabel="AltitudeView">
                                 <rect key="frame" x="174" y="606" width="185" height="41"/>
@@ -110,7 +103,7 @@
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="5"/>
+                                        <integer key="value" value="8"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
