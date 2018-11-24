@@ -19,9 +19,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     @IBOutlet weak var stationaryLabel: UILabel!
     @IBOutlet weak var navigatingLabel: UILabel!
     @IBOutlet weak var altLabel: UILabel!
-    @IBOutlet weak var xAccelerationLabel: UILabel!
-    @IBOutlet weak var zAccelerationLabel: UILabel!
-    @IBOutlet weak var cadenceLabel: UILabel!
+    @IBOutlet weak var speedLabel: UILabel!
+    @IBOutlet weak var accelLabel: UILabel!
     
     lazy var compassManager = CLLocationManager()
     lazy var altimeter = CMAltimeter()
@@ -32,6 +31,17 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     var xCurrent: Double = 0
     var zVals: [Double] = []
     var zCurrent: Double = 0
+    
+    var accelXs : [Double] = [0, 0, 0, 0]
+    var accelYs : [Double] = [0, 0, 0, 0]
+    var accelZs : [Double] = [0, 0, 0, 0]
+    var prevVx : Double = 0
+    var prevVy : Double = 0
+    var prevVz : Double = 0
+    var accelCount : Int = 0
+    var xAccelZeroCount : Int = 0
+    var yAccelZeroCount : Int = 0
+    var zAccelZeroCount : Int = 0
     
     var scene = SCNScene(named: "SceneFiles.scnassets/PathfinderScene.scn")!
     var sceneCamera = SCNScene(named: "SceneFiles.scnassets/PathfinderScene.scn")!.rootNode.childNode(withName: "sceneCamera", recursively: true)!
@@ -59,13 +69,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         return true
     }
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        //let map = self.scene.rootNode.childNode(withName: "map", recursively: true)!
-        //        let userMarker = self.scene.rootNode.childNode(withName: "UserMarker", recursively: true)!
         let userMarker = self.scene.rootNode.childNode(withName: "UserMarker", recursively: true)!
-//        userMarker.eulerAngles = SCNVector3(90, -0, degToRad(90 + newHeading.magneticHeading) * -1)
-//        print(degToRad(90 + newHeading.magneticHeading) * -1)
         userMarker.eulerAngles.z = -degToRad(90 + newHeading.magneticHeading)
-//        userMarker.rotation = SCNVector4(0, 0, 1, degToRad(newHeading.magneticHeading))
     }
     
     // Altimeter functions
@@ -121,29 +126,78 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
             print("Accelerometer and gyroscope are now active.")
             self.deviceMotionManager.accelerometerUpdateInterval = 1.0 / 30.0
             self.deviceMotionManager.startDeviceMotionUpdates(to: OperationQueue.main, withHandler: { (deviceMotionData:CMDeviceMotion?, error:Error?)  in
-                let accelerationVector = deviceMotionData!.userAcceleration
-                //var xVals: [Double] = []
-                self.xVals += [accelerationVector.x]
-                self.xAccelerationLabel.text = String(format: "x: %0.2f", accelerationVector.x)
-                //var zVals: [Double] = []
-                self.zVals.append(accelerationVector.z)
-                self.zAccelerationLabel.text = String(format: "z: %0.2f", accelerationVector.z)
-                //print("X VALUES")
-                //for element in xVals { print(element) }
-                //print(xVals)
-                //print("xVals size")
-                //print(xVals.count)
-                //print("Z VALUES")
-                //for element2 in zVals { print(element2) }
-                //print(zVals)
+                let accVec = deviceMotionData!.userAcceleration
+                let rotMat = deviceMotionData!.attitude.rotationMatrix
+                let correctedAccX = accVec.x * rotMat.m11 + accVec.x * rotMat.m12 + accVec.x * rotMat.m13
+                let correctedAccY = accVec.y * rotMat.m21 + accVec.y * rotMat.m22 + accVec.x * rotMat.m23
+                let correctedAccZ = accVec.z * rotMat.m31 + accVec.z * rotMat.m32 + accVec.z * rotMat.m33
+                var correctedAcc = CMAcceleration.init(x: correctedAccX, y: correctedAccY, z: correctedAccZ)
+
+                /*
+                 Code for filtering accelerometer readings here
+                 */
+
+                // Threshold (* SUBSTITUTE correctedAcc WITH FILTERED VALUES)
+                correctedAcc.x = (fabs(correctedAcc.x) > 0.05) ? correctedAcc.x : 0
+                correctedAcc.y = (fabs(correctedAcc.y) > 0.05) ? correctedAcc.y : 0
+                correctedAcc.z = (fabs(correctedAcc.z) > 0.05) ? correctedAcc.z : 0
+
+                // Index for acceleration values array
+                self.accelCount = (self.accelCount + 1) % 4
+
+                self.accelXs[self.accelCount] = correctedAcc.x
+                self.accelYs[self.accelCount] = correctedAcc.y
+                self.accelZs[self.accelCount] = correctedAcc.z
+
+                if (self.accelCount == 3) {
+                    self.prevVx += (3.0 / 8.0) * (1.0 / 60.0) * (self.accelXs[0] + 3 * self.accelXs[1] + 3 * self.accelXs[2] + self.accelXs[3])
+                    self.prevVy += (3.0 / 8.0) * (1.0 / 60.0) * (self.accelYs[0] + 3 * self.accelYs[1] + 3 * self.accelYs[2] + self.accelYs[3])
+                    self.prevVz += (3.0 / 8.0) * (1.0 / 60.0) * (self.accelZs[0] + 3 * self.accelZs[1] + 3 * self.accelZs[2] + self.accelZs[3])
+                }
+
+                // "Synthetic forces" for removing velocity once relatively stationary
+                if (correctedAcc.x == 0) {
+                    self.xAccelZeroCount += 1
+                }
+                if (correctedAcc.y == 0) {
+                    self.yAccelZeroCount += 1
+                }
+                if (correctedAcc.z == 0) {
+                    self.zAccelZeroCount += 1
+                }
+                if (self.xAccelZeroCount == 20 || self.yAccelZeroCount == 20 || self.zAccelZeroCount == 20) {
+                    self.prevVx = 0
+                    self.prevVy = 0
+                    self.prevVz = 0
+                    self.xAccelZeroCount = 0
+                    self.yAccelZeroCount = 0
+                    self.zAccelZeroCount = 0
+                }
+                //
+                //                self.xSpeedLabel.text = String(format: "vx: %0.2f", self.prevVx)
+                //                self.zSpeedLabel.text = String(format: "vz: %0.2f", self.prevVz)
+                self.speedLabel.text = String(format: "v| x: %0.2f | y: %0.2f | z: %0.2f", self.prevVx, self.prevVy, self.prevVz)
+                self.accelLabel.text = String(format: "a| x: %0.2f | y: %0.2f | z: %0.2f", correctedAcc.x, correctedAcc.y, correctedAcc.z)
+                
+                
+                self.xVals += [accVec.x]
+                // self.xAccelerationLabel.text = String(format: "x: %0.2f", accVec.x)
+                
+                self.zVals.append(accVec.z)
+                // self.zAccelerationLabel.text = String(format: "z: %0.2f", accVec.z)
+                
+                
+                // Logging acceleration vector values
             }
             )
         }
     }
     func stopDeviceMotionManager () {
         if (self.deviceMotionManager.isDeviceMotionAvailable) {
-            self.xAccelerationLabel.text = "x: ---"
-            self.zAccelerationLabel.text = "z: ---"
+//            self.xAccelerationLabel.text = "x: ---"
+//            self.zAccelerationLabel.text = "z: ---"
+//            self.xSpeedLabel.text = "vx: ---"
+//            self.zSpeedLabel.text = "vz: ---"
             self.deviceMotionManager.stopDeviceMotionUpdates()
         }
     }
@@ -154,23 +208,31 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         self.startAltimeter()
         self.startMotionChecker()
         self.startDeviceMotionManager()
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//            self.stopSensors()
-//        }
+        
+        /*
+         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+         self.stopSensors()
+         }
+         */
+        
     }
     func stopSensors () {
         self.stopCompass()
         self.stopAltimeter()
         self.stopMotionChecker()
         self.stopDeviceMotionManager()
-        //print("X VALUES")
-        //print(xVals)
-        //print("xVals size")
-        //print(xVals.count)
-        //print("zVals size")
-        //print(zVals.count)
-        //print("xVals Total")
-        //print(xVals.reduce(0, +))
+        
+        /*
+         print("X VALUES")
+         print(xVals)
+         print("xVals size")
+         print(xVals.count)
+         print("zVals size")
+         print(zVals.count)
+         print("xVals Total")
+         print(xVals.reduce(0, +))
+         */
+        
         print("xCurrent")
         print(xCurrent)
         print("xVals Ave")
