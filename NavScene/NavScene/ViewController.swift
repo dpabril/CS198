@@ -150,9 +150,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
                 self.accelZs[self.accelCount] = correctedAcc.z
 
                 if (self.accelCount == 3) {
-                    self.prevVx += (3.0 / 8.0) * (1.0 / 60.0) * (self.accelXs[0] + 3 * self.accelXs[1] + 3 * self.accelXs[2] + self.accelXs[3])
-                    self.prevVy += (3.0 / 8.0) * (1.0 / 60.0) * (self.accelYs[0] + 3 * self.accelYs[1] + 3 * self.accelYs[2] + self.accelYs[3])
-                    self.prevVz += (3.0 / 8.0) * (1.0 / 60.0) * (self.accelZs[0] + 3 * self.accelZs[1] + 3 * self.accelZs[2] + self.accelZs[3])
+                    self.prevVx += (3.0 / 8.0) * (4.0 / 60.0) * (self.accelXs[0] + 3 * self.accelXs[1] + 3 * self.accelXs[2] + self.accelXs[3])
+                    self.prevVy += (3.0 / 8.0) * (4.0 / 60.0) * (self.accelYs[0] + 3 * self.accelYs[1] + 3 * self.accelYs[2] + self.accelYs[3])
+                    self.prevVz += (3.0 / 8.0) * (4.0 / 60.0) * (self.accelZs[0] + 3 * self.accelZs[1] + 3 * self.accelZs[2] + self.accelZs[3])
                 }
 
                 // "Synthetic forces" for removing velocity once relatively stationary
@@ -165,12 +165,16 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
                 if (correctedAcc.z == 0) {
                     self.zAccelZeroCount += 1
                 }
-                if (self.xAccelZeroCount == 20 || self.yAccelZeroCount == 20 || self.zAccelZeroCount == 20) {
+                if (self.xAccelZeroCount == 15) {
                     self.prevVx = 0
-                    self.prevVy = 0
-                    self.prevVz = 0
                     self.xAccelZeroCount = 0
+                }
+                if (self.yAccelZeroCount == 15) {
+                    self.prevVy = 0
                     self.yAccelZeroCount = 0
+                }
+                if (self.zAccelZeroCount == 15) {
+                    self.prevVz = 0
                     self.zAccelZeroCount = 0
                 }
                 //
