@@ -11,6 +11,11 @@ import UIKit
 class LocationTableViewController: UITableViewController {
     
     let dcsRooms = ["CLR 1", "CLR 2", "CLR 3", "CLR 4", "AIER", "ERDT", "TL1", "TL2", "TL3"]
+    var selectedRoom : String = ""
+    var userMarkerX : Double = 0
+    var userMarkerY : Double = 0
+    var pinMarkerX : Double = 0
+    var pinMarkerY : Double = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +62,30 @@ class LocationTableViewController: UITableViewController {
         cell.textLabel?.text = dcsRooms[indexPath.row]
         return cell
     }
+
+    /*///added this
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // Segue to the second view controller
+        let selectedCell = tableView.cellForRow(at: indexPath) as! UITableViewCell
+        self.selectedRoom = selectedCell.textLabel!.text!
+        //self.performSegue(withIdentifier: "backToNav", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "backToNav" {   // get a reference to the second view controller
+            let pathfinderController = segue.destination as! IndoorNavigationViewController
+            
+            // set a variable in the second view controller with the data to pass
+            pathfinderController.roomName = self.selectedRoom
+            pathfinderController.userMarkerX = 0.035
+            pathfinderController.userMarkerY = -0.073
+            pathfinderController.pinMarkerX = 0.383
+            pathfinderController.pinMarkerY = -0.257
+        }
+        
+    }
+    ///up to this*/
 
     /*
     // Override to support conditional editing of the table view.

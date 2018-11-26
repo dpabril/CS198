@@ -14,6 +14,11 @@ import CoreLocation
 class IndoorNavigationViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet var sceneView: ARSCNView!
+    var roomName : String = ""
+    var userMarkerX : Double = 0
+    var userMarkerY : Double = 0
+    var pinMarkerX : Double = 0
+    var pinMarkerY : Double = 0
     
     //    lazy var compassManager = CLLocationManager()
     
@@ -56,6 +61,16 @@ class IndoorNavigationViewController: UIViewController, ARSCNViewDelegate, CLLoc
         // Set the scene to the view
         sceneView.scene = scene
         sceneView.pointOfView = scene.rootNode.childNode(withName: "sceneCamera", recursively: true)!
+        
+        ///
+        let userMarker = scene.rootNode.childNode(withName: "UserMarker", recursively: true)!
+        let pinMarker = scene.rootNode.childNode(withName: "LocationPinMarker", recursively: true)!
+        
+        
+        //userMarker.position = SCNVector3((scannedImage.Y)/100, -0.073, (scannedImage.Y)/100)
+        userMarker.position = SCNVector3(userMarkerX, -0.073, userMarkerY)
+        pinMarker.position = SCNVector3(pinMarkerX, -0.08, pinMarkerY)
+        ///
         
         //        self.startCompass()
         

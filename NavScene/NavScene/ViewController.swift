@@ -22,7 +22,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     @IBOutlet weak var speedLabel: UILabel!
     @IBOutlet weak var accelLabel: UILabel!
     
-    // Sensor object variables
     lazy var compassManager = CLLocationManager()
     lazy var altimeter = CMAltimeter()
     lazy var motionChecker = CMMotionActivityManager()
@@ -33,7 +32,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     var zVals: [Double] = []
     var zCurrent: Double = 0
     
-    // Acceleration and velocity variables
     var accelXs : [Double] = [0, 0, 0, 0]
     var accelYs : [Double] = [0, 0, 0, 0]
     var accelZs : [Double] = [0, 0, 0, 0]
@@ -44,15 +42,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     var xAccelZeroCount : Int = 0
     var yAccelZeroCount : Int = 0
     var zAccelZeroCount : Int = 0
-
-    // Accelerometer filter constant and variables
-    let filterConstant = (1.0 / 60.0) * ((1.0 / 5.0) + (1.0 / 60.0))
-    var filteredAcc : CMAcceleration = CMAcceleration.init(x: 0, y: 0, z: 0)
-    var prevAx : Double = 0
-    var prevAy : Double = 0
-    var prevAz : Double = 0
-
-    // Scene variables
+    
     var scene = SCNScene(named: "SceneFiles.scnassets/PathfinderScene.scn")!
     var sceneCamera = SCNScene(named: "SceneFiles.scnassets/PathfinderScene.scn")!.rootNode.childNode(withName: "sceneCamera", recursively: true)!
     
@@ -117,9 +107,17 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
                 self.walkingLabel.text = "Wlk: \(isWalking)"
                 self.stationaryLabel.text = "St: \(isStationary)"
                 self.navigatingLabel.text = "Nav: \(isNavigating)"
+                
+                if isStationary == false {
+                    let user = self.scene.rootNode.childNode(withName: "UserMarker", recursively: true)!
+                    //user.position = SCNVector3(Double(xCurrent) + xAve, Double(zCurrent) + zAve, -1.687)
+                    user.simdPosition += user.simdWorldFront * 0.0004998
+                }
+                self.stopMotionChecker()
             }
             )
         }
+        
     }
     func stopMotionChecker () {
         if (CMMotionActivityManager.isActivityAvailable()) {
@@ -127,15 +125,16 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
             self.stationaryLabel.text = "St: -----"
             self.navigatingLabel.text = "Nav: -----"
             self.motionChecker.stopActivityUpdates()
+            self.startMotionChecker()
         }
+        
     }
     
     // Device Motion Manager functions
     func startDeviceMotionManager () {
         if (self.deviceMotionManager.isDeviceMotionAvailable) {
             print("Accelerometer and gyroscope are now active.")
-            // self.deviceMotionManager.accelerometerUpdateInterval = 1.0 / 60.0
-            self.deviceMotionManager.deviceMotionUpdateInterval = 1.0 / 60.0
+            self.deviceMotionManager.accelerometerUpdateInterval = 1.0 / 30.0
             self.deviceMotionManager.startDeviceMotionUpdates(to: OperationQueue.main, withHandler: { (deviceMotionData:CMDeviceMotion?, error:Error?)  in
                 let accVec = deviceMotionData!.userAcceleration
                 let rotMat = deviceMotionData!.attitude.rotationMatrix
@@ -143,19 +142,15 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
                 let correctedAccY = accVec.y * rotMat.m21 + accVec.y * rotMat.m22 + accVec.x * rotMat.m23
                 let correctedAccZ = accVec.z * rotMat.m31 + accVec.z * rotMat.m32 + accVec.z * rotMat.m33
                 var correctedAcc = CMAcceleration.init(x: correctedAccX, y: correctedAccY, z: correctedAccZ)
-                
-                // Filtering the raw accelerometer values
-                self.filteredAcc.x = self.filterConstant * (self.filteredAcc.x + correctedAcc.x - self.prevAx)
-                self.filteredAcc.y = self.filterConstant * (self.filteredAcc.y + correctedAcc.y - self.prevAy)
-                self.filteredAcc.z = self.filterConstant * (self.filteredAcc.z + correctedAcc.z - self.prevAz)
-                self.prevAx = correctedAcc.x
-                self.prevAy = correctedAcc.y
-                self.prevAz = correctedAcc.z
+
+                /*
+                 Code for filtering accelerometer readings here
+                 */
 
                 // Threshold (* SUBSTITUTE correctedAcc WITH FILTERED VALUES)
-                correctedAcc.x = (fabs(self.filteredAcc.x) > 0.05) ? self.filteredAcc.x : 0
-                correctedAcc.y = (fabs(self.filteredAcc.y) > 0.05) ? self.filteredAcc.y : 0
-                correctedAcc.z = (fabs(self.filteredAcc.z) > 0.05) ? self.filteredAcc.z : 0
+                correctedAcc.x = (fabs(correctedAcc.x) > 0.05) ? correctedAcc.x : 0
+                correctedAcc.y = (fabs(correctedAcc.y) > 0.05) ? correctedAcc.y : 0
+                correctedAcc.z = (fabs(correctedAcc.z) > 0.05) ? correctedAcc.z : 0
 
                 // Index for acceleration values array
                 self.accelCount = (self.accelCount + 1) % 4
@@ -165,9 +160,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
                 self.accelZs[self.accelCount] = correctedAcc.z
 
                 if (self.accelCount == 3) {
-                    self.prevVx += (1.0 / 8.0) * (4.0 / 60.0) * (self.accelXs[0] + 3 * self.accelXs[1] + 3 * self.accelXs[2] + self.accelXs[3])
-                    self.prevVy += (1.0 / 8.0) * (4.0 / 60.0) * (self.accelYs[0] + 3 * self.accelYs[1] + 3 * self.accelYs[2] + self.accelYs[3])
-                    self.prevVz += (1.0 / 8.0) * (4.0 / 60.0) * (self.accelZs[0] + 3 * self.accelZs[1] + 3 * self.accelZs[2] + self.accelZs[3])
+                    self.prevVx += (3.0 / 8.0) * (1.0 / 60.0) * (self.accelXs[0] + 3 * self.accelXs[1] + 3 * self.accelXs[2] + self.accelXs[3])
+                    self.prevVy += (3.0 / 8.0) * (1.0 / 60.0) * (self.accelYs[0] + 3 * self.accelYs[1] + 3 * self.accelYs[2] + self.accelYs[3])
+                    self.prevVz += (3.0 / 8.0) * (1.0 / 60.0) * (self.accelZs[0] + 3 * self.accelZs[1] + 3 * self.accelZs[2] + self.accelZs[3])
                 }
 
                 // "Synthetic forces" for removing velocity once relatively stationary
@@ -180,19 +175,17 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
                 if (correctedAcc.z == 0) {
                     self.zAccelZeroCount += 1
                 }
-                if (self.xAccelZeroCount == 15) {
+                if (self.xAccelZeroCount == 20 || self.yAccelZeroCount == 20 || self.zAccelZeroCount == 20) {
                     self.prevVx = 0
-                    self.xAccelZeroCount = 0
-                }
-                if (self.yAccelZeroCount == 15) {
                     self.prevVy = 0
-                    self.yAccelZeroCount = 0
-                }
-                if (self.zAccelZeroCount == 15) {
                     self.prevVz = 0
+                    self.xAccelZeroCount = 0
+                    self.yAccelZeroCount = 0
                     self.zAccelZeroCount = 0
                 }
-                
+                //
+                //                self.xSpeedLabel.text = String(format: "vx: %0.2f", self.prevVx)
+                //                self.zSpeedLabel.text = String(format: "vz: %0.2f", self.prevVz)
                 self.speedLabel.text = String(format: "v| x: %0.2f | y: %0.2f | z: %0.2f", self.prevVx, self.prevVy, self.prevVz)
                 self.accelLabel.text = String(format: "a| x: %0.2f | y: %0.2f | z: %0.2f", correctedAcc.x, correctedAcc.y, correctedAcc.z)
                 
@@ -230,7 +223,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
          DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
          self.stopSensors()
          }
-         */
+        */
         
     }
     func stopSensors () {
@@ -238,37 +231,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         self.stopAltimeter()
         self.stopMotionChecker()
         self.stopDeviceMotionManager()
-        
-        /*
-         print("X VALUES")
-         print(xVals)
-         print("xVals size")
-         print(xVals.count)
-         print("zVals size")
-         print(zVals.count)
-         print("xVals Total")
-         print(xVals.reduce(0, +))
-         */
-        
-        print("xCurrent")
-        print(xCurrent)
-        print("xVals Ave")
-        let xAve = (xVals.reduce(0, +)/Double(xVals.count))*0.1
-        print(xAve)
-        
-        //print("zVals Ave")
-        let zAve = (zVals.reduce(0, +)/Double(zVals.count))*0.1
-        //print(zAve)
-        
-        let user = self.scene.rootNode.childNode(withName: "UserMarker", recursively: true)!
-        user.position = SCNVector3(Double(xCurrent) + xAve, Double(zCurrent) + zAve, -1.687)
-        
-        xCurrent = xCurrent + xAve
-        zCurrent = zCurrent + zAve
-        
-        xVals.removeAll()
-        zVals.removeAll()
-        self.startSensors()
     }
     
     // MAIN
