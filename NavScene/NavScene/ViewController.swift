@@ -22,6 +22,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     @IBOutlet weak var speedLabel: UILabel!
     @IBOutlet weak var accelLabel: UILabel!
     
+    // Sensor object variables
     lazy var compassManager = CLLocationManager()
     lazy var altimeter = CMAltimeter()
     lazy var motionChecker = CMMotionActivityManager()
@@ -32,6 +33,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     var zVals: [Double] = []
     var zCurrent: Double = 0
     
+    // Acceleration and velocity variables
     var accelXs : [Double] = [0, 0, 0, 0]
     var accelYs : [Double] = [0, 0, 0, 0]
     var accelZs : [Double] = [0, 0, 0, 0]
@@ -42,7 +44,15 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     var xAccelZeroCount : Int = 0
     var yAccelZeroCount : Int = 0
     var zAccelZeroCount : Int = 0
-    
+
+    // Accelerometer filter constant and variables
+    let filterConstant = (1.0 / 60.0) * ((1.0 / 5.0) + (1.0 / 60.0))
+    var filteredAcc : CMAcceleration = CMAcceleration.init(x: 0, y: 0, z: 0)
+    var prevAx : Double = 0
+    var prevAy : Double = 0
+    var prevAz : Double = 0
+
+    // Scene variables
     var scene = SCNScene(named: "SceneFiles.scnassets/PathfinderScene.scn")!
     var sceneCamera = SCNScene(named: "SceneFiles.scnassets/PathfinderScene.scn")!.rootNode.childNode(withName: "sceneCamera", recursively: true)!
     
@@ -143,14 +153,18 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
                 let correctedAccZ = accVec.z * rotMat.m31 + accVec.z * rotMat.m32 + accVec.z * rotMat.m33
                 var correctedAcc = CMAcceleration.init(x: correctedAccX, y: correctedAccY, z: correctedAccZ)
 
-                /*
-                 Code for filtering accelerometer readings here
-                 */
+                // Filtering the raw accelerometer values
+                self.filteredAcc.x = self.filterConstant * (self.filteredAcc.x + correctedAcc.x - self.prevAx)
+                self.filteredAcc.y = self.filterConstant * (self.filteredAcc.y + correctedAcc.y - self.prevAy)
+                self.filteredAcc.z = self.filterConstant * (self.filteredAcc.z + correctedAcc.z - self.prevAz)
+                self.prevAx = correctedAcc.x
+                self.prevAy = correctedAcc.y
+                self.prevAz = correctedAcc.z
 
-                // Threshold (* SUBSTITUTE correctedAcc WITH FILTERED VALUES)
-                correctedAcc.x = (fabs(correctedAcc.x) > 0.05) ? correctedAcc.x : 0
-                correctedAcc.y = (fabs(correctedAcc.y) > 0.05) ? correctedAcc.y : 0
-                correctedAcc.z = (fabs(correctedAcc.z) > 0.05) ? correctedAcc.z : 0
+                // Threshold
+                correctedAcc.x = (fabs(self.filteredAcc.x) > 0.05) ? self.filteredAcc.x : 0
+                correctedAcc.y = (fabs(self.filteredAcc.y) > 0.05) ? self.filteredAcc.y : 0
+                correctedAcc.z = (fabs(self.filteredAcc.z) > 0.05) ? self.filteredAcc.z : 0
 
                 // Index for acceleration values array
                 self.accelCount = (self.accelCount + 1) % 4
@@ -218,13 +232,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         self.startAltimeter()
         self.startMotionChecker()
         self.startDeviceMotionManager()
-        
-        /*
-         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-         self.stopSensors()
-         }
-        */
-        
     }
     func stopSensors () {
         self.stopCompass()
