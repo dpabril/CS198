@@ -70,17 +70,17 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
             self.compassManager.startUpdatingHeading()
         }
     }
-    func stopCompass() {
-        if CLLocationManager.headingAvailable() {
-            self.compassManager.stopUpdatingHeading()
-        }
-    }
     func locationManagerShouldDisplayHeadingCalibration(_ manager: CLLocationManager) -> Bool {
         return true
     }
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         let userMarker = self.scene.rootNode.childNode(withName: "UserMarker", recursively: true)!
         userMarker.eulerAngles.z = -degToRad(90 + newHeading.magneticHeading)
+    }
+    func stopCompass() {
+        if CLLocationManager.headingAvailable() {
+            self.compassManager.stopUpdatingHeading()
+        }
     }
     
     // Altimeter functions
@@ -118,16 +118,15 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
                 self.stationaryLabel.text = "St: \(isStationary)"
                 self.navigatingLabel.text = "Nav: \(isNavigating)"
                 
-                if isStationary == false {
-                    let user = self.scene.rootNode.childNode(withName: "UserMarker", recursively: true)!
-                    //user.position = SCNVector3(Double(xCurrent) + xAve, Double(zCurrent) + zAve, -1.687)
-                    user.simdPosition += user.simdWorldFront * 0.0004998
-                }
-                self.stopMotionChecker()
+//                if (isNavigating == true || isStationary == false) {
+//                    let user = self.scene.rootNode.childNode(withName: "UserMarker", recursively: true)!
+//                    //user.position = SCNVector3(Double(xCurrent) + xAve, Double(zCurrent) + zAve, -1.687)
+//                    user.simdPosition += user.simdWorldFront * 0.0004998
+//                }
+//                self.stopMotionChecker()
             }
             )
         }
-        
     }
     func stopMotionChecker () {
         if (CMMotionActivityManager.isActivityAvailable()) {
@@ -137,14 +136,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
             self.motionChecker.stopActivityUpdates()
             self.startMotionChecker()
         }
-        
     }
     
     // Device Motion Manager functions
     func startDeviceMotionManager () {
         if (self.deviceMotionManager.isDeviceMotionAvailable) {
             print("Accelerometer and gyroscope are now active.")
-            self.deviceMotionManager.accelerometerUpdateInterval = 1.0 / 30.0
+            self.deviceMotionManager.accelerometerUpdateInterval = 1.0 / 60.0
             self.deviceMotionManager.startDeviceMotionUpdates(to: OperationQueue.main, withHandler: { (deviceMotionData:CMDeviceMotion?, error:Error?)  in
                 let accVec = deviceMotionData!.userAcceleration
                 let rotMat = deviceMotionData!.attitude.rotationMatrix
@@ -154,17 +152,26 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
                 var correctedAcc = CMAcceleration.init(x: correctedAccX, y: correctedAccY, z: correctedAccZ)
 
                 // Filtering the raw accelerometer values
-                self.filteredAcc.x = self.filterConstant * (self.filteredAcc.x + correctedAcc.x - self.prevAx)
-                self.filteredAcc.y = self.filterConstant * (self.filteredAcc.y + correctedAcc.y - self.prevAy)
-                self.filteredAcc.z = self.filterConstant * (self.filteredAcc.z + correctedAcc.z - self.prevAz)
-                self.prevAx = correctedAcc.x
-                self.prevAy = correctedAcc.y
-                self.prevAz = correctedAcc.z
+//                self.filteredAcc.x = self.filterConstant * (self.filteredAcc.x + correctedAcc.x - self.prevAx)
+//                self.filteredAcc.y = self.filterConstant * (self.filteredAcc.y + correctedAcc.y - self.prevAy)
+//                self.filteredAcc.z = self.filterConstant * (self.filteredAcc.z + correctedAcc.z - self.prevAz)
+//                self.prevAx = correctedAcc.x
+//                self.prevAy = correctedAcc.y
+//                self.prevAz = correctedAcc.z
 
                 // Threshold
-                correctedAcc.x = (fabs(self.filteredAcc.x) > 0.05) ? self.filteredAcc.x : 0
-                correctedAcc.y = (fabs(self.filteredAcc.y) > 0.05) ? self.filteredAcc.y : 0
-                correctedAcc.z = (fabs(self.filteredAcc.z) > 0.05) ? self.filteredAcc.z : 0
+//                correctedAcc.x = (fabs(self.filteredAcc.x) > 0.05) ? self.filteredAcc.x : 0
+//                correctedAcc.y = (fabs(self.filteredAcc.y) > 0.05) ? self.filteredAcc.y : 0
+//                correctedAcc.z = (fabs(self.filteredAcc.z) > 0.05) ? self.filteredAcc.z : 0
+                
+                // Minimum value
+                correctedAcc.x = (fabs(correctedAcc.x) > 0.05) ? correctedAcc.x : 0
+                correctedAcc.y = (fabs(correctedAcc.y) > 0.05) ? correctedAcc.y : 0
+                correctedAcc.z = (fabs(correctedAcc.z) > 0.05) ? correctedAcc.z : 0
+                // Maximum value
+                correctedAcc.x = (fabs(correctedAcc.x) > 0.05) ? correctedAcc.x : 0
+                correctedAcc.y = (fabs(correctedAcc.y) > 0.05) ? correctedAcc.y : 0
+                correctedAcc.z = (fabs(correctedAcc.z) > 0.05) ? correctedAcc.z : 0
 
                 // Index for acceleration values array
                 self.accelCount = (self.accelCount + 1) % 4
@@ -174,9 +181,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
                 self.accelZs[self.accelCount] = correctedAcc.z
 
                 if (self.accelCount == 3) {
-                    self.prevVx += (3.0 / 8.0) * (1.0 / 60.0) * (self.accelXs[0] + 3 * self.accelXs[1] + 3 * self.accelXs[2] + self.accelXs[3])
-                    self.prevVy += (3.0 / 8.0) * (1.0 / 60.0) * (self.accelYs[0] + 3 * self.accelYs[1] + 3 * self.accelYs[2] + self.accelYs[3])
-                    self.prevVz += (3.0 / 8.0) * (1.0 / 60.0) * (self.accelZs[0] + 3 * self.accelZs[1] + 3 * self.accelZs[2] + self.accelZs[3])
+                    self.prevVx += (4.0 / 8.0) * (1.0 / 60.0) * (self.accelXs[0] + 3 * self.accelXs[1] + 3 * self.accelXs[2] + self.accelXs[3])
+                    self.prevVy += (4.0 / 8.0) * (1.0 / 60.0) * (self.accelYs[0] + 3 * self.accelYs[1] + 3 * self.accelYs[2] + self.accelYs[3])
+                    self.prevVz += (4.0 / 8.0) * (1.0 / 60.0) * (self.accelZs[0] + 3 * self.accelZs[1] + 3 * self.accelZs[2] + self.accelZs[3])
                 }
 
                 // "Synthetic forces" for removing velocity once relatively stationary
@@ -197,31 +204,25 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
                     self.yAccelZeroCount = 0
                     self.zAccelZeroCount = 0
                 }
-                //
-                //                self.xSpeedLabel.text = String(format: "vx: %0.2f", self.prevVx)
-                //                self.zSpeedLabel.text = String(format: "vz: %0.2f", self.prevVz)
+                
+                if (correctedAcc.x != 0 && correctedAcc.y != 0 && correctedAcc.z != 0) {
+                    let user = self.scene.rootNode.childNode(withName: "UserMarker", recursively: true)!
+//                    user.simdPosition += user.simdWorldFront * 0.0004998
+                    user.position.x += Float(self.prevVx) / 10.0
+                    user.position.y += Float(self.prevVz) / 10.0
+                }
+                
                 self.speedLabel.text = String(format: "v| x: %0.2f | y: %0.2f | z: %0.2f", self.prevVx, self.prevVy, self.prevVz)
                 self.accelLabel.text = String(format: "a| x: %0.2f | y: %0.2f | z: %0.2f", correctedAcc.x, correctedAcc.y, correctedAcc.z)
                 
-                
-                self.xVals += [accVec.x]
-                // self.xAccelerationLabel.text = String(format: "x: %0.2f", accVec.x)
-                
-                self.zVals.append(accVec.z)
-                // self.zAccelerationLabel.text = String(format: "z: %0.2f", accVec.z)
-                
-                
-                // Logging acceleration vector values
             }
             )
         }
     }
     func stopDeviceMotionManager () {
         if (self.deviceMotionManager.isDeviceMotionAvailable) {
-//            self.xAccelerationLabel.text = "x: ---"
-//            self.zAccelerationLabel.text = "z: ---"
-//            self.xSpeedLabel.text = "vx: ---"
-//            self.zSpeedLabel.text = "vz: ---"
+            self.speedLabel.text = "v| x: --- | y: --- | z: ---"
+            self.accelLabel.text = "a| x: --- | y: --- | z: ---"
             self.deviceMotionManager.stopDeviceMotionUpdates()
         }
     }
@@ -264,6 +265,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         // Run the view's session
         sceneView.session.run(configuration)
         
+        // Activate the device's onboard sensors and start receiving updates
         self.startSensors()
         
     }
@@ -274,6 +276,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         // Pause the view's session
         sceneView.session.pause()
         
+        // Turn the sensors off and stop receiving updates
         self.stopSensors()
     }
     
