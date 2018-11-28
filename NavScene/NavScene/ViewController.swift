@@ -43,7 +43,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     var isStay : Bool = false
 
     // Accelerometer filter constant and variables
-    let filterConstant = (1.0 / 60.0) * ((1.0 / 5.0) + (1.0 / 60.0))
+//    let filterConstant = (1.0 / 60.0) * ((1.0 / 5.0) + (1.0 / 60.0))
+    let filterConstant = 0.85
     var filteredAcc : CMAcceleration = CMAcceleration.init(x: 0, y: 0, z: 0)
     var prevAx : Double = 0
     var prevAy : Double = 0
@@ -52,6 +53,14 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     // Scene variables
     var scene = SCNScene(named: "SceneFiles.scnassets/PathfinderScene.scn")!
     var sceneCamera = SCNScene(named: "SceneFiles.scnassets/PathfinderScene.scn")!.rootNode.childNode(withName: "sceneCamera", recursively: true)!
+    
+    // Test variables
+    var maxAccX : Double = 0
+    var maxAccY : Double = 0
+    var maxAccZ : Double = 0
+    var maxVelX : Double = 0
+    var maxVelY : Double = 0
+    var maxVelZ : Double = 0
     
     // Utility function
     func degToRad(_ degrees : Double) -> Float {
@@ -123,6 +132,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
 //                    user.simdPosition += user.simdWorldFront * 0.0004998
 //                }
 //                self.stopMotionChecker()
+
             }
             )
         }
@@ -151,26 +161,21 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
                 var correctedAcc = CMAcceleration.init(x: correctedAccX, y: correctedAccY, z: correctedAccZ)
 
                 // Filtering the raw accelerometer values
-//                self.filteredAcc.x = self.filterConstant * (self.filteredAcc.x + correctedAcc.x - self.prevAx)
-//                self.filteredAcc.y = self.filterConstant * (self.filteredAcc.y + correctedAcc.y - self.prevAy)
-//                self.filteredAcc.z = self.filterConstant * (self.filteredAcc.z + correctedAcc.z - self.prevAz)
-//                self.prevAx = correctedAcc.x
-//                self.prevAy = correctedAcc.y
-//                self.prevAz = correctedAcc.z
+                self.filteredAcc.x = self.filterConstant * (self.filteredAcc.x + correctedAcc.x - self.prevAx)
+                self.filteredAcc.y = self.filterConstant * (self.filteredAcc.y + correctedAcc.y - self.prevAy)
+                self.filteredAcc.z = self.filterConstant * (self.filteredAcc.z + correctedAcc.z - self.prevAz)
+                self.prevAx = correctedAcc.x
+                self.prevAy = correctedAcc.y
+                self.prevAz = correctedAcc.z
 
                 // Threshold
-//                correctedAcc.x = (fabs(self.filteredAcc.x) > 0.05) ? self.filteredAcc.x : 0
-//                correctedAcc.y = (fabs(self.filteredAcc.y) > 0.05) ? self.filteredAcc.y : 0
-//                correctedAcc.z = (fabs(self.filteredAcc.z) > 0.05) ? self.filteredAcc.z : 0
+                correctedAcc.x = (fabs(self.filteredAcc.x) < 0.03) ? 0 : self.filteredAcc.x
+                correctedAcc.y = (fabs(self.filteredAcc.y) < 0.03) ? 0 : self.filteredAcc.y
+                correctedAcc.z = (fabs(self.filteredAcc.z) < 0.03) ? 0 : self.filteredAcc.z
                 
-                // Minimum value
-                correctedAcc.x = (fabs(correctedAcc.x) > 0.05) ? correctedAcc.x : 0
-                correctedAcc.y = (fabs(correctedAcc.y) > 0.05) ? correctedAcc.y : 0
-                correctedAcc.z = (fabs(correctedAcc.z) > 0.05) ? correctedAcc.z : 0
-                // Maximum value
-                correctedAcc.x = (fabs(correctedAcc.x) > 0.05) ? correctedAcc.x : 0
-                correctedAcc.y = (fabs(correctedAcc.y) > 0.05) ? correctedAcc.y : 0
-                correctedAcc.z = (fabs(correctedAcc.z) > 0.05) ? correctedAcc.z : 0
+                print("Filtered Acc X: \(correctedAcc.x)")
+                print("Filtered Acc Y: \(correctedAcc.y)")
+                print("Filtered Acc Z: \(correctedAcc.z)")
 
                 // Index for acceleration values array
                 self.accelCount = (self.accelCount + 1) % 4
@@ -183,6 +188,32 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
                     self.prevVx += (4.0 / 8.0) * (1.0 / 60.0) * (self.accelXs[0] + 3 * self.accelXs[1] + 3 * self.accelXs[2] + self.accelXs[3])
                     self.prevVy += (4.0 / 8.0) * (1.0 / 60.0) * (self.accelYs[0] + 3 * self.accelYs[1] + 3 * self.accelYs[2] + self.accelYs[3])
                     self.prevVz += (4.0 / 8.0) * (1.0 / 60.0) * (self.accelZs[0] + 3 * self.accelZs[1] + 3 * self.accelZs[2] + self.accelZs[3])
+                    
+                    if (self.prevVx > self.maxVelX) {
+                        self.maxVelX = self.prevVx
+                        print("Max Speed X: \(self.maxVelX)")
+                    }
+                    if (self.prevVy > self.maxVelY) {
+                        self.maxVelY = self.prevVy
+                        print("Max Speed Y: \(self.maxVelY)")
+                    }
+                    if (self.prevVz > self.maxVelZ) {
+                        self.maxVelZ = self.prevVz
+                        print("Max Speed Z: \(self.maxVelZ)")
+                    }
+                }
+                
+                if (correctedAcc.x > self.maxAccX) {
+                    self.maxAccX = correctedAcc.x
+                    print("Max X Acc: \(self.maxAccX)")
+                }
+                if (correctedAcc.y > self.maxAccY) {
+                    self.maxAccY = correctedAcc.y
+                    print("Max Y Acc: \(self.maxAccY)")
+                }
+                if (correctedAcc.z > self.maxAccZ) {
+                    self.maxAccZ = correctedAcc.z
+                    print("Max Z Acc: \(self.maxAccZ)")
                 }
 
                 // "Synthetic forces" for removing velocity once relatively stationary
@@ -204,11 +235,19 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
                     self.zAccelZeroCount = 0
                 }
                 
+
                 if ((!self.isStay && self.prevVy > 0.012) || (self.isWalk && self.prevVy > 0.012) || (!self.isStay && self.prevVx > 0.012) || (self.isWalk && self.prevVx > 0.012)) {
                     let user = self.scene.rootNode.childNode(withName: "UserMarker", recursively: true)!
                     user.simdPosition += user.simdWorldFront * 0.0004998
                     //user.position.x += Float(self.prevVx) / 10.0
                     //user.position.y += Float(self.prevVz) / 10.0
+
+//                if (correctedAcc.x != 0 && correctedAcc.y != 0) {
+//                    let user = self.scene.rootNode.childNode(withName: "UserMarker", recursively: true)!
+//                    user.simdPosition += user.simdWorldFront * 0.0004998
+//                    user.position.x += Float(self.prevVx) / 50.0
+//                    user.position.y += Float(self.prevVy) / 50.0
+
                 }
                 
                 self.speedLabel.text = String(format: "v| x: %0.2f | y: %0.2f | z: %0.2f", self.prevVx, self.prevVy, self.prevVz)
