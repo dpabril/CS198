@@ -160,18 +160,22 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
                 let correctedAccZ = accVec.z * rotMat.m31 + accVec.z * rotMat.m32 + accVec.z * rotMat.m33
                 var correctedAcc = CMAcceleration.init(x: correctedAccX, y: correctedAccY, z: correctedAccZ)
 
-                // Filtering the raw accelerometer values
-                self.filteredAcc.x = self.filterConstant * (self.filteredAcc.x + correctedAcc.x - self.prevAx)
-                self.filteredAcc.y = self.filterConstant * (self.filteredAcc.y + correctedAcc.y - self.prevAy)
-                self.filteredAcc.z = self.filterConstant * (self.filteredAcc.z + correctedAcc.z - self.prevAz)
-                self.prevAx = correctedAcc.x
-                self.prevAy = correctedAcc.y
-                self.prevAz = correctedAcc.z
-
-                // Threshold
-                correctedAcc.x = (fabs(self.filteredAcc.x) < 0.03) ? 0 : self.filteredAcc.x
-                correctedAcc.y = (fabs(self.filteredAcc.y) < 0.03) ? 0 : self.filteredAcc.y
-                correctedAcc.z = (fabs(self.filteredAcc.z) < 0.03) ? 0 : self.filteredAcc.z
+//                // Filtering the raw accelerometer values
+//                self.filteredAcc.x = self.filterConstant * (self.filteredAcc.x + correctedAcc.x - self.prevAx)
+//                self.filteredAcc.y = self.filterConstant * (self.filteredAcc.y + correctedAcc.y - self.prevAy)
+//                self.filteredAcc.z = self.filterConstant * (self.filteredAcc.z + correctedAcc.z - self.prevAz)
+//                self.prevAx = correctedAcc.x
+//                self.prevAy = correctedAcc.y
+//                self.prevAz = correctedAcc.z
+//
+//                // Threshold
+//                correctedAcc.x = (fabs(self.filteredAcc.x) < 0.03) ? 0 : self.filteredAcc.x
+//                correctedAcc.y = (fabs(self.filteredAcc.y) < 0.03) ? 0 : self.filteredAcc.y
+//                correctedAcc.z = (fabs(self.filteredAcc.z) < 0.03) ? 0 : self.filteredAcc.z
+                
+                correctedAcc.x = (fabs(correctedAcc.x) < 0.03) ? 0 : correctedAcc.x
+                correctedAcc.y = (fabs(correctedAcc.y) < 0.03) ? 0 : correctedAcc.y
+                correctedAcc.z = (fabs(correctedAcc.z) < 0.03) ? 0 : correctedAcc.z
                 
                 print("Filtered Acc X: \(correctedAcc.x)")
                 print("Filtered Acc Y: \(correctedAcc.y)")
@@ -234,20 +238,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
                     self.yAccelZeroCount = 0
                     self.zAccelZeroCount = 0
                 }
-                
 
-                if ((!self.isStay && self.prevVy > 0.012) || (self.isWalk && self.prevVy > 0.012) || (!self.isStay && self.prevVx > 0.012) || (self.isWalk && self.prevVx > 0.012)) {
+//                if ((!self.isStay && self.prevVy > 0.012) || (self.isWalk && self.prevVy > 0.012) || (!self.isStay && self.prevVx > 0.012) || (self.isWalk && self.prevVx > 0.012)) {
+                if ((self.prevVy > 0.012) || (self.prevVx > 0.012)) {
                     let user = self.scene.rootNode.childNode(withName: "UserMarker", recursively: true)!
                     user.simdPosition += user.simdWorldFront * 0.0004998
-                    //user.position.x += Float(self.prevVx) / 10.0
-                    //user.position.y += Float(self.prevVz) / 10.0
-
-//                if (correctedAcc.x != 0 && correctedAcc.y != 0) {
-//                    let user = self.scene.rootNode.childNode(withName: "UserMarker", recursively: true)!
-//                    user.simdPosition += user.simdWorldFront * 0.0004998
-//                    user.position.x += Float(self.prevVx) / 50.0
-//                    user.position.y += Float(self.prevVy) / 50.0
-
+                    // try motion incorporating current speed
                 }
                 
                 self.speedLabel.text = String(format: "v| x: %0.2f | y: %0.2f | z: %0.2f", self.prevVx, self.prevVy, self.prevVz)
