@@ -39,6 +39,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     var xAccelZeroCount : Int = 0
     var yAccelZeroCount : Int = 0
     var zAccelZeroCount : Int = 0
+    var isWalk : Bool = false
+    var isStay : Bool = false
 
     // Accelerometer filter constant and variables
 //    let filterConstant = (1.0 / 60.0) * ((1.0 / 5.0) + (1.0 / 60.0))
@@ -121,6 +123,16 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
                 self.walkingLabel.text = "Wlk: \(isWalking)"
                 self.stationaryLabel.text = "St: \(isStationary)"
                 self.navigatingLabel.text = "Nav: \(isNavigating)"
+                self.isWalk = isWalking
+                self.isStay = isStationary
+                
+//                if (isNavigating == true || isStationary == false) {
+//                    let user = self.scene.rootNode.childNode(withName: "UserMarker", recursively: true)!
+//                    //user.position = SCNVector3(Double(xCurrent) + xAve, Double(zCurrent) + zAve, -1.687)
+//                    user.simdPosition += user.simdWorldFront * 0.0004998
+//                }
+//                self.stopMotionChecker()
+
             }
             )
         }
@@ -223,11 +235,19 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
                     self.zAccelZeroCount = 0
                 }
                 
-                if (correctedAcc.x != 0 && correctedAcc.y != 0) {
+
+                if ((!self.isStay && self.prevVy > 0.012) || (self.isWalk && self.prevVy > 0.012) || (!self.isStay && self.prevVx > 0.012) || (self.isWalk && self.prevVx > 0.012)) {
                     let user = self.scene.rootNode.childNode(withName: "UserMarker", recursively: true)!
+                    user.simdPosition += user.simdWorldFront * 0.0004998
+                    //user.position.x += Float(self.prevVx) / 10.0
+                    //user.position.y += Float(self.prevVz) / 10.0
+
+//                if (correctedAcc.x != 0 && correctedAcc.y != 0) {
+//                    let user = self.scene.rootNode.childNode(withName: "UserMarker", recursively: true)!
 //                    user.simdPosition += user.simdWorldFront * 0.0004998
-                    user.position.x += Float(self.prevVx) / 50.0
-                    user.position.y += Float(self.prevVy) / 50.0
+//                    user.position.x += Float(self.prevVx) / 50.0
+//                    user.position.y += Float(self.prevVy) / 50.0
+
                 }
                 
                 self.speedLabel.text = String(format: "v| x: %0.2f | y: %0.2f | z: %0.2f", self.prevVx, self.prevVy, self.prevVz)
