@@ -1,0 +1,32 @@
+CS 198 Notes
+
+Staircase width, DCS = 2.5m
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        FILTERLESS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                 
+Minimum threshold values for velocity for translating user marker
+* suited when simdWorldFront * 0.0004998
+* test for several actors to drive the point home
+0.03 -> too high
+0.027 -> saktong high
+0.012 -> saks
+
+simdPosition factor
+0.0004998
+0.00048
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                          FILTERED
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Low-pass Filter
+(Adaptive = true)
+10.0 - not good, defeats need for filter
+5.0 - not good
+2.0 - better than above
+3.0 - better than above
+
+(Adaptive = false)
+3.0 - better than when adaptive = true
+
+!!! Incorporate speed values to how fast marker moves

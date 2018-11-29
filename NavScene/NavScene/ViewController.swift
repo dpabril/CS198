@@ -22,11 +22,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     @IBOutlet weak var speedLabel: UILabel!
     @IBOutlet weak var accelLabel: UILabel!
     
-    // Sensor object variables
+    // Sensor object variables + Accelerometer noise|spike filter
     lazy var compassManager = CLLocationManager()
     lazy var altimeter = CMAltimeter()
     lazy var motionChecker = CMMotionActivityManager()
     lazy var deviceMotionManager = CMMotionManager()
+    lazy var filter = LowPassFilter(rate: 60.0, cutoff: 3.0, adaptive: false)
     
     // Acceleration and velocity variables
     var accelXs : [Double] = [0, 0, 0, 0]
@@ -39,17 +40,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     var xAccelZeroCount : Int = 0
     var yAccelZeroCount : Int = 0
     var zAccelZeroCount : Int = 0
-    var isWalk : Bool = false
-    var isStay : Bool = false
-
-    // Accelerometer filter constant and variables
-//    let filterConstant = (1.0 / 60.0) * ((1.0 / 5.0) + (1.0 / 60.0))
-    let filterConstant = 0.85
-    var filteredAcc : CMAcceleration = CMAcceleration.init(x: 0, y: 0, z: 0)
-    var prevAx : Double = 0
-    var prevAy : Double = 0
-    var prevAz : Double = 0
-
+    
     // Scene variables
     var scene = SCNScene(named: "SceneFiles.scnassets/PathfinderScene.scn")!
     var sceneCamera = SCNScene(named: "SceneFiles.scnassets/PathfinderScene.scn")!.rootNode.childNode(withName: "sceneCamera", recursively: true)!
@@ -123,16 +114,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
                 self.walkingLabel.text = "Wlk: \(isWalking)"
                 self.stationaryLabel.text = "St: \(isStationary)"
                 self.navigatingLabel.text = "Nav: \(isNavigating)"
-                self.isWalk = isWalking
-                self.isStay = isStationary
-                
-//                if (isNavigating == true || isStationary == false) {
-//                    let user = self.scene.rootNode.childNode(withName: "UserMarker", recursively: true)!
-//                    //user.position = SCNVector3(Double(xCurrent) + xAve, Double(zCurrent) + zAve, -1.687)
-//                    user.simdPosition += user.simdWorldFront * 0.0004998
-//                }
-//                self.stopMotionChecker()
-
             }
             )
         }
@@ -160,22 +141,15 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
                 let correctedAccZ = accVec.z * rotMat.m31 + accVec.z * rotMat.m32 + accVec.z * rotMat.m33
                 var correctedAcc = CMAcceleration.init(x: correctedAccX, y: correctedAccY, z: correctedAccZ)
 
-//                // Filtering the raw accelerometer values
-//                self.filteredAcc.x = self.filterConstant * (self.filteredAcc.x + correctedAcc.x - self.prevAx)
-//                self.filteredAcc.y = self.filterConstant * (self.filteredAcc.y + correctedAcc.y - self.prevAy)
-//                self.filteredAcc.z = self.filterConstant * (self.filteredAcc.z + correctedAcc.z - self.prevAz)
-//                self.prevAx = correctedAcc.x
-//                self.prevAy = correctedAcc.y
-//                self.prevAz = correctedAcc.z
-//
-//                // Threshold
-//                correctedAcc.x = (fabs(self.filteredAcc.x) < 0.03) ? 0 : self.filteredAcc.x
-//                correctedAcc.y = (fabs(self.filteredAcc.y) < 0.03) ? 0 : self.filteredAcc.y
-//                correctedAcc.z = (fabs(self.filteredAcc.z) < 0.03) ? 0 : self.filteredAcc.z
+                self.filter.addAcceleration(correctedAcc)
                 
-                correctedAcc.x = (fabs(correctedAcc.x) < 0.03) ? 0 : correctedAcc.x
-                correctedAcc.y = (fabs(correctedAcc.y) < 0.03) ? 0 : correctedAcc.y
-                correctedAcc.z = (fabs(correctedAcc.z) < 0.03) ? 0 : correctedAcc.z
+                // correctedAcc.x = (fabs(correctedAcc.x) < 0.03) ? 0 : correctedAcc.x
+                // correctedAcc.y = (fabs(correctedAcc.y) < 0.03) ? 0 : correctedAcc.y
+                // correctedAcc.z = (fabs(correctedAcc.z) < 0.03) ? 0 : correctedAcc.z
+
+                correctedAcc.x = (fabs(self.filter.xAccel) < 0.03) ? 0 : self.filter.xAccel
+                correctedAcc.y = (fabs(self.filter.yAccel) < 0.03) ? 0 : self.filter.yAccel
+                correctedAcc.z = (fabs(self.filter.zAccel) < 0.03) ? 0 : self.filter.zAccel
                 
                 print("Filtered Acc X: \(correctedAcc.x)")
                 print("Filtered Acc Y: \(correctedAcc.y)")
@@ -193,18 +167,18 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
                     self.prevVy += (4.0 / 8.0) * (1.0 / 60.0) * (self.accelYs[0] + 3 * self.accelYs[1] + 3 * self.accelYs[2] + self.accelYs[3])
                     self.prevVz += (4.0 / 8.0) * (1.0 / 60.0) * (self.accelZs[0] + 3 * self.accelZs[1] + 3 * self.accelZs[2] + self.accelZs[3])
                     
-                    if (self.prevVx > self.maxVelX) {
-                        self.maxVelX = self.prevVx
-                        print("Max Speed X: \(self.maxVelX)")
-                    }
-                    if (self.prevVy > self.maxVelY) {
-                        self.maxVelY = self.prevVy
-                        print("Max Speed Y: \(self.maxVelY)")
-                    }
-                    if (self.prevVz > self.maxVelZ) {
-                        self.maxVelZ = self.prevVz
-                        print("Max Speed Z: \(self.maxVelZ)")
-                    }
+//                    if (self.prevVx > self.maxVelX) {
+//                        self.maxVelX = self.prevVx
+//                        print("Max Speed X: \(self.maxVelX)")
+//                    }
+//                    if (self.prevVy > self.maxVelY) {
+//                        self.maxVelY = self.prevVy
+//                        print("Max Speed Y: \(self.maxVelY)")
+//                    }
+//                    if (self.prevVz > self.maxVelZ) {
+//                        self.maxVelZ = self.prevVz
+//                        print("Max Speed Z: \(self.maxVelZ)")
+//                    }
                 }
                 
                 if (correctedAcc.x > self.maxAccX) {
@@ -261,7 +235,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         }
     }
     
-    // Start and stop function for sensors
+    // Start and stop functions for sensors
     func startSensors () {
         self.startCompass()
         self.startAltimeter()

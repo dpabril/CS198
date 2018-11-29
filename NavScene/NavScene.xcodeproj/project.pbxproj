@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E565A67D21AFBC5F00882D25 /* LowPassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E565A67C21AFBC5F00882D25 /* LowPassFilter.swift */; };
+		E565A67F21AFD35000882D25 /* HighPassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E565A67E21AFD35000882D25 /* HighPassFilter.swift */; };
 		E5EA444821993FA30037F15B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EA444721993FA30037F15B /* AppDelegate.swift */; };
 		E5EA444A21993FA30037F15B /* SceneFiles.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = E5EA444921993FA30037F15B /* SceneFiles.scnassets */; };
 		E5EA444C21993FA30037F15B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EA444B21993FA30037F15B /* ViewController.swift */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E565A67C21AFBC5F00882D25 /* LowPassFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowPassFilter.swift; sourceTree = "<group>"; };
+		E565A67E21AFD35000882D25 /* HighPassFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighPassFilter.swift; sourceTree = "<group>"; };
 		E5EA444421993FA30037F15B /* NavScene.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NavScene.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5EA444721993FA30037F15B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5EA444921993FA30037F15B /* SceneFiles.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = SceneFiles.scnassets; sourceTree = "<group>"; };
@@ -58,14 +62,16 @@
 		E5EA444621993FA30037F15B /* NavScene */ = {
 			isa = PBXGroup;
 			children = (
+				E5EA445521993FA40037F15B /* Info.plist */,
 				E5EA444721993FA30037F15B /* AppDelegate.swift */,
+				E5EA444B21993FA30037F15B /* ViewController.swift */,
+				E565A67E21AFD35000882D25 /* HighPassFilter.swift */,
+				E565A67C21AFBC5F00882D25 /* LowPassFilter.swift */,
 				E5EA444921993FA30037F15B /* SceneFiles.scnassets */,
 				E5EA445B219943840037F15B /* Textures.scnassets */,
-				E5EA444B21993FA30037F15B /* ViewController.swift */,
-				E5EA444D21993FA30037F15B /* Main.storyboard */,
 				E5EA445021993FA40037F15B /* Assets.xcassets */,
+				E5EA444D21993FA30037F15B /* Main.storyboard */,
 				E5EA445221993FA40037F15B /* LaunchScreen.storyboard */,
-				E5EA445521993FA40037F15B /* Info.plist */,
 			);
 			path = NavScene;
 			sourceTree = "<group>";
@@ -143,7 +149,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E565A67F21AFD35000882D25 /* HighPassFilter.swift in Sources */,
 				E5EA444C21993FA30037F15B /* ViewController.swift in Sources */,
+				E565A67D21AFBC5F00882D25 /* LowPassFilter.swift in Sources */,
 				E5EA444821993FA30037F15B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
