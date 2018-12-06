@@ -1,0 +1,30 @@
+CS 198/199 Implementation Tasks
+
+Application:
+  CS 198:
+    ☐ QR Code Method
+      * Scanning QR codes instead of images solves the issue of unreliability thanks to varying lighting conditions
+      * This is also a good solution for relocalization by placing QR codes in the areas covered by the application
+
+      ✔ QR Code Scanner @done (18-12-06 12:46)
+      ☐ Print QR codes for testing
+
+    ☐ SQLite Database
+     _Stores:_
+      * QR code information
+      * Location information
+        * Building
+          * Floor
+          * Relative altitude range, with 0.0 as lowest relevant floor
+          * Corresponding image
+          * <?> User rotation offset
+          * Rooms
+            * Scene coordinates of location pin marker
+    ☐ Scene adjustment
+      * Change plane size and material depending on most recently scanned location + relative altitude reading
+
+  CS 199:
+    ☐ Outdoor Nav Subfunction
+      ☐ Integrate into app using MapKit
+Paper:
+ ☐ Write the paper, bois

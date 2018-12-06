@@ -27,7 +27,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     lazy var altimeter = CMAltimeter()
     lazy var motionChecker = CMMotionActivityManager()
     lazy var deviceMotionManager = CMMotionManager()
-    lazy var filter = LowPassFilter(rate: 60.0, cutoff: 3.0, adaptive: false)
+    lazy var filter = MirrorFilter(rate: 60.0, cutoff: 3.0, adaptive: false)
     
     // Acceleration and velocity variables
     var accelXs : [Double] = [0, 0, 0, 0]

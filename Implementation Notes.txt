@@ -30,3 +30,28 @@ simdPosition factor
 3.0 - better than when adaptive = true
 
 !!! Incorporate speed values to how fast marker moves
+
+
+
+
+
+
+
+
+
+
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                    ToDo's / Nice-to-Have's
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+* QR Scanner (CHECK!)
+    - solves relocalization problem by going back to scanner view
+    - alternative to image recognition which could have large
+        margin of error since environmental lighting may change
+        and affect image recog methods
+* SQLite database (<CoreData>)
+* Plane texture alteration code (for changing the floor plan)
+* Altimeter
+* GPS (CS 199)
