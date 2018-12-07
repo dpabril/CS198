@@ -7,17 +7,20 @@
 //
 
 import UIKit
+import Foundation
 import AVFoundation
+import GRDB
 
 class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
     @IBOutlet var messageLabel:UILabel!
-    @IBOutlet var topbar: UIView!
+    @IBOutlet var topbar : UIView!
     
     var captureSession = AVCaptureSession()
     
-    var videoPreviewLayer: AVCaptureVideoPreviewLayer?
-    var qrCodeFrameView: UIView?
+    var videoPreviewLayer : AVCaptureVideoPreviewLayer?
+    var qrCodeFrameView : UIView?
+    var qrCodeFrameThreshold : CGSize?
 
     private let supportedCodeTypes = [AVMetadataObject.ObjectType.qr]
    
@@ -26,10 +29,6 @@ class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDeleg
 
         // Get the back-facing camera for capturing videos
         var deviceDiscoverySession : AVCaptureDevice.DiscoverySession
-        
-        if AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera], mediaType: AVMediaType.video, position: .back).devices.first != nil {
-//            deviceDiscoverySession =
-        }
         
         if (AVCaptureDevice.default(AVCaptureDevice.DeviceType.builtInDualCamera, for: AVMediaType.video, position: AVCaptureDevice.Position.back) != nil) {
             deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera], mediaType: AVMediaType.video, position: .back)
@@ -45,21 +44,16 @@ class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDeleg
         do {
             // Get an instance of the AVCaptureDeviceInput class using the previous device object.
             let input = try AVCaptureDeviceInput(device: captureDevice)
-            
             // Set the input device on the capture session.
             captureSession.addInput(input)
             
-            // Initialize a AVCaptureMetadataOutput object and set it as the output device to the capture session.
             let captureMetadataOutput = AVCaptureMetadataOutput()
             captureSession.addOutput(captureMetadataOutput)
             
-            // Set delegate and use the default dispatch queue to execute the call back
             captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
             captureMetadataOutput.metadataObjectTypes = supportedCodeTypes
-//            captureMetadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.qr]
             
         } catch {
-            // If any error occurs, simply print it out and don't continue any more.
             print(error)
             return
         }
@@ -74,17 +68,19 @@ class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDeleg
         captureSession.startRunning()
         
         // Move the message label and top bar to the front
-        view.bringSubview(toFront: messageLabel)
-        view.bringSubview(toFront: topbar)
+        view.bringSubviewToFront(messageLabel)
+        view.bringSubviewToFront(topbar)
         
         // Initialize QR Code Frame to highlight the QR code
         qrCodeFrameView = UIView()
+        // Initialize QR code frame size threshold for reference to enforce min. distance
+        qrCodeFrameThreshold = CGSize.init(width: 100.0, height: 100.0)
         
         if let qrCodeFrameView = qrCodeFrameView {
             qrCodeFrameView.layer.borderColor = UIColor.green.cgColor
             qrCodeFrameView.layer.borderWidth = 2
             view.addSubview(qrCodeFrameView)
-            view.bringSubview(toFront: qrCodeFrameView)
+            view.bringSubviewToFront(qrCodeFrameView)
         }
     }
 
@@ -101,29 +97,50 @@ class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDeleg
             return
         }
         
-        let alertPrompt = UIAlertController(title: "Open App", message: "You're going to open \(decodedURL)", preferredStyle: .actionSheet)
-        let confirmAction = UIAlertAction(title: "Confirm", style: UIAlertActionStyle.default, handler: { (action) -> Void in
-            
+        let alertPrompt = UIAlertController(title: "Localization successful.", message: decodedURL, preferredStyle: .actionSheet)
+        let confirmAction = UIAlertAction(title: "Navigate!", style: UIAlertAction.Style.default, handler: { (action) -> Void in
             if let url = URL(string: decodedURL) {
                 if UIApplication.shared.canOpenURL(url) {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
                 }
             }
         })
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
         
         alertPrompt.addAction(confirmAction)
         alertPrompt.addAction(cancelAction)
         
         present(alertPrompt, animated: true, completion: nil)
     }
+    
+    func sizePassesThreshold(_ qrCodeFrameSize: CGSize) -> Bool {
+        return (qrCodeFrameSize.width >= (qrCodeFrameThreshold?.width)! && qrCodeFrameSize.height >= qrCodeFrameThreshold!.height)
+    }
+    
+    func ordinalize(_ integer: Int) -> String {
+        switch integer {
+        case 0:
+            return "Basement"
+        case 1:
+            return "Ground"
+        case 2:
+            return "2nd"
+        case 3:
+            return "3rd"
+        case 4:
+            return "4th"
+        case 5:
+            return "5th"
+        default:
+            return "Void"
+        }
+    }
 
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         // Check if the metadataObjects array is not nil and it contains at least one object.
         if metadataObjects.count == 0 {
             qrCodeFrameView?.frame = CGRect.zero
-            messageLabel.text = "No QR code is detected"
+            messageLabel.text = "No QR Code detected."
             return
         }
         
@@ -135,11 +152,38 @@ class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDeleg
             let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj)
             qrCodeFrameView?.frame = barCodeObject!.bounds
             
-            if metadataObj.stringValue != nil {
-                launchApp(decodedURL: metadataObj.stringValue!)
-                messageLabel.text = metadataObj.stringValue
+            if metadataObj.stringValue != nil && sizePassesThreshold((qrCodeFrameView?.frame.size)!){
+                let qrCodeURL = metadataObj.stringValue!
+                let qrCodeFragments = qrCodeURL.components(separatedBy: "::")
+                let qrCodeBuilding = qrCodeFragments[0]
+                let qrCodeFloorLevel = Int(qrCodeFragments[1])
+                let qrCodeFloorPoint = qrCodeFragments[2]
+                
+                var qrTag : QRTag?
+                var building : Building?
+                var floor : Floor?
+                do {
+                    try DB.write { db in
+                        qrTag = try QRTag.fetchOne(db, "SELECT * FROM QRTag WHERE url = ?", arguments: [qrCodeURL])
+                        building = try Building.fetchOne(db, "SELECT * FROM Building WHERE alias = ?", arguments: [qrCodeBuilding])
+                        floor = try Floor.fetchOne(db, "SELECT * FROM Floor WHERE bldg = ? AND level = ?", arguments: [qrCodeBuilding, qrCodeFloorLevel])
+                    }
+                } catch {
+                    print(error)
+                }
+                
+                messageLabel.text = qrCodeURL
+                launchApp(decodedURL: "You are in the \(ordinalize(floor!.level)) Floor of \(building!.name), at Point \(qrCodeFloorPoint) <\(qrTag!.url)>.")
+                
+            } else if metadataObj.stringValue != nil {
+                messageLabel.text = "QR Code detected. Step closer to scan."
             }
         }
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

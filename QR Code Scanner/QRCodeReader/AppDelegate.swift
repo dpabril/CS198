@@ -7,15 +7,25 @@
 //
 
 import UIKit
+import GRDB
+
+var DB : DatabaseQueue!
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    
+    // Database connection helper function
+    private func connectToDB() throws -> DatabaseQueue {
+        let dbPath = (Bundle.main.path(forResource: "navdb", ofType: "sqlite"))!
+        let db = try DatabaseQueue(path: dbPath)
+        return (db)
+    }
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        DB = try! connectToDB()
         return true
     }
 
@@ -40,7 +50,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
 
 }
 

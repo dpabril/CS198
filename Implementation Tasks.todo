@@ -6,9 +6,9 @@ Application:
       * Scanning QR codes instead of images solves the issue of unreliability thanks to varying lighting conditions
       * This is also a good solution for relocalization by placing QR codes in the areas covered by the application
 
-      ☐ QR Code Scanner
+      ✔ QR Code Scanner @done (18-12-07 14:29)
         ✔ Basic QR scanning functionality @done (18-12-06 16:36)
-        ☐ Set minimum distance to code using maybe size of green border?
+        ✔ Set minimum distance to QR code (arm's length) @done (18-12-07 14:29)
       ☐ Print QR codes for testing
 
     ☐ SQLite Database
@@ -22,7 +22,8 @@ Application:
           * <?> User rotation offset
           * Rooms
             * Scene coordinates of location pin marker
-      ☐ Design the schema
+      ✔ Design the schema @done (18-12-07 14:28)
+      ☐ Okay na ba 'tong schema?
     ☐ Scene adjustment
       * Change plane size and material depending on most recently scanned location + relative altitude reading
 
