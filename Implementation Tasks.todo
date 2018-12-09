@@ -6,9 +6,11 @@ Application:
       * Scanning QR codes instead of images solves the issue of unreliability thanks to varying lighting conditions
       * This is also a good solution for relocalization by placing QR codes in the areas covered by the application
 
-      ✔ QR Code Scanner @done (18-12-07 14:29)
+      ☐ QR Code Scanner
         ✔ Basic QR scanning functionality @done (18-12-06 16:36)
         ✔ Set minimum distance to QR code (arm's length) @done (18-12-07 14:29)
+        ☐ Keep QR code in center of screen @low
+          * This is to keep the user at the desired distance from the QR code image
       ☐ Print QR codes for testing
 
     ☐ SQLite Database
@@ -23,9 +25,17 @@ Application:
           * Rooms
             * Scene coordinates of location pin marker
       ✔ Design the schema @done (18-12-07 14:28)
-      ☐ Okay na ba 'tong schema?
-    ☐ Scene adjustment
+      ☐ Create a Swift class for static query functions to the DB
+    ☐ Navigation View
       * Change plane size and material depending on most recently scanned location + relative altitude reading
+      ☐ Program scene adjustments
+        * Refers to translation of location and user markers
+      ☐ Refine filter and movement vector calculation
+        * Create a Filter class, with mirror, low-pass, and high-pass options
+      ☐ Replace ARKit with plain SceneKit
+    ☐ Indoor Location List View
+      ☐ Build query function for acquiring the list
+      ☐ Bind table cells to rows in the database
 
   CS 199:
     ☐ Outdoor Nav Subfunction
