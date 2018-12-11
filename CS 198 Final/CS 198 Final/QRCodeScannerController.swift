@@ -97,11 +97,8 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
         
         let alertPrompt = UIAlertController(title: "Localization successful.", message: decodedURL, preferredStyle: .actionSheet)
         let confirmAction = UIAlertAction(title: "Navigate!", style: UIAlertAction.Style.default, handler: { (action) -> Void in
-            if let url = URL(string: decodedURL) {
-                if UIApplication.shared.canOpenURL(url) {
-                    UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
-                }
-            }
+            self.tabBarController!.tabBar.items![1].isEnabled = true
+            self.tabBarController!.tabBar.items![2].isEnabled = true
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
         

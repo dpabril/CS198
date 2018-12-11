@@ -15,9 +15,4 @@ class TabBarController : UITabBarController {
         self.tabBar.items![2].isEnabled = false
     }
     
-//    func enableTabBarItems() {
-//        self.tabBar.items![1].isEnabled = true
-//        self.tabBar.items![2].isEnabled = true
-//    }
-    
 }
