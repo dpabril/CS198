@@ -14,6 +14,7 @@
 		E5B07B2D21BA59D400016701 /* Building.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B07B2C21BA59D400016701 /* Building.swift */; };
 		E5B07B2F21BA59DF00016701 /* Floor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B07B2E21BA59DF00016701 /* Floor.swift */; };
 		E5B07B3121BA59EE00016701 /* IndoorLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B07B3021BA59EE00016701 /* IndoorLocation.swift */; };
+		E5D11D1321BF7B6D00123FEE /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D11D1221BF7B6D00123FEE /* Utilities.swift */; };
 		F4F09DB71DAF669400026BB2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F09DB61DAF669400026BB2 /* AppDelegate.swift */; };
 		F4F09DBC1DAF669400026BB2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4F09DBA1DAF669400026BB2 /* Main.storyboard */; };
 		F4F09DBE1DAF669400026BB2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4F09DBD1DAF669400026BB2 /* Assets.xcassets */; };
@@ -116,6 +117,7 @@
 		E5B07B2C21BA59D400016701 /* Building.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Building.swift; sourceTree = "<group>"; };
 		E5B07B2E21BA59DF00016701 /* Floor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Floor.swift; sourceTree = "<group>"; };
 		E5B07B3021BA59EE00016701 /* IndoorLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndoorLocation.swift; sourceTree = "<group>"; };
+		E5D11D1221BF7B6D00123FEE /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		F4F09DB31DAF669400026BB2 /* QRCodeReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QRCodeReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F09DB61DAF669400026BB2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4F09DBB1DAF669400026BB2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -164,6 +166,14 @@
 			path = DBRelations;
 			sourceTree = "<group>";
 		};
+		E5D11D0A21BF7B2C00123FEE /* Aux Classes */ = {
+			isa = PBXGroup;
+			children = (
+				E5D11D1221BF7B6D00123FEE /* Utilities.swift */,
+			);
+			path = "Aux Classes";
+			sourceTree = "<group>";
+		};
 		F4F09DAA1DAF669400026BB2 = {
 			isa = PBXGroup;
 			children = (
@@ -191,6 +201,7 @@
 				F4F09DBF1DAF669400026BB2 /* LaunchScreen.storyboard */,
 				E5B07AAA21BA2FCE00016701 /* navdb.sqlite */,
 				E5B07B2921BA59A500016701 /* DBRelations */,
+				E5D11D0A21BF7B2C00123FEE /* Aux Classes */,
 				F4F09DBD1DAF669400026BB2 /* Assets.xcassets */,
 				F4F09DC21DAF669400026BB2 /* Info.plist */,
 			);
@@ -346,6 +357,7 @@
 				E5B07B3121BA59EE00016701 /* IndoorLocation.swift in Sources */,
 				E5B07B2D21BA59D400016701 /* Building.swift in Sources */,
 				F4F09DB71DAF669400026BB2 /* AppDelegate.swift in Sources */,
+				E5D11D1321BF7B6D00123FEE /* Utilities.swift in Sources */,
 				F4F09DCB1DAF6A4F00026BB2 /* QRScannerController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
