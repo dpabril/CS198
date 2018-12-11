@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="H4A-Af-dx7">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Scan a Building Representative Image-->
+        <scene sceneID="tXr-a1-R10">
+            <objects>
+                <viewController id="BV1-FR-VrT" customClass="ViewController" customModule="MergeTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <arskView key="view" contentMode="scaleToFill" id="EO5-fy-WZq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </arskView>
+                    <navigationItem key="navigationItem" title="Scan a Building Representative Image" id="XEz-qm-2lb">
+                        <barButtonItem key="backBarButtonItem" title="Rescan" id="AmD-QL-umv"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="sceneView" destination="EO5-fy-WZq" id="YuC-8q-ovz"/>
+                        <segue destination="1cd-EF-pwi" kind="show" identifier="goToLocList" id="ljk-Gc-e3Q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1000.8" y="26.53673163418291"/>
+        </scene>
+        <!--Location List View Controller-->
+        <scene sceneID="p3C-9c-U4C">
+            <objects>
+                <tableViewController title="Location List View Controller" id="1cd-EF-pwi" customClass="LocationTableViewController" customModule="AR_Pathfinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="QXX-tX-gJY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="0.0" reuseIdentifier="ListRow" focusStyle="custom" id="rYx-gZ-tuf">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rYx-gZ-tuf" id="hZI-Oq-td9">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="1cd-EF-pwi" id="e9k-O0-IEG"/>
+                            <outlet property="delegate" destination="1cd-EF-pwi" id="zhg-sL-ehY"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <segue destination="V4S-S1-wVP" kind="show" identifier="showPathfinder" id="QYu-qB-UYH"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U8n-ol-gsd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1777" y="27"/>
+        </scene>
+        <!--Indoor Navigation View Controller-->
+        <scene sceneID="fQ7-rS-vtZ">
+            <objects>
+                <viewController title="Indoor Navigation View Controller" id="V4S-S1-wVP" customClass="IndoorNavigationViewController" customModule="AR_Pathfinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aLq-a7-ngd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" sceneName="Pathfinder.scn" allowsCameraControl="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K8g-mH-p2x">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </arscnView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="K8g-mH-p2x" firstAttribute="trailing" secondItem="eBi-h8-olX" secondAttribute="trailing" id="2Sa-HY-vI6"/>
+                            <constraint firstItem="K8g-mH-p2x" firstAttribute="bottom" secondItem="eBi-h8-olX" secondAttribute="bottom" id="9tu-QD-U34"/>
+                            <constraint firstItem="K8g-mH-p2x" firstAttribute="top" secondItem="aLq-a7-ngd" secondAttribute="top" id="FpZ-mV-bHa"/>
+                            <constraint firstItem="K8g-mH-p2x" firstAttribute="leading" secondItem="eBi-h8-olX" secondAttribute="leading" id="xqc-gi-XbU"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="eBi-h8-olX"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Pathfinding" id="fY5-jg-gqb"/>
+                    <connections>
+                        <outlet property="sceneView" destination="K8g-mH-p2x" id="sb1-0J-wBh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ubE-ym-oe9" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2528.8000000000002" y="26.53673163418291"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="qaS-pM-QeF">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W2N-iT-EnL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="H4A-Af-dx7" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="43w-zs-bCM">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BV1-FR-VrT" kind="relationship" relationship="rootViewController" id="Oew-6I-Poo"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="61.600000000000001" y="26.53673163418291"/>
+        </scene>
+    </scenes>
+</document>
