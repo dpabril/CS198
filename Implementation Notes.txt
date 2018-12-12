@@ -30,10 +30,21 @@ simdPosition factor
 3.0 - better than when adaptive = true
 
 !!! Incorporate speed values to how fast marker moves
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                SPEED VALUES TO MARKER SPEED
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+18-12-11: 	Since velocity plays a huge role in this part, I normalized velocity values then multiplied it to simdPosition factor.
+			Decimal yung normalized vector kaya kung diretso multiply lang sya sa simdPosition factor, liliit lang yung simdPosition
+			factor kahit gaano kalaki yung normalized vector(mahirap paabutin ng 1 to). So, minultiply ko sya by some number pero di 
+			ko makuha yung saktong number. Medyo naglalag/sumosobra rin kasi kahit nakatigil na, gumagalaw pa rin marker.
 
+			Posibleng gawin ay alisin simdPosition factor tapos yung normalized na lang talaga gamitin or baka pwedeng hanapin pa rin yung 'number' haha
 
+18-12-11:	Sinubukang alisin yung simdPosition factor tapos normalized velocity yung nilagay pero may 'inertia' kasi tumigil na sa paglakad pero may movement pa rin.
+			
+			Baka kelangan talagang hanapin yung 'number'.
 
-
+			Napansin din na kapag derived number, madalas may 'inertia'.			
 
 
 

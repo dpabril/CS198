@@ -73,6 +73,7 @@ INSERT INTO Floor VALUES
     ("UP ITDC", 3, "third_floorplan");
 INSERT INTO IndoorLocation VALUES
     ("UP AECH", 0, "Engineering Library 2", 0.0, 0.0),
+    ("UP AECH", 1, "Serials", 0.0, 0.0),
     ("UP AECH", 1, "The Learning Commons", 0.0, 0.0),
     ("UP AECH", 2, "Rm 200 Web Science Laboratory", 0.0, 0.0),
     ("UP AECH", 3, "Administration Office", 0.0, 0.0),
