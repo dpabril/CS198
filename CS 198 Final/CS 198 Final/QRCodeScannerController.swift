@@ -92,7 +92,7 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     // MARK: - Helper methods
     
-    func launchApp(decodedURL: String) {
+    func launchNavigator(decodedURL: String) {
         
         if presentedViewController != nil {
             return
@@ -113,25 +113,6 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     func sizePassesThreshold(_ qrCodeFrameSize: CGSize) -> Bool {
         return (qrCodeFrameSize.width >= (qrCodeFrameThreshold?.width)! && qrCodeFrameSize.height >= qrCodeFrameThreshold!.height)
-    }
-    
-    func ordinalize(_ integer: Int) -> String {
-        switch integer {
-        case 0:
-            return "Basement"
-        case 1:
-            return "Ground"
-        case 2:
-            return "2nd"
-        case 3:
-            return "3rd"
-        case 4:
-            return "4th"
-        case 5:
-            return "5th"
-        default:
-            return "Void"
-        }
     }
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
@@ -162,16 +143,16 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
                 var floor : Floor?
                 do {
                     try DB.write { db in
-                        qrTag = try QRTag.fetchOne(db, "SELECT * FROM QRTag WHERE url = ?", arguments: [qrCodeURL])
-                        building = try Building.fetchOne(db, "SELECT * FROM Building WHERE alias = ?", arguments: [self.qrCodeBuilding])
-                        floor = try Floor.fetchOne(db, "SELECT * FROM Floor WHERE bldg = ? AND level = ?", arguments: [self.qrCodeBuilding, self.qrCodeFloorLevel])
+                        qrTag = DBInterface.fetchQRTag(db, url: qrCodeURL)
+                        building = DBInterface.fetchBuilding(db, alias: self.qrCodeBuilding)
+                        floor = DBInterface.fetchFloor(db, bldg: self.qrCodeBuilding, level: self.qrCodeFloorLevel)
                     }
                 } catch {
                     print(error)
                 }
                 
                 messageLabel.text = qrCodeURL
-                launchApp(decodedURL: "You are in the \(ordinalize(floor!.level)) Floor of \(building!.name), at Point \(qrCodeFloorPoint) <\(qrTag!.url)>.")
+                launchNavigator(decodedURL: "You are in the \(Utilities.ordinalize(floor!.level)) Floor of \(building!.name), at Point \(qrCodeFloorPoint) <\(qrTag!.url)>.")
                 
                 
             } else if metadataObj.stringValue != nil {

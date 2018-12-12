@@ -34,7 +34,7 @@ class Utilities {
     }
     
     static func localizeSuccessMessage(_ bldg : String, _ level : Int) -> String {
-        return String(format: "You are on the %s floor of %s.", ordinalize(level), QueryBuilder.fetchBuilding(bldg)!.name)
+        return String(format: "You are on the %s floor of %s.", ordinalize(level), bldg)
     }
     
     static func currentLocationMessage(_ level : Int) -> String {
