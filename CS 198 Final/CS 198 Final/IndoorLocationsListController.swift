@@ -10,10 +10,34 @@ import UIKit
 
 class IndoorLocationsListController: UITableViewController {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+//    var building : String = ""
+//    var floor : Int = 0
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
+        let building = (self.tabBarController!.viewControllers![0] as! QRCodeScannerController).qrCodeBuilding
+        
+        let floor = (self.tabBarController!.viewControllers![0] as! QRCodeScannerController).qrCodeFloorLevel
+        
+        var locs : [IndoorLocation] = []
+        
+        do {
+            try DB.write { db in
+                locs = try IndoorLocation.fetchAll(db, "SELECT * FROM IndoorLocation WHERE bldg = ? AND level = ?", arguments: [building, floor])
+            }
+        } catch {
+            print(error)
+        }
+    
+        print(locs[0].name)
+        print("DONE")
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+//        self.building = ""
+//        self.floor = 0
+        print("DISAPPEARING")
+    }
     
 }
