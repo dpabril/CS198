@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E509E86D21C0DED6003A5FE3 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509E86C21C0DED6003A5FE3 /* Utilities.swift */; };
 		E5D11D2121BF831200123FEE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D11D2021BF831200123FEE /* AppDelegate.swift */; };
 		E5D11D2321BF831200123FEE /* QRCodeScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D11D2221BF831200123FEE /* QRCodeScannerController.swift */; };
 		E5D11D2521BF831200123FEE /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D11D2421BF831200123FEE /* NavigationController.swift */; };
@@ -113,6 +114,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E509E86C21C0DED6003A5FE3 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		E5D11D1D21BF831200123FEE /* CS 198 Final.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CS 198 Final.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5D11D2021BF831200123FEE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5D11D2221BF831200123FEE /* QRCodeScannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScannerController.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				E5D11D9521BF994B00123FEE /* SQLiteInterface.swift */,
+				E509E86C21C0DED6003A5FE3 /* Utilities.swift */,
 			);
 			path = "Auxiliary Classes";
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 			files = (
 				E5D11D2521BF831200123FEE /* NavigationController.swift in Sources */,
 				E5D11D8E21BF981800123FEE /* Building.swift in Sources */,
+				E509E86D21C0DED6003A5FE3 /* Utilities.swift in Sources */,
 				E5D11D8C21BF980800123FEE /* QRTag.swift in Sources */,
 				E5D11DAD21BFCE2B00123FEE /* TabBarController.swift in Sources */,
 				E5D11D9221BF983F00123FEE /* IndoorLocation.swift in Sources */,

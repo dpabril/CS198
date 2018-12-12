@@ -9,7 +9,7 @@
 import GRDB
 
 class SQLiteInterface {
-//    static func fetchBuilding(_ alias : String) -> Building? {
+//    func fetchBuilding(_ alias : String) -> Building? {
 //        var building : Building?
 //        do {
 //            try DB.write { db in
@@ -22,7 +22,7 @@ class SQLiteInterface {
 //    }
 //    
 //    // CS 199, for GPS maybe?
-//    static func fetchAllBuildings() -> [Building] {
+//    func fetchAllBuildings() -> [Building] {
 //        var buildings : [Building]
 //        do {
 //            try DB.write { db in
@@ -34,7 +34,7 @@ class SQLiteInterface {
 //        }
 //    }
 //    
-//    static func fetchFloor(_ bldg : String, _ level : Int) -> Floor? {
+//    func fetchFloor(_ bldg : String, _ level : Int) -> Floor? {
 //        var floor : Floor?
 //        do {
 //            try DB.write { db in
@@ -46,7 +46,7 @@ class SQLiteInterface {
 //        }
 //    }
 //    
-//    static func fetchBuildingFloors(_ bldg : String) -> [Floor] {
+//    func fetchBuildingFloors(_ bldg : String) -> [Floor] {
 //        var floors : [Floor]
 //        do {
 //            try DB.write { db in
@@ -58,7 +58,7 @@ class SQLiteInterface {
 //        }
 //    }
 //    
-//    static func fetchIndoorLocation(_ bldg : String, _ level : Int, _ name : String) -> IndoorLocation? {
+//    func fetchIndoorLocation(_ bldg : String, _ level : Int, _ name : String) -> IndoorLocation? {
 //        var loc : IndoorLocation?
 //        do {
 //            try DB.write { db in
@@ -70,7 +70,7 @@ class SQLiteInterface {
 //        }
 //    }
 //    
-//    static func fetchFloorIndoorLocations(_ bldg : String, _ level : Int) -> [IndoorLocation] {
+//    func fetchFloorIndoorLocations(_ bldg : String, _ level : Int) -> [IndoorLocation] {
 //        var locs : [IndoorLocation]
 //        do {
 //            try DB.write { db in
@@ -81,5 +81,4 @@ class SQLiteInterface {
 //            print(error)
 //        }
 //    }
-    
 }
