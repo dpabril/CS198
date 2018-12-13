@@ -77,6 +77,9 @@
                         <viewLayoutGuide key="safeArea" id="Kxl-op-w2y"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Navigation" image="second" id="cPa-gy-q4n"/>
+                    <connections>
+                        <outlet property="navigationView" destination="Zmk-b7-6bY" id="DY1-aX-1wa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>

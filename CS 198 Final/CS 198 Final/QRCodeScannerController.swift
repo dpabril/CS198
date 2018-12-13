@@ -68,7 +68,7 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
         view.layer.addSublayer(videoPreviewLayer!)
         
         // Start video capture.
-        captureSession.startRunning()
+        // captureSession.startRunning()
         
         // Move the message label and top bar to the front
         messageLabel.layer.cornerRadius = 5
@@ -86,6 +86,17 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
             view.addSubview(qrCodeFrameView)
             view.bringSubviewToFront(qrCodeFrameView)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        captureSession.startRunning()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        captureSession.stopRunning()
     }
     
     override func didReceiveMemoryWarning() {

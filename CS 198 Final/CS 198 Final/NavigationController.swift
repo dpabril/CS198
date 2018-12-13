@@ -13,7 +13,8 @@ import CoreLocation
 
 class NavigationController: UIViewController, CLLocationManagerDelegate {
 
-    @IBOutlet var sceneView: SCNView!
+    
+    @IBOutlet weak var navigationView: SCNView!
     
     // Sensor object variables + Accelerometer noise|spike filter
     lazy var compassManager = CLLocationManager()
@@ -95,10 +96,6 @@ class NavigationController: UIViewController, CLLocationManagerDelegate {
                 correctedAcc.y = (fabs(self.filter.yAccel) < 0.03) ? 0 : self.filter.yAccel
                 correctedAcc.z = (fabs(self.filter.zAccel) < 0.03) ? 0 : self.filter.zAccel
                 
-                print("Filtered Acc X: \(correctedAcc.x)")
-                print("Filtered Acc Y: \(correctedAcc.y)")
-                print("Filtered Acc Z: \(correctedAcc.z)")
-                
                 // Index for acceleration values array
                 self.accelCount = (self.accelCount + 1) % 4
                 
@@ -163,9 +160,8 @@ class NavigationController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        print(sceneView)
-//        sceneView.scene = self.scene
-//        sceneView.pointOfView = self.sceneCamera
+        navigationView.scene = self.scene
+        navigationView.pointOfView = self.scene.rootNode.childNode(withName: "sceneCamera", recursively: true)!
     }
     
     override func viewWillAppear(_ animated: Bool) {
