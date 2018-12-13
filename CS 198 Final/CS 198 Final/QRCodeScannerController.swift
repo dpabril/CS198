@@ -14,6 +14,7 @@ import GRDB
 class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var captureFrame: UIImageView!
     
     var captureSession = AVCaptureSession()
     
@@ -70,7 +71,9 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
         captureSession.startRunning()
         
         // Move the message label and top bar to the front
+        messageLabel.layer.cornerRadius = 5
         view.bringSubviewToFront(messageLabel)
+        view.bringSubviewToFront(captureFrame)
         
         // Initialize QR Code Frame to highlight the QR code
         qrCodeFrameView = UIView()

@@ -163,6 +163,21 @@ class NavigationController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        print(sceneView)
+//        sceneView.scene = self.scene
+//        sceneView.pointOfView = self.sceneCamera
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.startSensors()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.stopSensors()
     }
 }
 

@@ -13,10 +13,11 @@ class IndoorLocationsListController: UITableViewController {
     var roomList : [String] = []
     
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
+        super.viewDidAppear(animated)
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.roomList = (self.tabBarController!.viewControllers![0] as! QRCodeScannerController).rooms
     }
     
@@ -33,4 +34,5 @@ class IndoorLocationsListController: UITableViewController {
         cell.textLabel?.text = roomList[indexPath.row]
         return cell
     }
+
 }
