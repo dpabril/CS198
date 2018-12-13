@@ -9,9 +9,9 @@
 import UIKit
 
 class IndoorLocationsListController: UITableViewController {
-    
-//    var building : String = ""
-//    var floor : Int = 0
+
+    var locs : [IndoorLocation] = []
+    var rooms : [String] = []
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
@@ -19,8 +19,6 @@ class IndoorLocationsListController: UITableViewController {
         let building = (self.tabBarController!.viewControllers![0] as! QRCodeScannerController).qrCodeBuilding
         
         let floor = (self.tabBarController!.viewControllers![0] as! QRCodeScannerController).qrCodeFloorLevel
-        
-        var locs : [IndoorLocation] = []
         
         do {
             try DB.write { db in
@@ -30,14 +28,27 @@ class IndoorLocationsListController: UITableViewController {
             print(error)
         }
     
-        print(locs[0].name)
-        print("DONE")
+        //print(locs[0].name)
+        //print("DONE")
+        
+        rooms = []
+        
+        for loc in locs {
+            rooms.append(loc.name)
+        }
+        print(rooms.count)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-//        self.building = ""
-//        self.floor = 0
-        print("DISAPPEARING")
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return rooms.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RoomList", for: indexPath)
+        print(rooms)
+        cell.textLabel?.text = rooms[indexPath.row]
+        return cell
     }
     
 }
