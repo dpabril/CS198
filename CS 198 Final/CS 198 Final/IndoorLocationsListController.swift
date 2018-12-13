@@ -10,7 +10,7 @@ import UIKit
 
 class IndoorLocationsListController: UITableViewController {
     
-    var roomList : [String] = []
+    var roomList : [IndoorLocation] = []
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -18,7 +18,7 @@ class IndoorLocationsListController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.roomList = (self.tabBarController!.viewControllers![0] as! QRCodeScannerController).rooms
+        self.roomList = (self.tabBarController!.viewControllers![0] as! QRCodeScannerController).locs
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -31,8 +31,15 @@ class IndoorLocationsListController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListRow", for: indexPath)
-        cell.textLabel?.text = roomList[indexPath.row]
+        cell.textLabel?.text = roomList[indexPath.row].name
         return cell
     }
-
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("SELECTED INDEX \(indexPath.row)")
+        print("Room Name: \(roomList[indexPath.row].name )")
+        print("X-Coordinate: \(roomList[indexPath.row].xcoord )")
+        print("Y-Coordinate: \(roomList[indexPath.row].ycoord )")
+        
+    }
 }
