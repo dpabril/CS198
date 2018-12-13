@@ -183,7 +183,7 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
                 }
                 
             } else if metadataObj.stringValue != nil {
-                messageLabel.text = "QR Code detected. Step closer to scan."
+                messageLabel.text = "Step closer to scan QR code"
             }
         }
     }

@@ -27,17 +27,21 @@ Application:
           * Rooms
             * Scene coordinates of location pin marker
       ✔ Design the schema @done (18-12-07 14:28)
-      ☐ Create a Swift class for static query functions to the DB
+      ✔ Create a Swift class for static query functions to the DB @done (18-12-13 19:11)
     ☐ Navigation View
       * Change plane size and material depending on most recently scanned location + relative altitude reading
       ☐ Program scene adjustments
         * Refers to translation of location and user markers
       ☐ Refine filter and movement vector calculation
         * Create a Filter class, with mirror, low-pass, and high-pass options
-      ☐ Replace ARKit with plain SceneKit
+      ✔ Replace ARKit with plain SceneKit @done (18-12-13 19:11)
+
+      Issues:
+        ☐ Fix "Error: Failed to load <image>" @high
+        
     ☐ Indoor Location List View
       ☐ Build query function for acquiring the list
-      ☐ Bind table cells to rows in the database
+      ✔ Bind table cells to rows in the database @done (18-12-13 19:12)
 
   CS 199:
     ☐ Outdoor Nav Subfunction
