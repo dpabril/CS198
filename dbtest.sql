@@ -74,7 +74,7 @@ INSERT INTO Floor VALUES
 INSERT INTO IndoorLocation VALUES
     ("UP AECH", 0, "Engineering Library 2", 0.0, 0.0),
     ("UP AECH", 1, "Serials", 3.0, 6.0),
-    ("UP AECH", 1, "The Learning Commons", 9.0, 12.0),
+    ("UP AECH", 1, "The Learning Commons", 0.184, 0.136),
     ("UP AECH", 2, "Rm 200 Web Science Laboratory", 0.0, 0.0),
     ("UP AECH", 3, "Administration Office", 0.0, 0.0),
     ("UP ITDC", 1, "Rm 101", 0.0, 0.0),

@@ -19,6 +19,8 @@ class IndoorLocationsListController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.roomList = (self.tabBarController!.viewControllers![0] as! QRCodeScannerController).locs
+        self.tableView.reloadData()
+        print(roomList)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
