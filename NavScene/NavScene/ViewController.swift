@@ -253,13 +253,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Set the view's delegate
-        sceneView.delegate = self
-        
-        // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
-        
-        // Set the scene to the view
         sceneView.scene = self.scene
         sceneView.pointOfView = self.sceneCamera
     }
@@ -267,24 +260,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // Create a session configuration
-        let configuration = ARWorldTrackingConfiguration()
-        
-        // Run the view's session
-        sceneView.session.run(configuration)
-        
-        // Activate the device's onboard sensors and start receiving updates
         self.startSensors()
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        // Pause the view's session
-        sceneView.session.pause()
-        
-        // Turn the sensors off and stop receiving updates
         self.stopSensors()
     }
     

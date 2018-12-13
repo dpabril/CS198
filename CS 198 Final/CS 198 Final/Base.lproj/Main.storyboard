@@ -112,7 +112,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="QR" width="14.399999618530273" height="14.399999618530273"/>
+        <image name="QR" width="12" height="12"/>
         <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
     </resources>

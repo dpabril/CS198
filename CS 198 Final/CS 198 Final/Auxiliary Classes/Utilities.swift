@@ -13,6 +13,10 @@ class Utilities {
         return QRMetadata.components(separatedBy: "::")
     }
     
+    static func degToRad(_ degrees : Double) -> Float {
+        return Float(degrees * .pi / 180)
+    }
+    
     static func ordinalize(_ integer : Int) -> String {
         switch integer {
         case 0:
