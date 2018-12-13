@@ -21,8 +21,8 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
     var qrCodeFrameView : UIView?
     var qrCodeFrameThreshold : CGSize?
     
-    var qrCodeBuilding : String = ""
-    var qrCodeFloorLevel : Int = 0
+    var locs : [IndoorLocation] = []
+    var rooms : [String] = []
     
     private let supportedCodeTypes = [AVMetadataObject.ObjectType.qr]
     
@@ -153,8 +153,8 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
             if metadataObj.stringValue != nil && sizePassesThreshold((qrCodeFrameView?.frame.size)!){
                 let qrCodeURL = metadataObj.stringValue!
                 let qrCodeFragments = qrCodeURL.components(separatedBy: "::")
-                self.qrCodeBuilding = qrCodeFragments[0]
-                self.qrCodeFloorLevel = Int(qrCodeFragments[1])!
+                let qrCodeBuilding = qrCodeFragments[0]
+                let qrCodeFloorLevel = Int(qrCodeFragments[1])!
                 let qrCodeFloorPoint = qrCodeFragments[2]
                 
                 var qrTag : QRTag?
@@ -163,8 +163,8 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
                 do {
                     try DB.write { db in
                         qrTag = try QRTag.fetchOne(db, "SELECT * FROM QRTag WHERE url = ?", arguments: [qrCodeURL])
-                        building = try Building.fetchOne(db, "SELECT * FROM Building WHERE alias = ?", arguments: [self.qrCodeBuilding])
-                        floor = try Floor.fetchOne(db, "SELECT * FROM Floor WHERE bldg = ? AND level = ?", arguments: [self.qrCodeBuilding, self.qrCodeFloorLevel])
+                        building = try Building.fetchOne(db, "SELECT * FROM Building WHERE alias = ?", arguments: [qrCodeBuilding])
+                        floor = try Floor.fetchOne(db, "SELECT * FROM Floor WHERE bldg = ? AND level = ?", arguments: [qrCodeBuilding, qrCodeFloorLevel])
                     }
                 } catch {
                     print(error)
@@ -173,6 +173,19 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
                 messageLabel.text = qrCodeURL
                 launchApp(decodedURL: "You are in the \(ordinalize(floor!.level)) Floor of \(building!.name), at Point \(qrCodeFloorPoint) <\(qrTag!.url)>.")
                 
+                do {
+                    try DB.write { db in
+                        locs = try IndoorLocation.fetchAll(db, "SELECT * FROM IndoorLocation WHERE bldg = ? AND level = ?", arguments: [qrCodeBuilding, qrCodeFloorLevel])
+                    }
+                } catch {
+                    print(error)
+                }
+                
+                rooms = []
+                
+                for loc in locs {
+                    rooms.append(loc.name)
+                }
                 
             } else if metadataObj.stringValue != nil {
                 messageLabel.text = "QR Code detected. Step closer to scan."
