@@ -10,34 +10,27 @@ import UIKit
 
 class IndoorLocationsListController: UITableViewController {
     
-//    var building : String = ""
-//    var floor : Int = 0
+    var roomList : [String] = []
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        
-        let building = (self.tabBarController!.viewControllers![0] as! QRCodeScannerController).qrCodeBuilding
-        
-        let floor = (self.tabBarController!.viewControllers![0] as! QRCodeScannerController).qrCodeFloorLevel
-        
-        var locs : [IndoorLocation] = []
-        
-        do {
-            try DB.write { db in
-                locs = try IndoorLocation.fetchAll(db, "SELECT * FROM IndoorLocation WHERE bldg = ? AND level = ?", arguments: [building, floor])
-            }
-        } catch {
-            print(error)
-        }
-    
-        print(locs[0].name)
-        print("DONE")
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-//        self.building = ""
-//        self.floor = 0
-        print("DISAPPEARING")
+    override func viewWillAppear(_ animated: Bool) {
+        self.roomList = (self.tabBarController!.viewControllers![0] as! QRCodeScannerController).rooms
     }
     
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+ 
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection roomtype: Int) -> Int {
+        return roomList.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ListRow", for: indexPath)
+        cell.textLabel?.text = roomList[indexPath.row]
+        return cell
+    }
 }
