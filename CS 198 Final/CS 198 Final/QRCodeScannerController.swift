@@ -92,7 +92,7 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     // MARK: - Helper methods
     
-    func launchApp(decodedURL: String) {
+    func launchNavigator(decodedURL: String) {
         
         if presentedViewController != nil {
             return
@@ -113,25 +113,6 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     func sizePassesThreshold(_ qrCodeFrameSize: CGSize) -> Bool {
         return (qrCodeFrameSize.width >= (qrCodeFrameThreshold?.width)! && qrCodeFrameSize.height >= qrCodeFrameThreshold!.height)
-    }
-    
-    func ordinalize(_ integer: Int) -> String {
-        switch integer {
-        case 0:
-            return "Basement"
-        case 1:
-            return "Ground"
-        case 2:
-            return "2nd"
-        case 3:
-            return "3rd"
-        case 4:
-            return "4th"
-        case 5:
-            return "5th"
-        default:
-            return "Void"
-        }
     }
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
@@ -171,7 +152,7 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
                 }
                 
                 messageLabel.text = qrCodeURL
-                launchApp(decodedURL: "You are in the \(ordinalize(floor!.level)) Floor of \(building!.name), at Point \(qrCodeFloorPoint) <\(qrTag!.url)>.")
+                launchNavigator(decodedURL: "You are in the \(Utilities.ordinalize(floor!.level)) Floor of \(building!.name), at Point \(qrCodeFloorPoint) <\(qrTag!.url)>.")
                 
                 do {
                     try DB.write { db in

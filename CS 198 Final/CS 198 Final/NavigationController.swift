@@ -7,9 +7,14 @@
 //
 
 import UIKit
+import SceneKit
+import CoreMotion
+import CoreLocation
 
-class NavigationController: UIViewController {
+class NavigationController: UIViewController, CLLocationManagerDelegate {
 
+    @IBOutlet var sceneView: SCNView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.

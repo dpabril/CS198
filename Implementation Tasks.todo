@@ -9,6 +9,8 @@ Application:
       ☐ QR Code Scanner
         ✔ Basic QR scanning functionality @done (18-12-06 16:36)
         ✔ Set minimum distance to QR code (arm's length) @done (18-12-07 14:29)
+        ☐ Detect codes that do not exist in the database, and display informative message @high
+          * Prevents application from crashing when fed irrelevant QR codes
         ☐ Keep QR code in center of screen @low
           * This is to keep the user at the desired distance from the QR code image
       ☐ Print QR codes for testing
