@@ -21,6 +21,12 @@ class IndoorLocationsListController: UITableViewController {
         self.roomList = (self.tabBarController!.viewControllers![0] as! QRCodeScannerController).locs
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        self.roomList = []
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
