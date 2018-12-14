@@ -54,5 +54,6 @@ class IndoorLocationsListController: UITableViewController {
         print("Y-Coordinate: \(roomList[indexPath.row].ycoord )")
         self.xCoord = roomList[indexPath.row].xcoord
         self.yCoord = roomList[indexPath.row].ycoord
+        self.tabBarController?.selectedIndex = 1;
     }
 }
