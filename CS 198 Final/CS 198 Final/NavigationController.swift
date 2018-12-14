@@ -35,6 +35,7 @@ class NavigationController: UIViewController, CLLocationManagerDelegate {
     var zAccelZeroCount : Int = 0
     
     // Scene variables
+    var texture = Bundle.main.path(forResource: "1", ofType: "png", inDirectory: "Textures.scnassets/UP AECH")
     var scene = SCNScene(named: "SceneObjects.scnassets/NavigationScene.scn")!
     var sceneCamera = SCNScene(named: "SceneObjects.scnassets/NavigationScene.scn")!.rootNode.childNode(withName: "sceneCamera", recursively: true)!
     

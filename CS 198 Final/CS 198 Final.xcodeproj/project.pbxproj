@@ -28,6 +28,7 @@
 		E5D11D9221BF983F00123FEE /* IndoorLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D11D9121BF983F00123FEE /* IndoorLocation.swift */; };
 		E5D11D9821BFC2EF00123FEE /* navdb.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = E5D11D9721BFC2EF00123FEE /* navdb.sqlite */; };
 		E5D11DAD21BFCE2B00123FEE /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D11DAC21BFCE2B00123FEE /* TabBarController.swift */; };
+		E5D53B3021C369A10033A0A4 /* Textures.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = E5D53B2F21C369A10033A0A4 /* Textures.scnassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,7 +121,6 @@
 /* Begin PBXFileReference section */
 		E509E86C21C0DED6003A5FE3 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		E509E88621C0EE19003A5FE3 /* DBInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBInterface.swift; sourceTree = "<group>"; };
-		E509E89321C0F4CC003A5FE3 /* Textures.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Textures.scnassets; sourceTree = "<group>"; };
 		E509E89521C0F511003A5FE3 /* MirrorFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirrorFilter.swift; sourceTree = "<group>"; };
 		E509E89721C0F51A003A5FE3 /* LowPassFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowPassFilter.swift; sourceTree = "<group>"; };
 		E509E89921C0F523003A5FE3 /* HighPassFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighPassFilter.swift; sourceTree = "<group>"; };
@@ -141,6 +141,7 @@
 		E5D11D9121BF983F00123FEE /* IndoorLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndoorLocation.swift; sourceTree = "<group>"; };
 		E5D11D9721BFC2EF00123FEE /* navdb.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = navdb.sqlite; path = ../../navdb.sqlite; sourceTree = "<group>"; };
 		E5D11DAC21BFCE2B00123FEE /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		E5D53B2F21C369A10033A0A4 /* Textures.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Textures.scnassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,7 +195,7 @@
 				E5D11D2B21BF831400123FEE /* LaunchScreen.storyboard */,
 				E5D11D2921BF831400123FEE /* Assets.xcassets */,
 				E5AE720421C267150010A5BA /* SceneObjects.scnassets */,
-				E509E89321C0F4CC003A5FE3 /* Textures.scnassets */,
+				E5D53B2F21C369A10033A0A4 /* Textures.scnassets */,
 				E5D11D8921BF977600123FEE /* Models */,
 				E509E89421C0F4EB003A5FE3 /* Filters */,
 				E5D11D8A21BF97B900123FEE /* Auxiliary Classes */,
@@ -370,6 +371,7 @@
 				E5D11D2A21BF831400123FEE /* Assets.xcassets in Resources */,
 				E5D11D2821BF831200123FEE /* Main.storyboard in Resources */,
 				E5D11D9821BFC2EF00123FEE /* navdb.sqlite in Resources */,
+				E5D53B3021C369A10033A0A4 /* Textures.scnassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -34,10 +34,10 @@ Application:
         * Refers to translation of location and user markers
       ☐ Refine filter and movement vector calculation
         * Create a Filter class, with mirror, low-pass, and high-pass options
-      ✔ Replace ARKit with plain SceneKit @done (18-12-13 19:11)
+      ✔ Replace ARKit with SceneKit @done (18-12-13 19:11)
 
       Issues:
-        ☐ Fix "Error: Failed to load <image>" @high
+        ✔ Fix "Error: Failed to load <image>" @high @done (18-12-14 12:42) -- tanga lang si Xcode di makita yung folder
         
     ☐ Indoor Location List View
       ☐ Build query function for acquiring the list
