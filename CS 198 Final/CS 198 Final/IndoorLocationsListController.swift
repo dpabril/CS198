@@ -48,6 +48,5 @@ class IndoorLocationsListController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.xCoord = roomList[indexPath.row].xcoord
         self.yCoord = roomList[indexPath.row].ycoord
-        self.tabBarController!.selectedIndex = 1
-    }
+        self.tabBarController!.selectedIndex = 1    }
 }

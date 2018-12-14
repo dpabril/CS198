@@ -35,17 +35,18 @@ CREATE TABLE Floor (
 CREATE TABLE IndoorLocation (
     bldg VARCHAR,
     level INTEGER,
-    name VARCHAR,
+    title VARCHAR,
+    subtitle VARCHAR,
     xcoord REAL NOT NULL,
     ycoord REAL NOT NULL,
-    PRIMARY KEY (bldg, level, name),
+    PRIMARY KEY (bldg, level, title),
     FOREIGN KEY (bldg, level) REFERENCES Floor--(bldg, level)
         ON UPDATE CASCADE
         ON DELETE CASCADE
     );
 
 CREATE UNIQUE INDEX FloorDex ON Floor(bldg, level);
-CREATE UNIQUE INDEX IndoorLocationDex ON IndoorLocation(bldg, level, name);
+CREATE UNIQUE INDEX IndoorLocationDex ON IndoorLocation(bldg, level, title);
 
 INSERT INTO QRTag VALUES
     -- Format: Building::FloorLevel::Point
@@ -70,14 +71,25 @@ INSERT INTO Floor VALUES
     ("UP ITDC", 2, "second_floorplan"),
     ("UP ITDC", 3, "third_floorplan");
 INSERT INTO IndoorLocation VALUES
-    ("UP AECH", 0, "Engineering Library 2", 0.0, 0.0),
-    ("UP AECH", 1, "Serials", -0.117, 0.137),
-    ("UP AECH", 1, "The Learning Commons", 0.126, 0.137),
-    ("UP AECH", 2, "Rm 200 Web Science Laboratory", 0.0, 0.0),
-    ("UP AECH", 3, "Administration Office", 0.0, 0.0),
-    ("UP ITDC", 1, "Rm 101", 0.0, 0.0),
-    ("UP ITDC", 2, "Conference Room", 0.0, 0.0),
-    ("UP ITDC", 3, "Networks and Infrastructure", 0.0, 0.0);
+    ("UP AECH", 0, "Engineering Library 2", "", 0.0, 0.0),
+    ("UP AECH", 1, "Serials Section", "", -0.117, 0.137),
+    ("UP AECH", 1, "The Learning Commons", "TLC", 0.126, 0.137),
+    ("UP AECH", 2, "Rm 200", "Web Science Laboratory", 0.118, -0.08),
+    ("UP AECH", 2, "Rm 211", "Lecture Hall", -0.674, 0.017),
+    ("UP AECH", 2, "Rm 215", "Seminar Room", -0.518, 0.25),
+    ("UP AECH", 2, "Rm 207", "Classroom 1 (CLR 1)", -0.447, 0.132),
+    ("UP AECH", 2, "Rm 203", "Classroom 2 (CLR 2)", -0.282, 0.173),
+    ("UP AECH", 2, "Rm 205", "Teaching Lab 1 (TL1)", -0.367, 0.298),
+    ("UP AECH", 2, "Rm 201", "Web Science Group (WSG)", -0.102, -0.065),
+    ("UP AECH", 2, "Rm 204", "Classroom 3 (CLR 3)", 0.296, 0.313),
+    ("UP AECH", 2, "Rm 202", "ERDT Room", 0.317, 0.141),
+    ("UP AECH", 2, "Rm 212", "Classroom 4 (CLR 4)", 0.428, 0.262),
+    ("UP AECH", 2, "Rm 214", "Teaching Lab 2 (TL2)", 0.687, 0.173),
+    ("UP AECH", 2, "Rm 210", "Teaching Lab 3 (TL3)", 0.642, 0.042),
+    ("UP AECH", 3, "Administration Office", "", 0.0, 0.0),
+    ("UP ITDC", 1, "Rm 101", "", 0.0, 0.0),
+    ("UP ITDC", 2, "Conference Room", "", 0.0, 0.0),
+    ("UP ITDC", 3, "Networks and Infrastructure", "", 0.0, 0.0);
 
 -- Notes:
 --  QRTag is for initialization and localization. URL attribute stores strings of the form

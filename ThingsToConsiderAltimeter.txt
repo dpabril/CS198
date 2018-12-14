@@ -1,0 +1,15 @@
+I. Using altimeter values or not
+A. If we use altimeter
+	i. deal with errors(only shows if stationary for a period of time?)
+	ii. set ranges to detect if user has reached another floor/level (ranges may vary per building)
+	iii. changing of floorplan(how will we implement this?)
+	iv. repositioning of user once the user reaches another floor/level
+	v. where will the initial location of the destination marker be? how will the position change per floor/level?
+	vi. if items i-v are done nicely, ux will be better
+	vii. less qr code, less database entries
+B. If we don't use the altimeter and use qr codes per floor instead
+	i. multiple scans may be done by the user
+	ii. changing of floorplan(may be resolved by scanning a new qr code)
+	iv. repositioning of user once the user reaches another floor/level(may be resolved by scanning a new qr code)
+	v. where will the initial location of the destination marker be? how will the position change per floor/level?
+	vi. poor ux, more qr codes->more database entries, easier implementation?
