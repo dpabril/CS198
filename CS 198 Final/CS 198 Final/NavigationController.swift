@@ -13,7 +13,6 @@ import CoreLocation
 
 class NavigationController: UIViewController, CLLocationManagerDelegate {
     
-    
     @IBOutlet weak var navigationView: SCNView!
     
     // Sensor object variables + Accelerometer noise|spike filter
@@ -37,7 +36,6 @@ class NavigationController: UIViewController, CLLocationManagerDelegate {
     // Scene variables
     // var texture = Bundle.main.path(forResource: "1", ofType: "png", inDirectory: "Textures.scnassets/UP AECH")
     var scene = SCNScene(named: "SceneObjects.scnassets/NavigationScene.scn")!
-    var sceneCamera = SCNScene(named: "SceneObjects.scnassets/NavigationScene.scn")!.rootNode.childNode(withName: "sceneCamera", recursively: true)!
     
     // Magnetometer functions
     func startCompass() {
@@ -168,11 +166,11 @@ class NavigationController: UIViewController, CLLocationManagerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        let sceneFloor = self.scene.rootNode.childNode(withName: "Floor", recursively: true)!
+        sceneFloor.geometry?.firstMaterial?.diffuse.contents = (self.tabBarController!.viewControllers![0] as! QRCodeScannerController).floorPlanTexture
+        
         let xCoord = (self.tabBarController!.viewControllers![2] as! IndoorLocationsListController).xCoord
         let yCoord = (self.tabBarController!.viewControllers![2] as! IndoorLocationsListController).yCoord
-        
-        print(xCoord)
-        print(yCoord)
         
         let pinMarker = self.scene.rootNode.childNode(withName: "LocationPinMarker", recursively: true)!
         pinMarker.position = SCNVector3(xCoord, yCoord, -1.6817374)

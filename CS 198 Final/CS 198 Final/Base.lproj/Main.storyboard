@@ -49,7 +49,6 @@
                     <connections>
                         <outlet property="captureFrame" destination="LZs-2K-3VW" id="Olf-z2-YjI"/>
                         <outlet property="messageLabel" destination="C9E-59-OBD" id="BfN-p2-rfE"/>
-                        <segue destination="SVx-te-jkg" kind="show" identifier="showRoomsOnScan" id="4bN-Ux-siz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -141,7 +140,4 @@
         <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="4bN-Ux-siz"/>
-    </inferredMetricsTieBreakers>
 </document>

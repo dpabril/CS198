@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SceneKit
 import Foundation
 import AVFoundation
 import GRDB
@@ -22,6 +23,7 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
     var qrCodeFrameView : UIView?
     var qrCodeFrameThreshold : CGSize?
     
+    var floorPlanTexture : UIImage!
     var locs : [IndoorLocation] = []
     var rooms : [String] = []
     
@@ -117,6 +119,7 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
         let confirmAction = UIAlertAction(title: "Navigate!", style: UIAlertAction.Style.default, handler: { (action) -> Void in
             self.tabBarController!.tabBar.items![1].isEnabled = true
             self.tabBarController!.tabBar.items![2].isEnabled = true
+            self.tabBarController!.selectedIndex = 2
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
         
@@ -171,8 +174,8 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
                 
                 do {
                     try DB.write { db in
-                        // locs = try IndoorLocation.fetchAll(db, "SELECT * FROM IndoorLocation WHERE bldg = ? AND level = ?", arguments: [qrCodeBuilding, qrCodeFloorLevel])
-                        locs = try IndoorLocation.fetchAll(db, "SELECT * FROM IndoorLocation WHERE bldg = ?", arguments: [qrCodeBuilding])
+                        locs = try IndoorLocation.fetchAll(db, "SELECT * FROM IndoorLocation WHERE bldg = ? AND level = ?", arguments: [qrCodeBuilding, qrCodeFloorLevel])
+                        // locs = try IndoorLocation.fetchAll(db, "SELECT * FROM IndoorLocation WHERE bldg = ?", arguments: [qrCodeBuilding])
                     }
                 } catch {
                     print(error)
@@ -183,6 +186,9 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
                 for loc in locs {
                     rooms.append(loc.name)
                 }
+                
+                let imagePath = Bundle.main.path(forResource: String(qrCodeFloorLevel), ofType: "png", inDirectory: "Textures.scnassets/UP AECH")!
+                floorPlanTexture = UIImage(named: imagePath)!
                 
             } else if metadataObj.stringValue != nil {
                 messageLabel.text = "Step closer to scan QR code"

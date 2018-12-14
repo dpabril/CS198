@@ -15,7 +15,6 @@ class IndoorLocationsListController: UITableViewController {
     var xCoord : Double = 0
     var yCoord : Double = 0
     
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
@@ -30,7 +29,6 @@ class IndoorLocationsListController: UITableViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        self.roomList = []
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -48,11 +46,8 @@ class IndoorLocationsListController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("SELECTED INDEX \(indexPath.row)")
-        print("Room Name: \(roomList[indexPath.row].name )")
-        print("X-Coordinate: \(roomList[indexPath.row].xcoord )")
-        print("Y-Coordinate: \(roomList[indexPath.row].ycoord )")
         self.xCoord = roomList[indexPath.row].xcoord
         self.yCoord = roomList[indexPath.row].ycoord
+        self.tabBarController!.selectedIndex = 1
     }
 }

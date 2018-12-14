@@ -14,8 +14,10 @@ Application:
         ☐ Keep QR code in center of screen @low
           * This is to keep the user at the desired distance from the QR code image
       ☐ Print QR codes for testing
+      ☐ Add Boolean variable for determining whether this is the first scan or not @low
+      ☐ Move list setting and texture changing logic to launchNavigator() @low
 
-    ☐ SQLite Database
+    ✔ SQLite Database @done (18-12-14 18:07)
      _Stores:_
       * QR code information
       * Location information
@@ -30,7 +32,7 @@ Application:
       ✔ Create a Swift class for static query functions to the DB @done (18-12-13 19:11)
     ☐ Navigation View
       * Change plane size and material depending on most recently scanned location + relative altitude reading
-      ☐ Program scene adjustments
+      ✔ Program scene adjustments @done (18-12-14 18:07)
         * Refers to translation of location and user markers
       ☐ Refine filter and movement vector calculation
         * Create a Filter class, with mirror, low-pass, and high-pass options
@@ -40,8 +42,9 @@ Application:
         ✔ Fix "Error: Failed to load <image>" @high @done (18-12-14 12:42) -- tanga lang si Xcode di makita yung folder
         
     ☐ Indoor Location List View
-      ☐ Build query function for acquiring the list
+      ✔ Build query function for acquiring the list @done (18-12-14 18:07)
       ✔ Bind table cells to rows in the database @done (18-12-13 19:12)
+      ☐ Table cell subtitles @low
 
   CS 199:
     ☐ Outdoor Nav Subfunction
