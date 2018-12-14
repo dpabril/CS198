@@ -49,6 +49,7 @@
                     <connections>
                         <outlet property="captureFrame" destination="LZs-2K-3VW" id="Olf-z2-YjI"/>
                         <outlet property="messageLabel" destination="C9E-59-OBD" id="BfN-p2-rfE"/>
+                        <segue destination="SVx-te-jkg" kind="show" identifier="showRoomsOnScan" id="4bN-Ux-siz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -63,7 +64,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zmk-b7-6bY">
+                            <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" allowsCameraControl="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zmk-b7-6bY">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </sceneKitView>
                         </subviews>
@@ -83,7 +84,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2.3999999999999999" y="809.14542728635683"/>
+            <point key="canvasLocation" x="-2" y="1209"/>
         </scene>
         <!--Indoor Location List-->
         <scene sceneID="E0m-dQ-GUd">
@@ -140,4 +141,7 @@
         <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="4bN-Ux-siz"/>
+    </inferredMetricsTieBreakers>
 </document>

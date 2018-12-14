@@ -12,6 +12,10 @@ class IndoorLocationsListController: UITableViewController {
     
     var roomList : [IndoorLocation] = []
     
+    var xCoord : Double = 0
+    var yCoord : Double = 0
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
@@ -19,6 +23,8 @@ class IndoorLocationsListController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.roomList = (self.tabBarController!.viewControllers![0] as! QRCodeScannerController).locs
+        self.tableView.reloadData()
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -30,7 +36,7 @@ class IndoorLocationsListController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
- 
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection roomtype: Int) -> Int {
         return roomList.count
     }
@@ -46,6 +52,7 @@ class IndoorLocationsListController: UITableViewController {
         print("Room Name: \(roomList[indexPath.row].name )")
         print("X-Coordinate: \(roomList[indexPath.row].xcoord )")
         print("Y-Coordinate: \(roomList[indexPath.row].ycoord )")
-        
+        self.xCoord = roomList[indexPath.row].xcoord
+        self.yCoord = roomList[indexPath.row].ycoord
     }
 }

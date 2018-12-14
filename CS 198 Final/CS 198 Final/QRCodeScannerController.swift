@@ -93,6 +93,7 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
         
         captureSession.startRunning()
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -170,7 +171,8 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
                 
                 do {
                     try DB.write { db in
-                        locs = try IndoorLocation.fetchAll(db, "SELECT * FROM IndoorLocation WHERE bldg = ? AND level = ?", arguments: [qrCodeBuilding, qrCodeFloorLevel])
+                        // locs = try IndoorLocation.fetchAll(db, "SELECT * FROM IndoorLocation WHERE bldg = ? AND level = ?", arguments: [qrCodeBuilding, qrCodeFloorLevel])
+                        locs = try IndoorLocation.fetchAll(db, "SELECT * FROM IndoorLocation WHERE bldg = ?", arguments: [qrCodeBuilding])
                     }
                 } catch {
                     print(error)
@@ -194,5 +196,3 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
 fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
     return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }
-
-

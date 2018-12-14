@@ -12,7 +12,7 @@ import CoreMotion
 import CoreLocation
 
 class NavigationController: UIViewController, CLLocationManagerDelegate {
-
+    
     
     @IBOutlet weak var navigationView: SCNView!
     
@@ -35,9 +35,7 @@ class NavigationController: UIViewController, CLLocationManagerDelegate {
     var zAccelZeroCount : Int = 0
     
     // Scene variables
-    // var texture1 = Bundle.main.path(forResource: "1", ofType: "png", inDirectory: "Textures.scnassets/UP AECH")
-    // var texture2 = Bundle.main.path(forResource: "2", ofType: "png", inDirectory: "Textures.scnassets/UP AECH")
-    // var texture3 = Bundle.main.path(forResource: "3", ofType: "png", inDirectory: "Textures.scnassets/UP AECH")
+    // var texture = Bundle.main.path(forResource: "1", ofType: "png", inDirectory: "Textures.scnassets/UP AECH")
     var scene = SCNScene(named: "SceneObjects.scnassets/NavigationScene.scn")!
     var sceneCamera = SCNScene(named: "SceneObjects.scnassets/NavigationScene.scn")!.rootNode.childNode(withName: "sceneCamera", recursively: true)!
     
@@ -60,7 +58,6 @@ class NavigationController: UIViewController, CLLocationManagerDelegate {
     func stopCompass() {
         if CLLocationManager.headingAvailable() {
             self.compassManager.stopUpdatingHeading()
-            print("Compass is now stopped.")
         }
     }
     
@@ -78,7 +75,6 @@ class NavigationController: UIViewController, CLLocationManagerDelegate {
     func stopAltimeter() {
         if (CMAltimeter.isRelativeAltitudeAvailable()) {
             self.altimeter.stopRelativeAltitudeUpdates()
-            print("Altimeter is now stopped.")
         }
     }
     
@@ -145,7 +141,6 @@ class NavigationController: UIViewController, CLLocationManagerDelegate {
     func stopDeviceMotionManager () {
         if (self.deviceMotionManager.isDeviceMotionAvailable) {
             self.deviceMotionManager.stopDeviceMotionUpdates()
-            print("Accelerometer and gyroscope are now stopped.")
         }
     }
     
@@ -172,6 +167,15 @@ class NavigationController: UIViewController, CLLocationManagerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        let xCoord = (self.tabBarController!.viewControllers![2] as! IndoorLocationsListController).xCoord
+        let yCoord = (self.tabBarController!.viewControllers![2] as! IndoorLocationsListController).yCoord
+        
+        print(xCoord)
+        print(yCoord)
+        
+        let pinMarker = self.scene.rootNode.childNode(withName: "LocationPinMarker", recursively: true)!
+        pinMarker.position = SCNVector3(xCoord, yCoord, -1.6817374)
         
         self.startSensors()
     }
