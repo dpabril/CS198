@@ -11,6 +11,8 @@ import UIKit
 class IndoorLocationsListController: UITableViewController {
     
     var roomList : [IndoorLocation] = []
+    var xCoord : Double = 0
+    var yCoord : Double = 0
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -47,6 +49,7 @@ class IndoorLocationsListController: UITableViewController {
         print("Room Name: \(roomList[indexPath.row].name )")
         print("X-Coordinate: \(roomList[indexPath.row].xcoord )")
         print("Y-Coordinate: \(roomList[indexPath.row].ycoord )")
-        
+        self.xCoord = roomList[indexPath.row].xcoord
+        self.yCoord = roomList[indexPath.row].ycoord
     }
 }

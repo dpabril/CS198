@@ -168,6 +168,15 @@ class NavigationController: UIViewController, CLLocationManagerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        let xCoord = (self.tabBarController!.viewControllers![2] as! IndoorLocationsListController).xCoord
+        let yCoord = (self.tabBarController!.viewControllers![2] as! IndoorLocationsListController).yCoord
+        
+        print(xCoord)
+        print(yCoord)
+        
+        let pinMarker = self.scene.rootNode.childNode(withName: "LocationPinMarker", recursively: true)!
+        pinMarker.position = SCNVector3(xCoord, yCoord, -1.6817374)
+        
         self.startSensors()
     }
     
