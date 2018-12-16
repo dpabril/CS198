@@ -1,0 +1,24 @@
+func startAltimeter() {
+        if (CMAltimeter.isRelativeAltitudeAvailable()) {
+            print("Altimeter is now active.")
+            self.altimeter.startRelativeAltitudeUpdates(to: OperationQueue.main, withHandler: { (altitudeData:CMAltitudeData?, error:Error?) in
+                if (error != nil) {
+                    //                    self.stopAltimeter()
+                } else {
+                    if (altitudeData >= bldg.delta) {
+                        if (currentFloor < bldg.floors) {
+                            currentFloor += 1
+                            userWentOneFloorUp()
+                        }
+                        self.resetAltimeter()
+                    } else if (altitudeData <= -bldg.delta) {
+                        if (currentFloor > bldg.minFloor) {
+                            currentFloor -= 1
+                            userWentOneFloorDown()
+                        }
+                        self.resetAltimeter()
+                    }
+                }
+            })
+        }
+    }
