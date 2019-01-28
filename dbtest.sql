@@ -86,7 +86,7 @@ INSERT INTO IndoorLocation VALUES
     ("UP AECH", 2, "Rm 212", "Classroom 4 (CLR 4)", 0.428, 0.262),
     ("UP AECH", 2, "Rm 214", "Teaching Lab 2 (TL2)", 0.687, 0.173),
     ("UP AECH", 2, "Rm 210", "Teaching Lab 3 (TL3)", 0.642, 0.042),
-    ("UP AECH", 3, "Administration Office", "", 0.0, 0.0),
+    ("UP AECH", 3, "Rm 300", "Administration Office", 0.0, 0.0),
     ("UP ITDC", 1, "Rm 101", "", 0.0, 0.0),
     ("UP ITDC", 2, "Conference Room", "", 0.0, 0.0),
     ("UP ITDC", 3, "Networks and Infrastructure", "", 0.0, 0.0);
