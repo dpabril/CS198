@@ -1,36 +1,36 @@
-class PreparedStatements {
-    static var selectQRTag = """
+class Queries {
+    static let selectQRTag = """
         SELECT *
         FROM QRTag
         WHERE url = ?
         """
 
-    static var selectBuilding = """
+    static let selectBuilding = """
         SELECT *
         FROM Building
         WHERE alias = ?
         """
 
-    // CS 199, for GPS maybe?
-    static var selectAllBuildings = """
+    // For GPS, CS 199, maybe?
+    static let selectAllBuildings = """
         SELECT *
         FROM Building
         """
 
-    static var selectFloor = """
+    static let selectFloor = """
         SELECT *
         FROM Floor
         WHERE bldg = ?
           AND level = ?
         """
 
-    static var selectFloors = """
+    static let selectFloors = """
         SELECT *
         FROM Floor
         WHERE bldg = ?
         """
 
-    static var selectIndoorLocation = """
+    static let selectIndoorLocation = """
         SELECT *
         FROM IndoorLocation
         WHERE bldg = ?
@@ -38,7 +38,7 @@ class PreparedStatements {
           AND name = ?
         """
 
-    static var selectIndoorLocations = """
+    static let selectIndoorLocations = """
         SELECT *
         FROM IndoorLocation
         WHERE bldg = ?
