@@ -174,8 +174,8 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
                 
                 do {
                     try DB.write { db in
-                        locs = try IndoorLocation.fetchAll(db, "SELECT * FROM IndoorLocation WHERE bldg = ? AND level = ?", arguments: [qrCodeBuilding, qrCodeFloorLevel])
-                        // locs = try IndoorLocation.fetchAll(db, "SELECT * FROM IndoorLocation WHERE bldg = ?", arguments: [qrCodeBuilding])
+                        locs = try IndoorLocation.fetchAll(db, "SELECT * FROM IndoorLocation WHERE bldg = ?", arguments: [qrCodeBuilding])
+                        print("OP 3 SUCCESS")
                     }
                 } catch {
                     print(error)
@@ -184,7 +184,7 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
                 rooms = []
                 
                 for loc in locs {
-                    rooms.append(loc.name)
+                    rooms.append(loc.title)
                 }
                 
                 let imagePath = Bundle.main.path(forResource: String(qrCodeFloorLevel), ofType: "png", inDirectory: "Textures.scnassets/UP AECH")!

@@ -41,12 +41,13 @@ class IndoorLocationsListController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListRow", for: indexPath)
-        cell.textLabel?.text = roomList[indexPath.row].name
+        cell.textLabel?.text = roomList[indexPath.row].title
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.xCoord = roomList[indexPath.row].xcoord
         self.yCoord = roomList[indexPath.row].ycoord
-        self.tabBarController!.selectedIndex = 1    }
+        self.tabBarController!.selectedIndex = 1
+    }
 }
