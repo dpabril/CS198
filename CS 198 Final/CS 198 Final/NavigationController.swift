@@ -14,7 +14,7 @@ import CoreLocation
 class NavigationController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var navigationView: SCNView!
-    @IBOutlet weak var altLabel: UILabel
+    // @IBOutlet weak var altLabel: UILabel!
     // Sensor object variables + Accelerometer noise|spike filter
     lazy var compassManager = CLLocationManager()
     lazy var altimeter = CMAltimeter()
@@ -65,10 +65,10 @@ class NavigationController: UIViewController, CLLocationManagerDelegate {
             print("Altimeter is now active.")
             self.altimeter.startRelativeAltitudeUpdates(to: OperationQueue.main, withHandler: { (altitudeData:CMAltitudeData?, error:Error?) in
                 if (error != nil) {
-                    //                    self.stopAltimeter()
+                    // self.stopAltimeter()
                 } else {
-                    let altitude = altitudeData!.relativeAltitude.floatValue
-                    self.altLabel.text = String(format: "Rel. alt.: %.02f", altitude)
+                    // let altitude = altitudeData!.relativeAltitude.floatValue
+                    // self.altLabel.text = String(format: "Rel. alt.: %.02f", altitude)
                 }
             })
         }

@@ -66,15 +66,39 @@ class NavigationController: UIViewController, CLLocationManagerDelegate {
         if (CMAltimeter.isRelativeAltitudeAvailable()) {
             print("Altimeter is now active.")
             self.altimeter.startRelativeAltitudeUpdates(to: OperationQueue.main, withHandler: { (altitudeData:CMAltitudeData?, error:Error?) in
-                
                 let altitude = altitudeData!.relativeAltitude.floatValue
-                
                 var level = 0
-                
                 if (error != nil) {
-                    //                    self.stopAltimeter()
+                    self.stopAltimeter()
                 } else {
                     self.altLabel.text = String(format: "Rel. alt.: %.02f", altitude)
+                    // if (altitudeData >= currentBuilding.delta) {
+                    //     if (currentBuilding.hasLowerGroundFloor == true) {
+                    //         if (currentFloor < currentBuilding.floors - 1) {
+                    //             currentFloor += 1
+                    //             // call function to redraw image on plane in 3D scene
+                    //         }
+                    //     } else {
+                    //         if (currentFloor < currentBuilding.floors) {
+                    //             currentFloor += 1
+                    //             // call function to redraw image on plane in 3D scene
+                    //         }
+                    //     }
+                    //     self.resetAltimeter()
+                    // } else if (altitudeData <= -currentBuilding.delta) {
+                    //     if (currentBuilding.hasLowerGroundFloor == true) {
+                    //         if (currentFloor > 0) {
+                    //             currentFloor -= 1
+                    //             // call function to redraw image on plane in 3D scene
+                    //         }
+                    //     } else {
+                    //         if (currentFloor > 1) {
+                    //             currentFloor -= 1
+                    //             // call function to redraw image on plane in 3D scene
+                    //         }
+                    //     }
+                    //     self.resetAltimeter()
+                    // }
                 }
                 level = Int(altitude / 2.0)
                 self.levelLabel.text = String(format: "Level: %d", level)
@@ -86,6 +110,12 @@ class NavigationController: UIViewController, CLLocationManagerDelegate {
             self.altimeter.stopRelativeAltitudeUpdates()
         }
     }
+    // <NEW>
+    func resetAltimeter () {
+        self.stopAltimeter()
+        self.startAltimeter()
+    }
+    // </NEW>
     
     // Device Motion Manager functions
     func startDeviceMotionManager () {

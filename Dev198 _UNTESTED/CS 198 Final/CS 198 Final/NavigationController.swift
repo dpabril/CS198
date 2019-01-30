@@ -73,10 +73,12 @@ class NavigationController: UIViewController, CLLocationManagerDelegate {
                             if (currentFloor < currentBuilding.floors - 1) {
                                 currentFloor += 1
                                 // call function to redraw image on plane in 3D scene
+                            }
                         } else {
                             if (currentFloor < currentBuilding.floors) {
                                 currentFloor += 1
                                 // call function to redraw image on plane in 3D scene
+                            }
                         }
                         self.resetAltimeter()
                     } else if (altitudeData <= -currentBuilding.delta) {
@@ -84,10 +86,12 @@ class NavigationController: UIViewController, CLLocationManagerDelegate {
                             if (currentFloor > 0) {
                                 currentFloor -= 1
                                 // call function to redraw image on plane in 3D scene
+                            }
                         } else {
                             if (currentFloor > 1) {
                                 currentFloor -= 1
                                 // call function to redraw image on plane in 3D scene
+                            }
                         }
                         self.resetAltimeter()
                     }

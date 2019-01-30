@@ -11,6 +11,7 @@ Application:
         ✔ Set minimum distance to QR code (arm's length) @done (18-12-07 14:29)
         ☐ Detect codes that do not exist in the database, and display informative message @high
           * Prevents application from crashing when fed irrelevant QR codes
+          * ? Use RegEx for determining if code data matches expected those of expected input
         ☐ Keep QR code in center of screen @low
           * This is to keep the user at the desired distance from the QR code image
           * UIKit -> CGRect -> contains(_ rect2 : CGRect)
