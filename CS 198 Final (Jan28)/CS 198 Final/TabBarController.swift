@@ -15,6 +15,7 @@ class TabBarController : UITabBarController, UITabBarControllerDelegate {
         self.tabBar.items![2].isEnabled = false
     }
     
+    // <NEW>
     // override func tabBarController(_ tabBarController : UITabBarController, shouldSelect viewController : UIViewController) -> {
     //     switchTab(tabBarController: tabBarController, to: viewController)
     //     return true
@@ -25,5 +26,6 @@ class TabBarController : UITabBarController, UITabBarControllerDelegate {
     //     let targetView : UIView = viewController.view
     //     UIView.transition(from: currentView, to: targetView, duration: 0.3, options: [.curveEaseOut], completion: nil)
     // }
+    // </NEW>
     
 }

@@ -7,16 +7,22 @@
 //
 
 import UIKit
+import GRDB
 
 class IndoorLocationsListController: UITableViewController {
     
     var roomList : [IndoorLocation] = []
     // <NEW>
-    // var currentBuilding : Building?
+    var roomListIndex : Int = 0
+    var currentBuilding : Building!
     // </NEW>
     
     var xCoord : Double = 0
     var yCoord : Double = 0
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -24,6 +30,7 @@ class IndoorLocationsListController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.currentBuilding = (self.tabBarController!.viewControllers![0] as! QRCodeScannerController).currentBuilding
         self.roomList = (self.tabBarController!.viewControllers![0] as! QRCodeScannerController).locs
         self.tableView.reloadData()
         
@@ -35,73 +42,79 @@ class IndoorLocationsListController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        // return 1
         // <NEW>
-        // return (currentBuilding?.floors)!
-        // </NEW>
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection roomtype: Int) -> Int {
-        return roomList.count
-        // <NEW>
-        // do {
-        //     var locsCountInFloor : Int
-        //     try DB.write { db in
-        //         if currentBuilding.hasLowerGroundFloor == true {
-        //             locsCountInFloor = IndoorLocation.filter(bldg == currentBuilding && level == floorNumber).fetchCount(db)
-        //         } else {
-        //             locsCountInFloor = IndoorLocation.filter(bldg == currentBuilding && level == floorNumber + 1).fetchCount(db)
-        //         }
-        //         return locsCountInFloor
-        //     }
-        // } catch {
-        //     return 0
-        // }
+        return (self.tabBarController!.viewControllers![0] as! QRCodeScannerController).currentBuilding.floors
         // </NEW>
     }
     
     // <NEW>
-    // override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    //     if (currentBuilding.hasLowerGroundFloor == true) {
-    //         switch section {
-    //         case 0:
-    //             return "Lower Ground Floor"
-    //         case 1:
-    //             return "Upper Ground Floor"
-    //         case 2:
-    //             return "Second Floor"
-    //         case 3:
-    //             return "Third Floor"
-    //         case 4:
-    //             return "Fourth Floor"
-    //         case 5:
-    //             return "Fifth Floor"
-    //         }
-    //     } else {
-    //         switch section {
-    //         case 0:
-    //             return "Ground Floor"
-    //         case 1:
-    //             return "Second Floor"
-    //         case 2:
-    //             return "Thirds Floor"
-    //         case 3:
-    //             return "Fourth Floor"
-    //         case 4:
-    //             return "Fifth Floor"
-    //         case 5:
-    //             return "Sixth Floor"
-    //         }
-    //     }
-    // }
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if (self.currentBuilding.hasLGF == true) {
+            switch section {
+            case 0:
+                return "Lower Ground Floor"
+            case 1:
+                return "Upper Ground Floor"
+            case 2:
+                return "Second Floor"
+            case 3:
+                return "Third Floor"
+            case 4:
+                return "Fourth Floor"
+            case 5:
+                return "Fifth Floor"
+            default:
+                return "Secret Floor"
+            }
+        } else {
+            switch section {
+            case 0:
+                return "Ground Floor"
+            case 1:
+                return "Second Floor"
+            case 2:
+                return "Thirds Floor"
+            case 3:
+                return "Fourth Floor"
+            case 4:
+                return "Fifth Floor"
+            case 5:
+                return "Sixth Floor"
+            default:
+                return "Secret Floor"
+            }
+        }
+    }
     // </NEW>
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection floor: Int) -> Int {
+        // return roomList.count
+        // <NEW>
+        var locsCountInFloor : Int = 0
+        do {
+            try DB.write { db in
+                if (self.currentBuilding!.hasLGF == true) {
+                    locsCountInFloor = try IndoorLocation.filter(Column("bldg") == self.currentBuilding.alias && Column("level") == floor).fetchCount(db)
+                } else {
+                    locsCountInFloor = try IndoorLocation.filter(Column("bldg") == self.currentBuilding.alias && Column("level") == floor + 1).fetchCount(db)
+                }
+            }
+        } catch {
+            print(error)
+        }
+        return locsCountInFloor
+        // </NEW>
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListRow", for: indexPath)
         cell.textLabel?.text = roomList[indexPath.row].title
         // <NEW>
         // set cell type to 'subtitle' in Interface Builder
-        // cell.detailTextLabel?.text = roomList[indexPath.row].subtitle
+        cell.detailTextLabel?.text = roomList[indexPath.row].subtitle
+//        self.roomListIndex += 1
+        print(indexPath.row)
         // </NEW>
         return cell
     }
@@ -114,4 +127,5 @@ class IndoorLocationsListController: UITableViewController {
         // </NEW>
         self.tabBarController!.selectedIndex = 1
     }
+
 }

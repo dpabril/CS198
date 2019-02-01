@@ -24,8 +24,9 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
     var qrCodeFrameThreshold : CGSize?
     
     var floorPlanTexture : UIImage!
+    var currentBuilding : Building!
     var locs : [IndoorLocation] = []
-    var rooms : [String] = []
+    var rooms : [[String]] = []
     
     private let supportedCodeTypes = [AVMetadataObject.ObjectType.qr]
     
@@ -109,7 +110,7 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     // MARK: - Helper methods
     
-    func launchNavigator(decodedURL: String) {
+    func launchNavigator(rawURL: String, decodedURL: String) {
         
         if presentedViewController != nil {
             return
@@ -117,6 +118,18 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
         
         let alertPrompt = UIAlertController(title: "Localization successful.", message: decodedURL, preferredStyle: .actionSheet)
         let confirmAction = UIAlertAction(title: "Navigate!", style: UIAlertAction.Style.default, handler: { (action) -> Void in
+            //self.currentBuilding = navBuilding
+            let rawURLFragments = rawURL.components(separatedBy: "::")
+            let rawURLBuilding = rawURLFragments[0]
+            do {
+                try DB.write { db in
+                    self.currentBuilding = try Building.fetchOne(db, "SELECT * FROM Building WHERE alias = ?", arguments: [rawURLBuilding])
+                    print(self.currentBuilding.name)
+                }
+            } catch {
+                print(error)
+            }
+            
             self.tabBarController!.tabBar.items![1].isEnabled = true
             self.tabBarController!.tabBar.items![2].isEnabled = true
             self.tabBarController!.selectedIndex = 2
@@ -170,12 +183,13 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
                 }
                 
                 messageLabel.text = qrCodeURL
-                launchNavigator(decodedURL: "You are in the \(Utilities.ordinalize(floor!.level)) Floor of \(building!.name), at Point \(qrCodeFloorPoint) <\(qrTag!.url)>.")
+                launchNavigator(rawURL: qrCodeURL, decodedURL: "You are in the \(Utilities.ordinalize(floor!.level)) Floor of \(building!.name), at Point \(qrCodeFloorPoint) <\(qrTag!.url)>.")
                 
                 do {
                     try DB.write { db in
-                        locs = try IndoorLocation.fetchAll(db, "SELECT * FROM IndoorLocation WHERE bldg = ?", arguments: [qrCodeBuilding])
-                        print("OP 3 SUCCESS")
+                        let request = IndoorLocation.order(Column("level"), Column("title")).filter(Column("bldg") == qrCodeBuilding)
+                        locs = try request.fetchAll(db)
+//                        fetchAll(db, "SELECT * FROM IndoorLocation WHERE bldg = ?", arguments: [qrCodeBuilding])
                     }
                 } catch {
                     print(error)
@@ -183,6 +197,12 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
                 
                 rooms = []
                 
+                for i in 1...building!.floors {
+                    floorLocs = []
+                    for loc in locs {
+                        if loc.
+                    }
+                }
                 for loc in locs {
                     rooms.append(loc.title)
                 }

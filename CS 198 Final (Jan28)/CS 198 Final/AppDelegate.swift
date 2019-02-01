@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func connectToDB() throws -> DatabaseQueue {
         let dbPath = (Bundle.main.path(forResource: "navdb", ofType: "sqlite"))!
         let db = try DatabaseQueue(path: dbPath)
-        return (db)
+        return db
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {

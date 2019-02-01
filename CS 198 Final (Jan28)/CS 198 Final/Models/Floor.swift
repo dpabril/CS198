@@ -11,12 +11,10 @@ import GRDB
 class Floor : Record {
     var bldg : String
     var level : Int
-    var plan : String
     
-    init(bldg: String, level: Int, plan: String) {
+    init(bldg: String, level: Int) {
         self.bldg = bldg
         self.level = level
-        self.plan = plan
         super.init()
     }
     
@@ -25,19 +23,17 @@ class Floor : Record {
     }
     
     enum Columns : String, ColumnExpression {
-        case bldg, level, plan
+        case bldg, level
     }
     
     required init(row: Row) {
         bldg = row[Columns.bldg]
         level = row[Columns.level]
-        plan = row[Columns.plan]
         super.init(row: row)
     }
     
     override func encode(to container: inout PersistenceContainer) {
         container[Columns.bldg] = bldg
         container[Columns.level] = level
-        container[Columns.plan] = plan
     }
 }

@@ -4,8 +4,6 @@ DROP TABLE IF EXISTS QRTag;
 DROP TABLE IF EXISTS Building;
 DROP TABLE IF EXISTS Floor;
 DROP TABLE IF EXISTS IndoorLocation;
-DROP INDEX IF EXISTS FloorDex;
-DROP INDEX IF EXISTS IndoorLocationDex;
 
 CREATE TABLE QRTag (
     url VARCHAR,
@@ -44,9 +42,6 @@ CREATE TABLE IndoorLocation (
         ON UPDATE CASCADE
         ON DELETE CASCADE
     );
-
-CREATE UNIQUE INDEX FloorDex ON Floor(bldg, level);
-CREATE UNIQUE INDEX IndoorLocationDex ON IndoorLocation(bldg, level, title);
 
 INSERT INTO QRTag VALUES
     -- Format: Building::FloorLevel::Point

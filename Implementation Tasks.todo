@@ -33,6 +33,7 @@ Application:
             * Scene coordinates of location pin marker
       ✔ Design the schema @done (18-12-07 14:28)
       ✔ Create a Swift class for static query functions to the DB @done (18-12-13 19:11)
+      ☐ Readjust floor levels; 1 is the starting level for all
     ☐ Navigation View
       * Change plane size and material depending on most recently scanned location + relative altitude reading
       ☐ Program scene adjustments
@@ -63,6 +64,7 @@ Application:
         * Embed table view controller in navigation view controller
       ☐ Table cell subtitles @low
         * set cell type to 'subtitle' in Interface Builder
+      ☐ use indexPath.section along with indexPath.row to fix some issues
 
       Issues:
         ✔ Fix "Error: Failed to load <image>" @high @done (18-12-14 12:42) -- tanga lang si Xcode di makita yung folder
