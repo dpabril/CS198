@@ -1,7 +1,7 @@
 CS 198/199 Implementation Tasks
 
 Application:
-  CS 198:
+  CS 199:
     ☐ QR Code Method
       * Scanning QR codes instead of images solves the issue of unreliability thanks to varying lighting conditions
       * This is also a good solution for relocalization by placing QR codes in the areas covered by the application
@@ -34,6 +34,7 @@ Application:
       ✔ Design the schema @done (18-12-07 14:28)
       ✔ Create a Swift class for static query functions to the DB @done (18-12-13 19:11)
       ☐ Readjust floor levels; 1 is the starting level for all
+
     ☐ Navigation View
       * Change plane size and material depending on most recently scanned location + relative altitude reading
       ☐ Program scene adjustments
@@ -53,6 +54,7 @@ Application:
         ✔ * Create a Filter class, with mirror, low-pass, and high-pass options @done (18-12-16 17:52)
       ✔ Replace ARKit with SceneKit @done (18-12-13 19:11)
       ☐ Allow map panning
+
     ☐ Indoor Location List View
       ✔ Build query function for acquiring the list @done (18-12-14 18:07)
       ✔ Bind table cells to rows in the database @done (18-12-13 19:12)
@@ -66,13 +68,16 @@ Application:
         * set cell type to 'subtitle' in Interface Builder
       ☐ use indexPath.section along with indexPath.row to fix some issues
 
-      Issues:
-        ✔ Fix "Error: Failed to load <image>" @high @done (18-12-14 12:42) -- tanga lang si Xcode di makita yung folder
+    ☐ Application structure
+      ☐ Create a struct / class for variables / objects shared between controllers
+
+    Issues:
+      ✔ Fix "Error: Failed to load <image>" @high @done (18-12-14 12:42) -- tanga lang si Xcode di makita yung folder
         
 
-  CS 199:
+  CS 199 Nice-to-haves:
     ☐ Outdoor Nav Subfunction
       ☐ Integrate into app using MapKit
 Paper:
   ☐ Write the paper, bois
-    ☐ Include cool af diagram for data flow / high-level concept
+    ☐ Include diagram for data flow / high-level concept ?

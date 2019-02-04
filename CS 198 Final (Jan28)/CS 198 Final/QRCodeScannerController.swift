@@ -124,7 +124,7 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
             do {
                 try DB.write { db in
                     self.currentBuilding = try Building.fetchOne(db, "SELECT * FROM Building WHERE alias = ?", arguments: [rawURLBuilding])
-                    print(self.currentBuilding.name)
+                    // print(self.currentBuilding.name)
                 }
             } catch {
                 print(error)
@@ -197,21 +197,29 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
                 
                 rooms = []
                 
-                for i in 1...building!.floors {
+                // <NEW>
+                for floor in 1...building!.floors {
                     floorLocs = []
                     for loc in locs {
-                        if loc.
+                        if loc.level == floor {
+                            floorLocs.append(loc.title)
+                        }
                     }
+                    rooms.append(floorLocs)
                 }
-                for loc in locs {
-                    rooms.append(loc.title)
-                }
+                // </NEW>
+
+                // <OLD>
+                // for loc in locs {
+                //     rooms.append(loc.title)
+                // }
+                // </OLD>
                 
                 let imagePath = Bundle.main.path(forResource: String(qrCodeFloorLevel), ofType: "png", inDirectory: "Textures.scnassets/UP AECH")!
                 floorPlanTexture = UIImage(named: imagePath)!
                 
             } else if metadataObj.stringValue != nil {
-                messageLabel.text = "Step closer to scan QR code"
+                messageLabel.text = "Step closer to scan the QR code"
             }
         }
     }

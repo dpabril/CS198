@@ -13,7 +13,6 @@ class IndoorLocationsListController: UITableViewController {
     
     var roomList : [IndoorLocation] = []
     // <NEW>
-    var roomListIndex : Int = 0
     var currentBuilding : Building!
     // </NEW>
     
@@ -65,7 +64,7 @@ class IndoorLocationsListController: UITableViewController {
             case 5:
                 return "Fifth Floor"
             default:
-                return "Secret Floor"
+                return "Secret Floor" // Should never be the case
             }
         } else {
             switch section {
@@ -74,7 +73,7 @@ class IndoorLocationsListController: UITableViewController {
             case 1:
                 return "Second Floor"
             case 2:
-                return "Thirds Floor"
+                return "Third Floor"
             case 3:
                 return "Fourth Floor"
             case 4:
@@ -82,7 +81,7 @@ class IndoorLocationsListController: UITableViewController {
             case 5:
                 return "Sixth Floor"
             default:
-                return "Secret Floor"
+                return "Secret Floor" // Should never be the case
             }
         }
     }
@@ -94,11 +93,7 @@ class IndoorLocationsListController: UITableViewController {
         var locsCountInFloor : Int = 0
         do {
             try DB.write { db in
-                if (self.currentBuilding!.hasLGF == true) {
-                    locsCountInFloor = try IndoorLocation.filter(Column("bldg") == self.currentBuilding.alias && Column("level") == floor).fetchCount(db)
-                } else {
-                    locsCountInFloor = try IndoorLocation.filter(Column("bldg") == self.currentBuilding.alias && Column("level") == floor + 1).fetchCount(db)
-                }
+                locsCountInFloor = try IndoorLocation.filter(Column("bldg") == self.currentBuilding.alias && Column("level") == floor + 1).fetchCount(db)
             }
         } catch {
             print(error)
@@ -109,19 +104,14 @@ class IndoorLocationsListController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListRow", for: indexPath)
-        cell.textLabel?.text = roomList[indexPath.row].title
-        // <NEW>
-        // set cell type to 'subtitle' in Interface Builder
-        cell.detailTextLabel?.text = roomList[indexPath.row].subtitle
-//        self.roomListIndex += 1
-        print(indexPath.row)
-        // </NEW>
+        cell.textLabel?.text = roomList[indexPath.section][indexPath.row].title
+        cell.detailTextLabel?.text = roomList[indexPath.section][indexPath.row].subtitle
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.xCoord = roomList[indexPath.row].xcoord
-        self.yCoord = roomList[indexPath.row].ycoord
+        self.xCoord = roomList[indexPath.section][indexPath.row].xcoord
+        self.yCoord = roomList[indexPath.section][indexPath.row].ycoord
         // <NEW>
         // self.tabBarController!.switchTab(tabBarController: self.tabBarController!, to: self.tabBarController!.viewControllers![1])
         // </NEW>
