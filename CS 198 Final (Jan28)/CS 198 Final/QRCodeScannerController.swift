@@ -26,7 +26,7 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
     var floorPlanTexture : UIImage!
     var currentBuilding : Building!
     var locs : [IndoorLocation] = []
-    var rooms : [[String]] = []
+    var rooms : [[IndoorLocation]] = []
     
     private let supportedCodeTypes = [AVMetadataObject.ObjectType.qr]
     
@@ -199,10 +199,10 @@ class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputObjectsD
                 
                 // <NEW>
                 for floor in 1...building!.floors {
-                    floorLocs = []
+                    var floorLocs : [IndoorLocation] = []
                     for loc in locs {
                         if loc.level == floor {
-                            floorLocs.append(loc.title)
+                            floorLocs.append(loc)
                         }
                     }
                     rooms.append(floorLocs)
