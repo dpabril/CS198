@@ -33,7 +33,7 @@ Application:
             * Scene coordinates of location pin marker
       ✔ Design the schema @done (18-12-07 14:28)
       ✔ Create a Swift class for static query functions to the DB @done (18-12-13 19:11)
-      ☐ Readjust floor levels; 1 is the starting level for all
+      ☐ Re-adjust floor levels; 1 is the starting level for all
 
     ☐ Navigation View
       * Change plane size and material depending on most recently scanned location + relative altitude reading
