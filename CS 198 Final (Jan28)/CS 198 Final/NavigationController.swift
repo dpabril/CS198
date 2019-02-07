@@ -16,12 +16,17 @@ class NavigationController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var navigationView: SCNView!
     @IBOutlet weak var altLabel: UILabel!
     @IBOutlet weak var levelLabel: UILabel!
+    @IBOutlet weak var reachedDestLabel: UILabel!
     
     // Sensor object variables + Accelerometer noise|spike filter
     lazy var compassManager = CLLocationManager()
     lazy var altimeter = CMAltimeter()
     lazy var deviceMotionManager = CMMotionManager()
     lazy var filter = MirrorFilter(rate: 60.0, cutoff: 3.0, adaptive: false)
+    
+    // Variables needed to detect if user haved arrived to destination
+    var pinX : Float = 0
+    var pinY : Float = 0
     
     // Acceleration and velocity variables
     var accelXs : [Double] = [0, 0, 0, 0]
@@ -66,39 +71,15 @@ class NavigationController: UIViewController, CLLocationManagerDelegate {
         if (CMAltimeter.isRelativeAltitudeAvailable()) {
             print("Altimeter is now active.")
             self.altimeter.startRelativeAltitudeUpdates(to: OperationQueue.main, withHandler: { (altitudeData:CMAltitudeData?, error:Error?) in
+                
                 let altitude = altitudeData!.relativeAltitude.floatValue
+                
                 var level = 0
+                
                 if (error != nil) {
-                    self.stopAltimeter()
+                    //                    self.stopAltimeter()
                 } else {
                     self.altLabel.text = String(format: "Rel. alt.: %.02f", altitude)
-                    // if (altitudeData >= currentBuilding.delta) {
-                    //     if (currentBuilding.hasLowerGroundFloor == true) {
-                    //         if (currentFloor < currentBuilding.floors - 1) {
-                    //             currentFloor += 1
-                    //             // call function to redraw image on plane in 3D scene
-                    //         }
-                    //     } else {
-                    //         if (currentFloor < currentBuilding.floors) {
-                    //             currentFloor += 1
-                    //             // call function to redraw image on plane in 3D scene
-                    //         }
-                    //     }
-                    //     self.resetAltimeter()
-                    // } else if (altitudeData <= -currentBuilding.delta) {
-                    //     if (currentBuilding.hasLowerGroundFloor == true) {
-                    //         if (currentFloor > 0) {
-                    //             currentFloor -= 1
-                    //             // call function to redraw image on plane in 3D scene
-                    //         }
-                    //     } else {
-                    //         if (currentFloor > 1) {
-                    //             currentFloor -= 1
-                    //             // call function to redraw image on plane in 3D scene
-                    //         }
-                    //     }
-                    //     self.resetAltimeter()
-                    // }
                 }
                 level = Int(altitude / 2.0)
                 self.levelLabel.text = String(format: "Level: %d", level)
@@ -110,12 +91,6 @@ class NavigationController: UIViewController, CLLocationManagerDelegate {
             self.altimeter.stopRelativeAltitudeUpdates()
         }
     }
-    // <NEW>
-    func resetAltimeter () {
-        self.stopAltimeter()
-        self.startAltimeter()
-    }
-    // </NEW>
     
     // Device Motion Manager functions
     func startDeviceMotionManager () {
@@ -172,6 +147,12 @@ class NavigationController: UIViewController, CLLocationManagerDelegate {
                     let user = self.scene.rootNode.childNode(withName: "UserMarker", recursively: true)!
                     user.simdPosition += user.simdWorldFront * 0.0004998
                     // try motion incorporating current velocity
+                    if (self.haveArrived(userX: user.position.x, userY: user.position.y)) {
+                        self.reachedDestLabel.text = "Reached Destination: TRUE"
+                    }
+                    else {
+                        self.reachedDestLabel.text = "Reached Destination: FALSE"
+                    }
                 }
             }
             )
@@ -196,6 +177,22 @@ class NavigationController: UIViewController, CLLocationManagerDelegate {
         self.stopDeviceMotionManager()
     }
     
+    // Checks if user have arrived to its destination
+    func haveArrived(userX: Float, userY: Float) -> Bool {
+        var left : Float = 0
+        var right : Float = 0
+        var d : Float = 0
+        left = (pinX - userX)*(pinX - userX)
+        right = (pinY - userY)*(pinY - userY)
+        d = (left + right).squareRoot()
+        if (d <= 0.05) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -215,6 +212,8 @@ class NavigationController: UIViewController, CLLocationManagerDelegate {
         
         let pinMarker = self.scene.rootNode.childNode(withName: "LocationPinMarker", recursively: true)!
         pinMarker.position = SCNVector3(xCoord, yCoord, -1.6817374)
+        pinX = pinMarker.position.x
+        pinY = pinMarker.position.y
         
         self.startSensors()
     }

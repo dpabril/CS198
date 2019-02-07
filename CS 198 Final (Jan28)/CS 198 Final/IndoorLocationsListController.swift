@@ -11,7 +11,7 @@ import GRDB
 
 class IndoorLocationsListController: UITableViewController {
     
-    var roomList : [IndoorLocation] = []
+    var roomList : [[IndoorLocation]] = []
     // <NEW>
     var currentBuilding : Building!
     // </NEW>
@@ -30,7 +30,7 @@ class IndoorLocationsListController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.currentBuilding = (self.tabBarController!.viewControllers![0] as! QRCodeScannerController).currentBuilding
-        self.roomList = (self.tabBarController!.viewControllers![0] as! QRCodeScannerController).locs
+        self.roomList = (self.tabBarController!.viewControllers![0] as! QRCodeScannerController).rooms
         self.tableView.reloadData()
         
     }
@@ -94,6 +94,7 @@ class IndoorLocationsListController: UITableViewController {
         do {
             try DB.write { db in
                 locsCountInFloor = try IndoorLocation.filter(Column("bldg") == self.currentBuilding.alias && Column("level") == floor + 1).fetchCount(db)
+                print("Section \(floor) has \(locsCountInFloor) locations")
             }
         } catch {
             print(error)
